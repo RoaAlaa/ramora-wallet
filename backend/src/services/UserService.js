@@ -1,7 +1,6 @@
 const User = require('../models/User.model');
-
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require('bcrypt');
 
 // Normally keep this in env variables
 const JWT_SECRET = "yourSuperSecretKey";
@@ -39,7 +38,7 @@ class UserService{
         {
             throw new Error('Invalid username or password');
         }
-        const isMatch = await bycrpt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch)
         {
             throw new Error('Invalid username or password');

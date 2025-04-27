@@ -16,7 +16,7 @@ catch (error){
 
 exports.login = async (req, res) => {
     try{
-        const {user, token} = UserService.login(req.body);
+        const {user, token} = await UserService.login(req.body);
         res.status(200).json({
             message: 'user login successfully',
             user,
