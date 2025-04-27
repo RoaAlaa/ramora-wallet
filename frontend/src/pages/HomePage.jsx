@@ -1,24 +1,24 @@
-import Navbar from "../components/Navbar";
-import AboutSection from "../components/AboutSection";
-import ServicesSection from "../components/ServicesSection";
-import ContactSection from "../components/ContactSection";
-
+import Navbar from '../components/Common/Navbar';
+import './HomePage.css'; // CSS for the HomePage
 const HomePage = () => {
   return (
     <>
       <Navbar />
-      <main>
-        <section id="about">
-          <AboutSection />
-        </section>
-        <section id="services">
-          <ServicesSection />
-        </section>
-        <section id="contact">
-          <ContactSection />
-        </section>
-      </main>
+      <div className="hero">
+      <div className="hero-content">
+        <h1>Welcome to Ramora</h1>
+        <p>Your Wallet, Your Way!</p>
+        <h6>Join Us NOW!</h6>
+        <div className="buttons">
+          <button className="btn">Login</button>
+          <button className="btn">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
     </>
+    
+
   );
 };
 

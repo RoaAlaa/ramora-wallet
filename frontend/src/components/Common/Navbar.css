@@ -1,0 +1,50 @@
+:root {
+    --black: #000;
+    --white: #fff;
+    --grey: #ccc;
+    --neon-green: rgba(45, 204, 17, 0.9) ; /* Subtle but noticeable */
+  }
+  
+  /* Make the navbar bigger and adjust its appearance */
+  .navbar {
+    background-color: black; /* Opaque black */
+    color: var(--white);
+    padding: 1.5rem 0; /* Increased vertical padding for a bigger navbar */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .navbar__container {
+    display: flex;
+    justify-content: flex-end; /* Move links to the right */
+    align-items: center;
+    padding: 0 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Style the links to be a bit more prominent */
+  .navbar__links a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 2rem; /* Increased left margin for spacing */
+    font-size: 1.1rem; /* Slightly larger font size */
+    position: relative;
+  }
+  
+  .navbar__links a::before {
+    content: '';
+    position: absolute;
+    bottom: -3px; /* Adjust position of the green line */
+    left: 0;
+    width: 0%;
+    height: 3px; /* Slightly thicker green line */
+    background-color: var(--neon-green);
+    transition: width 0.3s ease;
+  }
+  
+  .navbar__links a:hover::before {
+    width: 100%;
+  }
+  

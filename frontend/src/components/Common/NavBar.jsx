@@ -1,18 +1,16 @@
-import React from "react";
-import "./Navbar.css"; 
+import React from 'react';
+import './Navbar.css'; // CSS we will create
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">
-        <h1>YourApp</h1> {/* You can replace this with an image logo */}
+    <div className="navbar">
+      <div className="navbar__container">
+        <div className="navbar__links">
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+        </div>
       </div>
-      <ul className="navbar-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+    </div>
   );
 };
 

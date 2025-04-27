@@ -1,12 +1,12 @@
-import './App.css';
+import React from 'react';
+import HomePage from './pages/HomePage';// adjust the path if needed
 
 function App() {
   return (
     <div className="App">
-love youu rakrokiii
+      <HomePage />
     </div>
   );
 }
 
 export default App;
-
