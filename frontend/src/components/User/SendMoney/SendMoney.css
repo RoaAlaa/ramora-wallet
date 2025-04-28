@@ -1,0 +1,173 @@
+/* SendMoney.module.css */
+
+/* Page background */
+.pageContainer {
+    background-color: white;
+    min-height: 100vh; /* Ensure it covers the full viewport height */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: flex-start; /* Align content to the top initially */
+    padding: 40px 20px; /* Add some padding around the content */
+}
+
+/* Black rounded box for the form */
+.formBox {
+    background-color: black;
+    border-radius: 15px; /* Rounded corners */
+    padding: 30px;
+    color: white; /* Text color inside the box */
+    max-width: 500px; /* Limit max width */
+    width: 100%; /* Make it responsive */
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5); /* Black shadow */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover */
+}
+
+/* 3D effect on hover for the form box */
+.formBox:hover {
+    /* Subtle lift and shadow change for 3D effect */
+    transform: translate(-3px, -3px); /* Move slightly up-left */
+    box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.7); /* Enhance shadow */
+}
+
+/* Styling for input fields */
+.formBox input[type="text"],
+.formBox input[type="number"] {
+    background-color: black;
+    color: white; /* Text color inside input */
+    border: 1px solid #333; /* Darker border */
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 20px; /* Space below inputs */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding and border in element's total width */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover/focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Initial subtle shadow */
+}
+
+/* Green 3D effect on hover/focus for inputs */
+.formBox input[type="text"]:hover,
+.formBox input[type="number"]:hover,
+.formBox input[type="text"]:focus,
+.formBox input[type="number"]:focus {
+    border-color: #0f0; /* Green border on hover/focus */
+    box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5); /* Green 3D shadow effect */
+    transform: translate(-2px, -2px); /* Subtle lift */
+}
+
+/* Styling for the Send button */
+.sendButton {
+    background-color: black;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 12px 25px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover */
+    outline: none;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Initial subtle shadow */
+    width: 100%; /* Full width button */
+}
+
+/* Green 3D effect on hover for the button */
+.sendButton:hover:not(:disabled) { /* Apply hover effect only when not disabled */
+    background-color: #1a1a1a; /* Slightly lighter black on hover */
+    border-color: #0f0; /* Green border */
+    box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5); /* Green 3D shadow effect */
+    transform: translate(-2px, -2px); /* Subtle lift */
+}
+
+.sendButton:disabled {
+    opacity: 0.6; /* Dim when disabled */
+    cursor: not-allowed; /* Indicate not clickable */
+}
+
+/* Styling for labels */
+.formBox label {
+    display: block; /* Make label a block element */
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Styling for messages */
+.message {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Basic Modal Styling */
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top */
+}
+
+.modalContent {
+    background-color: white;
+    color: black;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modalContent h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.modalContent p {
+    margin-bottom: 25px;
+    font-size: 1.1em;
+}
+
+.modalButtons button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+.modalButtons .cancelButton {
+    background-color: #ccc;
+    color: #333;
+}
+
+.modalButtons .cancelButton:hover {
+    background-color: #bbb;
+}
+
+.modalButtons .confirmButton {
+    background-color: #28a745; /* Green */
+    color: white;
+}
+
+.modalButtons .confirmButton:hover {
+    background-color: #218838; /* Darker green */
+}
