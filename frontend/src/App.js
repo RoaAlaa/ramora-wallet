@@ -7,9 +7,9 @@ import SendMoneyPage from './pages/SendMoneyPage'
 function App() {
   return (
     <div className="App">
-      <HomePage />
+      {/* <HomePage /> */}
 
-      {/* <SendMoneyPage /> */}
+      <SendMoneyPage />
       <Footer />
       
       {/* <SignUpPage/> */}
