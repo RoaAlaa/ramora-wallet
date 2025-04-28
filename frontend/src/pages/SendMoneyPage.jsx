@@ -1,7 +1,7 @@
 // src/pages/SendMoneyPage.jsx
 import React, { useState } from 'react';
-import ConfirmationModal from '../components/ConfirmationModal'; // Adjust path as needed
-import styles from './SendMoney.module.css'; // Import styles
+import ConfirmationModal from '../components/User/SendMoney/ConfirmationModal'; // Adjust the import path as necessary
+import styles from '../components/User/SendMoney/SendMoney.module.css'; // Adjust the import path as necessary
 
 function SendMoneyPage() {
   const [recipientNumber, setRecipientNumber] = useState('');

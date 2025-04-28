@@ -1,4 +1,4 @@
-/* SendMoney.module.css */
+/* src/features/sendMoney/SendMoney.module.css */
 
 /* Page background */
 .pageContainer {
@@ -6,9 +6,13 @@
     min-height: 100vh; /* Ensure it covers the full viewport height */
     display: flex;
     justify-content: center; /* Center content horizontally */
-    align-items: flex-start; /* Align content to the top initially */
+    align-items: center; /* CHANGED: Center content vertically */
     padding: 40px 20px; /* Add some padding around the content */
+    /* Ensure no extra margin/padding pushes it off center if body has default styles */
+    margin: 0;
+    box-sizing: border-box;
 }
+
 
 /* Black rounded box for the form */
 .formBox {
@@ -20,6 +24,8 @@
     width: 100%; /* Make it responsive */
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5); /* Black shadow */
     transition: all 0.3s ease-in-out; /* Smooth transition for hover */
+    /* Removed margin-top from previous example to allow vertical centering */
+    margin-top: 0;
 }
 
 /* 3D effect on hover for the form box */
@@ -28,6 +34,14 @@
     transform: translate(-3px, -3px); /* Move slightly up-left */
     box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.7); /* Enhance shadow */
 }
+
+/* Center the heading inside the form box */
+.formBox h2 { /* ADDED: Style for the h2 within formBox */
+    text-align: center;
+    margin-top: 0; /* Adjust if needed */
+    margin-bottom: 30px; /* Add space below heading */
+}
+
 
 /* Styling for input fields */
 .formBox input[type="text"],
