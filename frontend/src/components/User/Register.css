@@ -1,0 +1,286 @@
+
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    color: black;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+}
+
+.form-title {
+    font-size: 2.5rem;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: white;
+    background-color: black;
+    padding: 20px 25px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+.form-title:hover {
+    transform: translateY(-8px);
+}
+
+/* Form Styling */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    padding: 20px;
+    border-radius: 15px;
+    width: 390px;
+    box-shadow: 0 15px 35px rgba(28, 126, 19, 0.2),
+                0 5px 15px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.signup-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #333 0%, #666 50%, #333 100%);
+}
+
+/* Hover effect on form */
+.signup-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Container */
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.05);
+  height:20px !important;
+}
+
+/* Hover state */
+.input-container:hover {
+  border-color: rgba(57, 255, 20, 0.7);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+  background-color: rgba(57, 255, 20, 0.05); 
+}
+
+/* Focus within state */
+.input-container:focus-within {
+
+  border-color: rgba(57, 255, 20, 0.7);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+  background-color: rgba(57, 255, 20, 0.05); /* optional light greenish background */
+}
+
+
+
+
+.input-icon {
+    width: 25px;
+    height: 20px;
+    margin-right: 12px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+
+
+/* Input Fields */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Placeholder color */
+.form-control::placeholder {
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+/* Remove inside focus outline */
+.form-control:focus-within{
+  outline: none;
+  box-shadow: none; /* No inner shadow */
+}
+
+/* Birthday Input - Text color white */
+input[type="date"] {
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: #888; /* change from white to light gray */
+  padding-left: 5px;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+/* Birthday Input Placeholder */
+input[type="date"]::before {
+    color: #aaa;
+    font-style: italic;
+    padding-left: 5px;
+}
+
+/* Show/Hide Password Button Styling */
+.toggle-password {
+    background: none;
+    border: none;
+    color: rgba(57,255,20,0.9) !important;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.toggle-password:hover {
+    color:  rgba(57,255,20,0.9) !important;
+    text-decoration: underline;
+}
+
+/* Button Styling */
+.submit-button {
+  background-color: black; /* Black background */
+  color: white; /* White text */
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.submit-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.submit-button:hover::before {
+    left: 100%;
+}
+
+.submit-button:hover {
+  background-color: black; /* Stay black */
+  color: white; /* Keep text white */
+  box-shadow: 0 0 15px rgba(57,255,20,0.9); /* Dark green glowing shadow */
+  transform: translateY(-2px);
+  border-color: rgba(57,255,20,0.9);
+}
+
+
+.submit-button:active {
+    transform: translateY(1px);
+}
+
+.submit-button:disabled {
+    background-color: #333;
+    border-color: #444;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Error Message Styling */
+.error-message {
+    color: #ff4444;
+    font-size: 0.875rem;
+    margin: 5px 0 10px;
+    padding-left: 5px;
+    animation: shake 0.5s ease-in-out;
+   
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Calendar Input: Customizing Date Picker */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: #aaa; /* White calendar button */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .signup-form {
+        width: 85%;
+        padding: 35px;
+    }
+
+    .form-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .signup-form {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .form-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-form {
+        width: 95%;
+        padding: 25px;
+    }
+
+    .form-title {
+        font-size: 1.8rem;
+        padding: 15px 20px;
+    }
+
+    .submit-button {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .input-container {
+        margin-bottom: 10px;
+    }
+}
+   

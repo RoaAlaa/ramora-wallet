@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react'; 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import '../pages/LoginPage.css'
 
 // Importing icons
 import user_icon from '../assets/person.png';
@@ -12,10 +13,14 @@ const validationSchema = Yup.object({
 });
 
 const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="login-page">
-      <h2>Login Form</h2>
-      
       <Formik
         initialValues={{ name: '', password: '' }}
         validationSchema={validationSchema}
@@ -25,6 +30,8 @@ const LoginPage = () => {
       >
         {({ isSubmitting }) => (
           <Form className="login-form">
+            <h2 className="form-title">Log in</h2> {/* Move h2 here */}
+            
             {/* Name input with icon */}
             <div className="mb-3">
               <div className="input-container">
@@ -36,7 +43,7 @@ const LoginPage = () => {
                   className="form-control"
                 />
               </div>
-              <ErrorMessage name="name" component="div" className="text-danger" />
+              <ErrorMessage name="name" component="div" className="error-message" />
             </div>
 
             {/* Password input with icon */}
@@ -45,15 +52,22 @@ const LoginPage = () => {
                 <img src={password_icon} alt="Password Icon" className="input-icon" />
                 <Field
                   name="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="Password"
                   className="form-control"
                 />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? 'Hide' : 'Show'}
+                </button>
               </div>
-              <ErrorMessage name="password" component="div" className="text-danger" />
+              <ErrorMessage name="password" component="div" className="error-message" />
             </div>
 
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+            <button type="submit" className="submit-button" disabled={isSubmitting}>
               {isSubmitting ? 'Logging in...' : 'Log In'}
             </button>
           </Form>
