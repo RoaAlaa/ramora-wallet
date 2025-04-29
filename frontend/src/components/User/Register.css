@@ -1,286 +1,185 @@
-
+/* General page setup to center the signup form */
 .signup-page {
+    /* Matches .login-page */
+    background-color: white; /* Or choose another page background */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-    color: black;
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
+    padding: 40px 20px;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
 }
 
-.form-title {
-    font-size: 2.5rem;
-    font-family:Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    margin-bottom: 30px;
-    color: white;
-    background-color: black;
-    padding: 20px 25px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transform: translateY(-5px);
-    transition: transform 0.3s ease;
-}
-
-.form-title:hover {
-    transform: translateY(-8px);
-}
-
-/* Form Styling */
+/* The main black rounded box for the signup form */
 .signup-form {
-    display: flex;
-    flex-direction: column;
+    /* Matches .login-form */
     background-color: black;
-    padding: 20px;
     border-radius: 15px;
-    width: 390px;
-    box-shadow: 0 15px 35px rgba(28, 126, 19, 0.2),
-                0 5px 15px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
+    padding: 30px 40px;
+    color: white;
+    max-width: 450px; /* Slightly wider to accommodate more fields comfortably */
+    width: 100%;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
 }
 
-.signup-form::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #333 0%, #666 50%, #333 100%);
-}
-
-/* Hover effect on form */
+/* 3D effect on hover for the form box */
 .signup-form:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
-                0 8px 20px rgba(0, 0, 0, 0.2);
+    /* Matches .login-form:hover */
+    transform: translate(-3px, -3px);
+    box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.7);
 }
 
-/* Input Container */
+/* Style for the "Sign Up" heading */
+.form-title {
+    /* Matches .form-title from login */
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+/* Container for icon + input field + (optional) toggle */
 .input-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  border: 2px solid #333;
-  border-radius: 8px;
-  padding: 5px 10px;
-  transition: all 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.05);
-  height:20px !important;
+    position: relative; /* Still useful if you wanted absolute elements */
+    display: flex;
+    align-items: center;
+    /* Removed margin-bottom here; will add to error message or use gap */
+    background-color: black;
+    border: 1px solid #333;
+    border-radius: 5px;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    /* Apply hover/focus styles directly to container */
 }
 
-/* Hover state */
-.input-container:hover {
-  border-color: rgba(57, 255, 20, 0.7);
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
-  background-color: rgba(57, 255, 20, 0.05); 
-}
-
-/* Focus within state */
+/* Green 3D effect on hover/focus for the input container */
+.input-container:hover,
 .input-container:focus-within {
-
-  border-color: rgba(57, 255, 20, 0.7);
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
-  background-color: rgba(57, 255, 20, 0.05); /* optional light greenish background */
+    border-color: #0f0;
+    box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5);
+    transform: translate(-2px, -2px);
 }
 
-
-
-
+/* Styling for input icons */
 .input-icon {
-    width: 25px;
+    padding: 10px 12px;
     height: 20px;
-    margin-right: 12px;
+    width: 20px;
+    opacity: 0.7;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+/* Styling for the actual input fields (rendered by Formik <Field>) */
+.input-container input.form-control {
+    background-color: transparent;
+    color: #aaa !important;
+    border: none;
+    padding: 10px 10px 10px 0;
+    flex-grow: 1;
+    font-size: 1em;
+    outline: none;
+    box-shadow: none;
+    width: 100%; /* Ensure it takes up space */
+}
+
+
+/* Specific styling for date input text color when empty */
+.input-container input[type="date"].form-control {
+    /* Try to make the placeholder/initial text visible */
+    color-scheme: dark; /* Affects browser UI like date picker */
+}
+/* You might need browser-specific selectors to style the date picker icon if needed */
+
+
+/* Placeholder text styling */
+.input-container input.form-control::placeholder {
+    color: #888;
     opacity: 0.8;
-    transition: opacity 0.3s ease;
 }
 
-
-
-/* Input Fields */
-.form-control {
-  width: 100%;
-  padding: 10px;
-  background-color: transparent;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-/* Placeholder color */
-.form-control::placeholder {
-  color: #888;
-  transition: color 0.3s ease;
-}
-
-/* Remove inside focus outline */
-.form-control:focus-within{
-  outline: none;
-  box-shadow: none; /* No inner shadow */
-}
-
-/* Birthday Input - Text color white */
-input[type="date"] {
-  text-transform: uppercase;
-  font-size: 1rem;
-  color: #888; /* change from white to light gray */
-  padding-left: 5px;
-  border-radius: 5px;
-  background-color: transparent;
-}
-
-/* Birthday Input Placeholder */
-input[type="date"]::before {
-    color: #aaa;
-    font-style: italic;
-    padding-left: 5px;
-}
-
-/* Show/Hide Password Button Styling */
+/* Style for the password visibility toggle button (Text based) */
 .toggle-password {
     background: none;
     border: none;
-    color: rgba(57,255,20,0.9) !important;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    margin-left: 10px;
-    transition: all 0.3s ease;
-}
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 0 !important;
+  }
+  
+  .eye-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
 
 .toggle-password:hover {
-    color:  rgba(57,255,20,0.9) !important;
-    text-decoration: underline;
+    color: #fff; /* Brighter on hover */
 }
 
-/* Button Styling */
-.submit-button {
-  background-color: black; /* Black background */
-  color: white; /* White text */
-  padding: 14px;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 25px;
-  position: relative;
-  overflow: hidden;
-}
-
-
-.submit-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
-    );
-    transition: 0.5s;
-}
-
-.submit-button:hover::before {
-    left: 100%;
-}
-
-.submit-button:hover {
-  background-color: black; /* Stay black */
-  color: white; /* Keep text white */
-  box-shadow: 0 0 15px rgba(57,255,20,0.9); /* Dark green glowing shadow */
-  transform: translateY(-2px);
-  border-color: rgba(57,255,20,0.9);
-}
-
-
-.submit-button:active {
-    transform: translateY(1px);
-}
-
-.submit-button:disabled {
-    background-color: #333;
-    border-color: #444;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-/* Error Message Styling */
+/* Styling for Formik's error messages (Now outside the input-container) */
 .error-message {
-    color: #ff4444;
-    font-size: 0.875rem;
-    margin: 5px 0 10px;
-    padding-left: 5px;
-    animation: shake 0.5s ease-in-out;
-   
+    /* Matches concept of .message.error */
+    color: #ff4d4d;
+    font-size: 0.85em;
+    padding-left: 5px; /* Optional indent */
+    margin-top: 5px; /* Space above error message */
+    margin-bottom: 5px; /* Space below error message before next input */
+    min-height: 1.2em; /* Reserve space even if empty temporarily */
 }
 
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-/* Calendar Input: Customizing Date Picker */
-input[type="date"]::-webkit-calendar-picker-indicator {
-    background-color: #aaa; /* White calendar button */
+/* Styling for the Submit button */
+.submit-button {
+    /* Matches .submit-button from login */
+    background-color: black;
+    color: white;
+    border: 1px solid #333;
     border-radius: 5px;
+    padding: 12px 25px;
     cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    margin-top: 20px; /* More space before button on longer form */
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .signup-form {
-        width: 85%;
-        padding: 35px;
-    }
-
-    .form-title {
-        font-size: 2.2rem;
-    }
+/* Green 3D effect on hover for the button */
+.submit-button:hover:not(:disabled) {
+    /* Matches .submit-button:hover:not(:disabled) from login */
+    background-color: #1a1a1a;
+    border-color: #0f0;
+    box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5);
+    transform: translate(-2px, -2px);
 }
 
-@media (max-width: 768px) {
-    .signup-form {
-        width: 90%;
-        padding: 30px;
-    }
-
-    .form-title {
-        font-size: 2rem;
-    }
+/* Styling for disabled button */
+.submit-button:disabled {
+    /* Matches .submit-button:disabled from login */
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #222;
+    border-color: #333;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    transform: none;
 }
-
-@media (max-width: 480px) {
-    .signup-form {
-        width: 95%;
-        padding: 25px;
-    }
-
-    .form-title {
-        font-size: 1.8rem;
-        padding: 15px 20px;
-    }
-
-    .submit-button {
-        font-size: 1rem;
-        padding: 12px;
-    }
-
-    .input-container {
-        margin-bottom: 10px;
-    }
-}
-   
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: brightness(0) invert(0.4); /* Makes the icon grey */
+    opacity: 1;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+  input[type="date"] {
+    text-transform: uppercase;
+    color:white; /* your desired color */
+  }

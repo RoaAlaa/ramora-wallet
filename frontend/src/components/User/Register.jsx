@@ -7,6 +7,8 @@ import email_icon from '../../assets/email.png';
 import password_icon from '../../assets/password.png';
 import phone_icon from '../../assets/phone1.png';
 import birthday_icon from '../../assets/birthday.png';
+import eye_icon from '../../assets/open242.png';       
+import eye_off_icon from '../../assets/closed32.png'; 
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -105,8 +107,14 @@ const SignUpPage = () => {
                 className="toggle-password"
                 onClick={() => setPasswordVisible(!passwordVisible)}
               >
-                {passwordVisible ? 'Hide' : 'Show'}
+                <img
+                  src={passwordVisible ? eye_icon : eye_off_icon
+                  }
+                  alt="Toggle Password Visibility"
+                  className="eye-icon"
+                />
               </button>
+
             </div>
             {submitCount > 0 && errors.password && (
               <div className="error-message">{errors.password}</div>
@@ -118,7 +126,7 @@ const SignUpPage = () => {
               <Field
                 name="birthday"
                 type="date"
-                placeholder="MM/DD/YYYY"
+                placeholder="MM/DD/YYYY" 
                 className="form-control"
               />
             </div>

@@ -4,6 +4,7 @@ import Footer from './components/Common/Footer';
 import SignUpPage from './components/User/Register'
 import LoginPage from './pages/LoginPage'
 import SendMoneyPage from './pages/SendMoneyPage'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <div className="App">

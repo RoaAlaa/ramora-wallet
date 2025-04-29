@@ -1,11 +1,12 @@
 import React, { useState } from 'react'; 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import '../pages/LoginPage.css'
+import './LoginPage.css'; // Keep this import
 
-// Importing icons
 import user_icon from '../assets/person.png';
 import password_icon from '../assets/password.png';
+import eye_icon from '../assets/open242.png';       
+import eye_off_icon from '../assets/closed32.png'; 
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Name is required'),
@@ -30,44 +31,49 @@ const LoginPage = () => {
       >
         {({ isSubmitting }) => (
           <Form className="login-form">
-            <h2 className="form-title">Log in</h2> {/* Move h2 here */}
-            
-            {/* Name input with icon */}
-            <div className="mb-3">
-              <div className="input-container">
-                <img src={user_icon} alt="User Icon" className="input-icon" />
-                <Field
-                  name="name"
-                  type="text"
-                  placeholder="Name"
-                  className="form-control"
-                />
-              </div>
+            <h2 className="form-title">Log In</h2>
+
+            {/* Name Input */}
+            <div className="input-container">
+              <img src={user_icon} alt="User Icon" className="input-icon" />
+              <Field
+                name="name"
+                type="text"
+                placeholder="Name"
+                className="form-control" // Formik Field will work, ignore extra class
+              />
               <ErrorMessage name="name" component="div" className="error-message" />
             </div>
 
-            {/* Password input with icon */}
-            <div className="mb-3">
-              <div className="input-container">
-                <img src={password_icon} alt="Password Icon" className="input-icon" />
-                <Field
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Password"
-                  className="form-control"
+            {/* Password Input */}
+            <div className="input-container">
+              <img src={password_icon} alt="Password Icon" className="input-icon" />
+              <Field
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Password"
+                className="form-control"
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={togglePasswordVisibility}
+              >
+                <img 
+                  src={showPassword ? eye_icon : eye_off_icon} 
+                  alt="Toggle Password" 
+                  style={{ width: '20px', height: '20px' }}
                 />
-                <button
-                  type="button"
-                  className="toggle-password"
-                  onClick={togglePasswordVisibility}
-                >
-                  {showPassword ? 'Hide' : 'Show'}
-                </button>
-              </div>
+              </button>
               <ErrorMessage name="password" component="div" className="error-message" />
             </div>
 
-            <button type="submit" className="submit-button" disabled={isSubmitting}>
+            {/* Submit Button */}
+            <button 
+              type="submit" 
+              className="submit-button" 
+              disabled={isSubmitting}
+            >
               {isSubmitting ? 'Logging in...' : 'Log In'}
             </button>
           </Form>

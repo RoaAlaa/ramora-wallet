@@ -1,184 +1,178 @@
-/* General Styling */
+/* General page setup to center the login form */
 .login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-    color: black;
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
-  }
-  
-  /* Form Styling */
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    background-color: black;
-    padding: 40px;
-    border-radius: 15px;
-    width: 450px; /* Wider form */
-    box-shadow: 0 15px 35px rgba(28, 126, 19, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Form Title Styling */
-  .form-title {
-    font-size: 2.5rem;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    margin-bottom: 30px; /* Make sure there’s space between title and form */
-    color: white;
-    background-color: black;
-    padding: 20px 25px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transform: translateY(-5px);
-    transition: transform 0.3s ease;
-  }
-  
-  .form-title:hover {
-    transform: translateY(-8px);
-  }
-  
-  /* Input Container */
-  .input-container {
-    display: flex;
-    align-items: center;
-    /* margin-bottom: 20px; */
-    border: 2px solid #333;
-    border-radius: 8px;
-    padding: 10px 15px;
-    transition: all 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.05);
-    height: 55px; /* Same as button */
-  }
-  
-  /* Hover state for input */
-  .input-container:hover {
-    border-color: rgba(57, 255, 20, 0.7);
-    box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
-  }
-  
-  /* Focus within state */
-  .input-container:focus-within {
-    border-color: rgba(57, 255, 20, 0.9);
-    box-shadow: 0 0 15px rgba(57, 255, 20, 0.8);
-    background-color: rgba(57, 255, 20, 0.05);
-  }
-  
-  /* Input Fields */
-  .form-control {
-    width: 100%;
-    padding: 10px;
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 1.2rem; /* Increased font size */
-    border-radius: 5px;
-    transition: all 0.3s ease;
-  }
-  
-  /* Placeholder color */
-  .form-control::placeholder {
-    color: #888;
-    transition: color 0.3s ease;
-  }
-  
-  /* Remove inside focus outline */
-  .form-control:focus {
-    outline: none;
-    box-shadow: none;
-  }
-  
-  /* Submit Button */
-  .submit-button {
-    width: 100%;
-    height: 55px;
-    background-color: black;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Button hover effect */
-  .submit-button:hover {
-    background-color: black;
-    color: white;
-    box-shadow: 0 0 15px rgba(57, 255, 20, 0.9);
-    transform: translateY(-2px);
-    border-color: rgba(57, 255, 20, 0.9);
-  }
-  
-  /* Button disabled state */
-  .submit-button:disabled {
-    background-color: #333;
-    border-color: #444;
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-  
-  /* Error Message Styling */
-  .error-message {
-    color: #ff4444;
-    font-size: 1rem; /* Bigger error message */
+  /* Matches .pageContainer */
+  background-color: white; /* Or choose another page background */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif; /* Added a default font */
+}
 
-    animation: shake 0.5s ease-in-out;
-  }
-  
-  /* Shake animation for error messages */
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-  }
-  
-  /* Password Visibility Toggle Button */
-  .toggle-password {
-    background: none;
-    border: none;
-    color: #888;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    margin-left: 10px;
-    transition: color 0.3s ease;
-  }
-  
-  .toggle-password:hover {
-    color: white;
-    text-decoration: underline;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .login-form {
-      width: 90%;
-      padding: 35px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .login-form {
-      width: 90%;
-      padding: 30px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .login-form {
-      width: 95%;
-      padding: 25px;
-    }
-  }
-  
+/* The main black rounded box for the login form */
+.login-form {
+  /* Matches .formBox */
+  background-color: black;
+  border-radius: 15px;
+  padding: 30px 40px; /* Increased horizontal padding slightly */
+  color: white;
+  max-width: 450px; /* Adjusted max width slightly */
+  width: 100%;
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* 3D effect on hover for the form box */
+.login-form:hover {
+  /* Matches .formBox:hover */
+  transform: translate(-3px, -3px);
+  box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* Style for the "Log In" heading */
+.form-title {
+  /* Matches .formBox h2 */
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 1.8em; /* Added font size */
+  font-weight: bold; /* Added font weight */
+}
+
+/* Container for icon + input field + toggle */
+.input-container {
+  position: relative; /* Needed for positioning icon and toggle */
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Space below each input group */
+  background-color: black; /* Match input background */
+  border: 1px solid #333; /* Apply border to container */
+  border-radius: 5px;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Initial shadow on container */
+  transition: all 0.3s ease-in-out; /* Transition for container */
+  /* Apply hover/focus styles directly to container for unified effect */
+}
+
+
+/* Green 3D effect on hover/focus for the whole input container */
+.input-container:hover,
+.input-container:focus-within { /* Use focus-within to detect focus on input inside */
+  border-color: #0f0; /* Green border */
+  box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5); /* Green 3D shadow */
+  transform: translate(-2px, -2px); /* Subtle lift */
+}
+
+
+/* Styling for input icons */
+.input-icon {
+  padding: 10px 12px; /* Adjust padding */
+  height: 20px; /* Match image size used in toggle */
+  width: 20px;  /* Match image size used in toggle */
+  opacity: 0.7; /* Optional: make icons slightly less prominent */
+}
+
+/* Styling for the actual input fields (rendered by Formik <Field>) */
+.input-container input.form-control {
+  /* Mostly inherits from .input-container, fine-tune here */
+  background-color: transparent; /* Make input background transparent */
+  color: white;
+  border: none; /* Remove individual input border */
+  padding: 10px 10px 10px 0; /* Adjust padding (no left padding needed due to icon) */
+  flex-grow: 1; /* Allow input to take remaining space */
+  font-size: 1em; /* Control font size */
+  outline: none; /* Remove default outline */
+  box-shadow: none; /* Remove individual input shadow */
+  width: 100%; /* Let flexbox handle width */
+}
+
+/* Placeholder text styling */
+.input-container input.form-control::placeholder {
+  color: #888;
+  opacity: 0.8;
+}
+
+/* Style for the password visibility toggle button */
+.toggle-password {
+  background: none;
+  border: none;
+  padding: 10px 15px; /* Clickable area */
+  margin-left: 5px; /* Space between input and toggle */
+  cursor: pointer;
+  display: flex; /* Align image inside */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure toggle image doesn't get extra styles */
+.toggle-password img {
+  display: block; /* Prevent extra space below image */
+  opacity: 0.7; /* Match icon opacity */
+}
+.toggle-password:hover img {
+  opacity: 1; /* Full opacity on hover */
+}
+
+
+/* Styling for Formik's error messages */
+.input-container .error-message {
+  /* Matches concept of .message.error */
+  position: absolute; /* Position below the input container */
+  top: 100%; /* Place it right below */
+  left: 0;
+  width: 100%; /* Match container width */
+  color: #ff4d4d; /* More vibrant red for dark background */
+  font-size: 0.8em;
+  padding-top: 4px; /* Space between input bottom and error text */
+  /* Optional: background/border if needed */
+  /* background-color: #300; */
+  /* padding: 3px 5px; */
+  /* border-radius: 3px; */
+}
+
+/* Add extra margin below input container ONLY if there's an error shown */
+.input-container:has(.error-message) {
+  margin-bottom: 35px; /* Increase margin-bottom to make space for error text */
+}
+
+
+/* Styling for the Submit button */
+.submit-button {
+  /* Matches .sendButton */
+  background-color: black;
+  color: white;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 12px 25px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold; /* Added font weight */
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  margin-top: 15px; /* Add some space above the button */
+}
+
+/* Green 3D effect on hover for the button */
+.submit-button:hover:not(:disabled) {
+  /* Matches .sendButton:hover:not(:disabled) */
+  background-color: #1a1a1a;
+  border-color: #0f0;
+  box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5);
+  transform: translate(-2px, -2px);
+}
+
+/* Styling for disabled button */
+.submit-button:disabled {
+  /* Matches .sendButton:disabled */
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #222; /* Darker disabled background */
+  border-color: #333;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Reset shadow */
+  transform: none; /* No transform when disabled */
+}

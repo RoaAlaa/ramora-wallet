@@ -1,7 +1,9 @@
 import React from 'react';
-import './Hero.css'; // Optional: Add a CSS file for styling
+import './Hero.css';
+import { useNavigate } from 'react-router-dom'; 
 
 const Hero = () => {
+    const navigate = useNavigate(); 
     return (
         <div className="hero">
             <div className="hero-content">
@@ -9,8 +11,8 @@ const Hero = () => {
                 <p>Your Wallet, Your Way!</p>
                 <h6>Join Us NOW!</h6>
                 <div className="buttons">
-                    <button className="btn">Login</button>
-                    <button className="btn">Sign Up</button>
+                    <button className="btn" onClick={() => navigate('/login')}>Login</button>
+                    <button className="btn" onClick={() => navigate('/signup')}>Sign Up</button>
                 </div>
             </div>
         </div>
