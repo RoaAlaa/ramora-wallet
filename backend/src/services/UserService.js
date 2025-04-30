@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 // Normally keep this in env variables
-const JWT_SECRET = "yourSuperSecretKey";
-// fel evn ely oltly 3aleha el sobh 
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
+// fel env ely oltly 3aleha el sobh 
 
 
 class UserService{
