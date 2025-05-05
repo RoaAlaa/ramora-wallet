@@ -1,7 +1,7 @@
-/* General page setup to center the login form */
+
 .login-page {
-  /* Matches .pageContainer */
-  background-color: white; /* Or choose another page background */
+
+  background-color: white; 
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -9,139 +9,135 @@
   padding: 40px 20px;
   margin: 0;
   box-sizing: border-box;
-  font-family: sans-serif; /* Added a default font */
+  font-family: sans-serif; 
 }
 
-/* The main black rounded box for the login form */
+
 .login-form {
-  /* Matches .formBox */
+
   background-color: black;
   border-radius: 15px;
-  padding: 30px 40px; /* Increased horizontal padding slightly */
+  padding: 30px 40px; 
   color: white;
-  max-width: 450px; /* Adjusted max width slightly */
+  max-width: 450px; 
   width: 100%;
   box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease-in-out;
-  box-sizing: border-box; /* Ensure padding is included in width */
+  box-sizing: border-box; 
 }
 
-/* 3D effect on hover for the form box */
+
 .login-form:hover {
-  /* Matches .formBox:hover */
+
   transform: translate(-3px, -3px);
   box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.7);
 }
 
-/* Style for the "Log In" heading */
+
 .form-title {
-  /* Matches .formBox h2 */
+ 
   text-align: center;
   margin-top: 0;
   margin-bottom: 30px;
-  font-size: 1.8em; /* Added font size */
-  font-weight: bold; /* Added font weight */
+  font-size: 1.8em; 
+  font-weight: bold; 
 }
 
-/* Container for icon + input field + toggle */
+
 .input-container {
-  position: relative; /* Needed for positioning icon and toggle */
+  position: relative; 
   display: flex;
   align-items: center;
-  margin-bottom: 20px; /* Space below each input group */
-  background-color: black; /* Match input background */
-  border: 1px solid #333; /* Apply border to container */
+  margin-bottom: 20px; 
+  background-color: black;
+  border: 1px solid #333;
   border-radius: 5px;
-  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Initial shadow on container */
-  transition: all 0.3s ease-in-out; /* Transition for container */
-  /* Apply hover/focus styles directly to container for unified effect */
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); 
+  transition: all 0.3s ease-in-out; 
 }
 
 
-/* Green 3D effect on hover/focus for the whole input container */
+
 .input-container:hover,
-.input-container:focus-within { /* Use focus-within to detect focus on input inside */
-  border-color: #0f0; /* Green border */
-  box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5); /* Green 3D shadow */
-  transform: translate(-2px, -2px); /* Subtle lift */
+.input-container:focus-within { 
+  border-color: #0f0; 
+  box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5); 
+  transform: translate(-2px, -2px);
 }
 
 
-/* Styling for input icons */
+
 .input-icon {
-  padding: 10px 12px; /* Adjust padding */
-  height: 20px; /* Match image size used in toggle */
-  width: 20px;  /* Match image size used in toggle */
-  opacity: 0.7; /* Optional: make icons slightly less prominent */
+  padding: 10px 12px; 
+  height: 20px; 
+  width: 20px;  
+  opacity: 0.7; 
 }
 
-/* Styling for the actual input fields (rendered by Formik <Field>) */
+
 .input-container input.form-control {
-  /* Mostly inherits from .input-container, fine-tune here */
-  background-color: transparent; /* Make input background transparent */
+  
+  background-color: transparent; 
   color: white;
-  border: none; /* Remove individual input border */
-  padding: 10px 10px 10px 0; /* Adjust padding (no left padding needed due to icon) */
-  flex-grow: 1; /* Allow input to take remaining space */
-  font-size: 1em; /* Control font size */
-  outline: none; /* Remove default outline */
-  box-shadow: none; /* Remove individual input shadow */
-  width: 100%; /* Let flexbox handle width */
+  border: none; 
+  padding: 10px 10px 10px 0; 
+  flex-grow: 1; 
+  font-size: 1em;
+  outline: none; 
+  box-shadow: none; 
+  width: 100%; 
 }
 
-/* Placeholder text styling */
 .input-container input.form-control::placeholder {
   color: #888;
   opacity: 0.8;
 }
 
-/* Style for the password visibility toggle button */
+
 .toggle-password {
   background: none;
   border: none;
-  padding: 10px 15px; /* Clickable area */
-  margin-left: 5px; /* Space between input and toggle */
+  padding: 10px 15px; 
+  margin-left: 5px; 
   cursor: pointer;
-  display: flex; /* Align image inside */
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Ensure toggle image doesn't get extra styles */
 .toggle-password img {
-  display: block; /* Prevent extra space below image */
-  opacity: 0.7; /* Match icon opacity */
+  display: block; 
+  opacity: 0.7; 
 }
 .toggle-password:hover img {
-  opacity: 1; /* Full opacity on hover */
+  opacity: 1; 
 }
 
 
-/* Styling for Formik's error messages */
+
+
 .input-container .error-message {
-  /* Matches concept of .message.error */
-  position: absolute; /* Position below the input container */
-  top: 100%; /* Place it right below */
+ 
+  position: absolute; 
+  top: 100%; 
   left: 0;
-  width: 100%; /* Match container width */
-  color: #ff4d4d; /* More vibrant red for dark background */
+  width: 97.5%; 
+  color: #c11d1d;
   font-size: 0.8em;
-  padding-top: 4px; /* Space between input bottom and error text */
-  /* Optional: background/border if needed */
-  /* background-color: #300; */
-  /* padding: 3px 5px; */
-  /* border-radius: 3px; */
+  padding-top: 4px; 
+  background-color: rgb(69, 5, 5);
+  padding: 3px 5px;
+  border-radius: 3px;
 }
 
-/* Add extra margin below input container ONLY if there's an error shown */
+
 .input-container:has(.error-message) {
-  margin-bottom: 35px; /* Increase margin-bottom to make space for error text */
+  margin-bottom: 35px; 
 }
 
 
-/* Styling for the Submit button */
 .submit-button {
-  /* Matches .sendButton */
+
   background-color: black;
   color: white;
   border: 1px solid #333;
@@ -149,30 +145,30 @@
   padding: 12px 25px;
   cursor: pointer;
   font-size: 1.1em;
-  font-weight: bold; /* Added font weight */
+  font-weight: bold;
   transition: all 0.3s ease-in-out;
   outline: none;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
   width: 100%;
-  margin-top: 15px; /* Add some space above the button */
+  margin-top: 15px;
 }
 
-/* Green 3D effect on hover for the button */
+
 .submit-button:hover:not(:disabled) {
-  /* Matches .sendButton:hover:not(:disabled) */
+ 
   background-color: #1a1a1a;
   border-color: #0f0;
   box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5);
   transform: translate(-2px, -2px);
 }
 
-/* Styling for disabled button */
+
 .submit-button:disabled {
-  /* Matches .sendButton:disabled */
+  
   opacity: 0.6;
   cursor: not-allowed;
-  background-color: #222; /* Darker disabled background */
+  background-color: #222; 
   border-color: #333;
-  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Reset shadow */
-  transform: none; /* No transform when disabled */
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); 
+  transform: none; 
 }

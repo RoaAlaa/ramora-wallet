@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import './LoginPage.css'; // Keep this import
+import './LoginPage.css'; 
 
 import user_icon from '../assets/person.png';
 import password_icon from '../assets/password.png';
