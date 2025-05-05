@@ -1,0 +1,82 @@
+nav.navbar {
+    background-color: black;
+    height: 70px;
+}
+
+
+nav.navbar .navbar-brand {
+    color: white;
+}
+
+
+nav.navbar .dropdown-menu {
+    background-color: black;
+}
+
+
+nav.navbar .nav-link {
+    position: relative;
+    color: white !important;
+    text-decoration: none;
+}
+
+
+nav.navbar .nav-link:not(.dropdown-toggle)::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    background-color: #39FF14;
+    transition: width 0.3s ease;
+}
+
+
+nav.navbar .nav-link:not(.dropdown-toggle):hover::after {
+    width: 100%;
+}
+
+
+nav.navbar .nav-link.dropdown-toggle {
+    color: white;
+}
+
+
+nav.navbar .form-control {
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+
+nav.navbar .btn-outline-success {
+    color: white;
+    border-color: white;
+    transition: all 0.3s ease;
+}
+
+
+nav.navbar .btn-outline-success:hover {
+    color: #39FF14;
+    border-color: #39FF14;
+    box-shadow: 0 0 10px #39FF14;
+    background-color: transparent;
+}
+
+
+nav.navbar .dropdown-item {
+    color: white;
+    transition: all 0.3s ease;
+}
+
+
+nav.navbar .dropdown-item:hover {
+    background-color: #39FF14;
+    color: black;
+}
+
+nav.navbar .form-control::placeholder {
+    color: white;
+    opacity: 1; 
+}
