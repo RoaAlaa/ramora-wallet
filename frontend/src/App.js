@@ -4,14 +4,16 @@ import Footer from './components/Common/Footer';
 import SignUpPage from './components/User/Register'
 import LoginPage from './pages/LoginPage'
 import SendMoneyPage from './pages/SendMoneyPage'
+import RequestMoneyPage from './components/User/RequestMoney/RequestMoney'
 function App() {
   return (
     <div className="App">
       {/* <HomePage /> */}
 
-      <SendMoneyPage />
-      <Footer />
+      {/* <SendMoneyPage /> */}
+      {/* <Footer /> */}
       
+      <RequestMoneyPage />
       {/* <SignUpPage/> */}
       
     </div>
