@@ -8,6 +8,7 @@ const connectDB = async () => {
       // Options to avoid deprecation warnings (might vary slightly by Mongoose version)
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      connectTimeoutMS: 30000
       // useCreateIndex: true, // No longer needed in Mongoose 6+
       // useFindAndModify: false, // No longer needed in Mongoose 6+
     });
