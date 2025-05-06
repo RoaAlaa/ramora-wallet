@@ -5,16 +5,19 @@ import SignUpPage from './components/User/Register';
 import LoginPage from './pages/LoginPage';
 import SendMoneyPage from './pages/SendMoneyPage';
 import Navbartwo from './components/Common/Navbartwo';
+import ProfilePage from './components/User/ProfilePage/ProfilePage';
 function App() {
   return (
     <div className="App">
       {/* <HomePage /> */}
 
       {/* <SendMoneyPage /> */}
-      {/* <Footer /> */}
+      
       
       {/* <SignUpPage/> */}
       <Navbartwo />
+      <ProfilePage />
+      <Footer />
       
     </div>
   );

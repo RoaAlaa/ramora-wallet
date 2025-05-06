@@ -1,82 +1,208 @@
-nav.navbar {
-    background-color: black;
-    height: 70px;
+
+.custom-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 10px 20px;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
+  transition: top 0.3s ease-in-out; 
 }
 
 
-nav.navbar .navbar-brand {
-    color: white;
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-
-nav.navbar .dropdown-menu {
-    background-color: black;
+.brand {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 20px;
 }
 
-
-nav.navbar .nav-link {
-    position: relative;
-    color: white !important;
-    text-decoration: none;
+.nav-link {
+  color: white;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+  padding: 5px;
 }
 
-
-nav.navbar .nav-link:not(.dropdown-toggle)::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    left: 0;
-    bottom: 0;
-    background-color: #39FF14;
-    transition: width 0.3s ease;
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: 0;
+  background-color: #39FF14;
+  transition: width 0.3s ease;
 }
 
+.nav-link:hover::after {
+  width: 100%;
+}
 
-nav.navbar .nav-link:not(.dropdown-toggle):hover::after {
+/* Dropdown styling */
+.nav-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  background-color: black;
+  border: 1px solid #333;
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #39FF14;
+  color: black;
+}
+
+/* Right side of navbar: Search bar */
+.nav-right {
+  margin-right: 90px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid white;
+  background-color: transparent;
+  color: white;
+  border-radius: 4px;
+}
+
+.search-input::placeholder {
+  color: white;
+}
+
+.search-button {
+  padding: 8px 12px;
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  color: #39FF14;
+  border-color: #39FF14;
+  box-shadow: 0 0 8px #39FF14;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .custom-navbar {
+    padding: 10px 15px;
+  }
+
+  .nav-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .nav-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
     width: 100%;
+  }
+
+  .brand {
+    font-size: 1.2rem;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+  }
+
+  .search-input {
+    width: 100%;
+  }
 }
 
 
-nav.navbar .nav-link.dropdown-toggle {
-    color: white;
+@media (max-width: 768px) {
+  .custom-navbar {
+    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .nav-right {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .brand {
+    font-size: 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+  }
+
+  .search-input {
+    width: 100%;
+  }
 }
 
+@media (max-width: 480px) {
+  .custom-navbar {
+    padding: 10px;
+  }
 
-nav.navbar .form-control {
-    color: white;
-    background-color: transparent;
-    border: 1px solid white;
+  .nav-left {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .nav-right {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+  }
 }
 
-
-nav.navbar .btn-outline-success {
-    color: white;
-    border-color: white;
-    transition: all 0.3s ease;
-}
-
-
-nav.navbar .btn-outline-success:hover {
-    color: #39FF14;
-    border-color: #39FF14;
-    box-shadow: 0 0 10px #39FF14;
-    background-color: transparent;
-}
-
-
-nav.navbar .dropdown-item {
-    color: white;
-    transition: all 0.3s ease;
-}
-
-
-nav.navbar .dropdown-item:hover {
-    background-color: #39FF14;
-    color: black;
-}
-
-nav.navbar .form-control::placeholder {
-    color: white;
-    opacity: 1; 
-}
