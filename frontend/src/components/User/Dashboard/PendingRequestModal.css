@@ -1,0 +1,186 @@
+/* --- MODAL OVERLAY --- */
+/* Styles for the semi-transparent background that covers the entire viewport when the modal is open. */
+.modal-overlay {
+    position: fixed; /* Stay in place relative to the viewport */
+    z-index: 1000; /* Ensure it's on top of other content */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width of the viewport */
+    height: 100%; /* Full height of the viewport */
+    overflow: auto; /* Add scrollbars if the content exceeds the viewport size */
+    background-color: rgba(0, 0, 0, 0.6); /* Black background with 60% opacity */
+    display: flex; /* Use flexbox to easily center the modal content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 20px; /* Add some padding around the edges */
+  }
+  
+  /* --- MODAL CONTENT BOX --- */
+  /* Styles for the container holding the modal's header and body. */
+  .modal-content {
+    background-color: #fefefe; /* White background for the modal content */
+    margin: auto; /* Auto margin helps with centering */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    width: 90%; /* Take up 90% of the parent width (modal-overlay) */
+    max-width: 500px; /* Limit the maximum width */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add a shadow for depth */
+    position: relative; /* Needed for absolute positioning of the close button */
+    display: flex; /* Use flexbox for layout of header and body */
+    flex-direction: column; /* Stack header and body vertically */
+    max-height: 80vh; /* Limit the maximum height to 80% of the viewport height */
+  }
+  
+  /* Styles for the modal header */
+  .modal-header {
+      display: flex; /* Use flexbox for title and close button */
+      justify-content: space-between; /* Put space between title and button */
+      align-items: center; /* Align items vertically in the center */
+      border-bottom: 1px solid #eee; /* Add a separator line below the header */
+      padding-bottom: 10px; /* Padding below the line */
+      margin-bottom: 15px; /* Space below the header section */
+  }
+  
+  /* Styles for the modal title */
+  .modal-header h3 {
+      margin: 0; /* Remove default margin from h3 */
+      color: #333; /* Dark text color for the title */
+  }
+  
+  /* --- CLOSE BUTTON --- */
+  /* Styles for the button used to close the modal. */
+  .close-button {
+    color: #aaa; /* Default color */
+    font-size: 28px; /* Size of the '×' character */
+    font-weight: bold;
+    background: none; /* No background */
+    border: none; /* No border */
+    cursor: pointer; /* Indicate it's clickable */
+    padding: 0; /* Remove default padding */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+  }
+  
+  /* Hover and focus states for the close button */
+  .close-button:hover,
+  .close-button:focus {
+    color: #777; /* Darker color on hover/focus */
+    text-decoration: none; /* Remove underline */
+    outline: none; /* Remove default outline */
+  }
+  
+  /* --- MODAL BODY (SCROLLABLE CONTENT) --- */
+  /* Styles for the area containing the main content of the modal (the list of requests). */
+  .modal-body {
+    flex-grow: 1; /* Allow this section to grow and take up available vertical space */
+    overflow-y: auto; /* --- MAKE CONTENT SCROLLABLE (Requirement) --- */
+    /* This is the key property that adds a vertical scrollbar if content overflows the max-height of the modal-content */
+    padding-right: 10px; /* Add padding to the right to prevent content from being hidden under the scrollbar */
+  }
+  
+  /* Style for the unordered list containing the pending requests */
+  .pending-requests-list {
+    list-style: none; /* Remove default list bullets */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+  }
+  
+  /* Style for each individual list item (a single pending request) */
+  .request-item {
+    background-color: #f9f9f9; /* Light background for each item */
+    border: 1px solid #eee; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px;
+    margin-bottom: 15px; /* Space between items */
+    display: flex; /* Use flexbox to arrange details and action buttons */
+    justify-content: space-between; /* Put space between the details and the action buttons */
+    align-items: center; /* Align items vertically in the center */
+    flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+  }
+  
+  /* Styles for the request details section within an item */
+  .request-details {
+      flex-grow: 1; /* Allow details to take up available space */
+      margin-right: 15px; /* Space between details and actions */
+      color: #555; /* Slightly lighter text color */
+      font-size: 14px;
+  }
+  
+  /* Styles for the container holding the action buttons (Accept/Reject) */
+  .request-actions {
+      display: flex; /* Use flexbox for the buttons */
+      gap: 10px; /* Space between Accept and Reject buttons */
+  }
+  
+  /* Basic styling for Accept/Reject buttons within the modal */
+  /* These inherit some styles from .action-button in DashboardActions.css, but we override some */
+  .request-actions .action-button {
+      padding: 8px 15px; /* Smaller padding than main action buttons */
+      font-size: 14px; /* Smaller font size */
+      border-radius: 5px; /* Slightly smaller border radius */
+      box-shadow: none; /* Remove the 3D shadow for these smaller buttons */
+      transform: none; /* Remove the 3D transform */
+      transition: none; /* Remove the transition */
+  }
+  
+  /* Remove hover transform/shadow for these smaller buttons */
+  .request-actions .action-button:hover {
+       box-shadow: none;
+       transform: none;
+  }
+  
+  /* Specific color for the Accept button */
+  .accept-button {
+    background-color: #28a745; /* Green color */
+    color: white; /* White text */
+  }
+  
+  /* Hover color for the Accept button */
+  .accept-button:hover {
+    background-color: #218838; /* Darker green */
+  }
+  
+  /* Specific color for the Reject button */
+  .reject-button {
+    background-color: #dc3545; /* Red color */
+    color: white; /* White text */
+  }
+  
+  /* Hover color for the Reject button */
+  .reject-button:hover {
+    background-color: #c82333; /* Darker red */
+  }
+  
+  /* Style for error messages displayed within the modal */
+  .error-message {
+      color: #dc3545; /* Red color for errors */
+      text-align: center;
+      margin-top: 10px;
+  }
+  
+  /* Style for error messages displayed next to individual items */
+  .item-error-message {
+      color: #dc3545; /* Red color for errors */
+      font-size: 12px;
+      margin-top: 5px;
+  }
+  
+  
+  /* Responsive adjustments for the modal on smaller screens */
+  @media (max-width: 576px) {
+      .modal-content {
+          padding: 15px; /* Reduce padding */
+          width: 95%; /* Make it slightly wider */
+      }
+      /* Stack details and actions vertically within request items */
+      .request-item {
+          flex-direction: column; /* Stack items vertically */
+          align-items: flex-start; /* Align items to the start (left) */
+          gap: 10px; /* Add space between stacked items */
+      }
+      /* Adjust margins when stacked */
+      .request-details {
+          margin-right: 0; /* Remove right margin */
+          margin-bottom: 10px; /* Add bottom margin */
+      }
+  }
+  

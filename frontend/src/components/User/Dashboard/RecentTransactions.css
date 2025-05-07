@@ -1,0 +1,134 @@
+.transaction-history-box {
+  margin-top: 40px; /* Add space above the box to separate it from elements above. */
+  padding: 20px; /* Add padding inside the box. */
+  background-color: #f9f9f9; /* Use a light background color for the box. */
+  border-radius: 8px; /* Add rounded corners. */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add a subtle shadow for a lifted effect. */
+  color: #333; /* Set the default text color within the box. */
+  display: flex; /* Use flexbox for layout within the box. */
+  flex-direction: column; /* Stack the header and the list vertically. */
+
+  /* --- ADJUSTED SIZE AND CENTERING (Requirement) --- */
+  width: 95%; /* Take up 95% of the available width by default */
+  max-width: 700px; /* Set a maximum width to make it smaller in the middle */
+  margin-left: auto; /* Use auto margins to center the block element */
+  margin-right: auto; /* Use auto margins to center the block element */
+  /* Combined margin for centering: margin: 40px auto 0 auto; */
+  /* Keeping margin-top separate as it was already defined */
+}
+
+/* Styles for the header (h3) within the transaction history box. */
+.transaction-history-box h3 {
+  margin-top: 0; /* Remove the default top margin from the h3. */
+  margin-bottom: 15px; /* Add space below the header to separate it from the list. */
+  color: #1a1a1a; /* Use a darker color for the title. */
+}
+
+/* --- SCROLLABLE TRANSACTION LIST (Requirement) --- */
+/* Styles for the unordered list containing the transaction items. */
+.transaction-list {
+  list-style: none; /* Remove default list bullets. */
+  padding: 0; /* Remove default padding. */
+  margin: 0; /* Remove default margin. */
+  max-height: 300px; /* Set a maximum height for the list container. This is crucial for scrollability. */
+  overflow-y: auto; /* Add a vertical scrollbar if the content exceeds the max-height. */
+  /* Optional: Style the scrollbar for better appearance (Webkit browsers). */
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: #888 #f1f1f1; /* thumb track */
+}
+
+/* Style the scrollbar for Webkit browsers (Chrome, Safari). */
+.transaction-list::-webkit-scrollbar {
+  width: 8px; /* Width of the vertical scrollbar. */
+}
+
+/* Style the scrollbar track (the area the thumb moves in). */
+.transaction-list::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light background for the track. */
+  border-radius: 4px; /* Rounded corners for the track. */
+}
+
+/* Style the scrollbar thumb (the draggable part). */
+.transaction-list::-webkit-scrollbar-thumb {
+  background: #888; /* Gray color for the thumb. */
+  border-radius: 4px; /* Rounded corners for the thumb. */
+}
+
+/* Change thumb color on hover. */
+.transaction-list::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker gray on hover. */
+}
+
+
+/* Style for each individual list item (a single transaction). */
+.transaction-item {
+  background-color: #fff; /* Use a white background for each transaction item. */
+  border: 1px solid #eee; /* Add a light border. */
+  border-radius: 5px; /* Add rounded corners. */
+  padding: 10px 15px; /* Add padding inside each item. */
+  margin-bottom: 10px; /* Add space between transaction items. */
+  display: flex; /* Use flexbox to arrange the details and the amount. */
+  justify-content: space-between; /* Put space between the details and the amount. */
+  align-items: center; /* Align items vertically in the center. */
+  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens. */
+}
+
+/* Styles for the container holding the transaction description and date. */
+.transaction-details {
+    flex-grow: 1; /* Allow this section to grow and take up available space. */
+    margin-right: 15px; /* Add space between details and the amount. */
+    color: #555; /* Use a slightly lighter text color. */
+}
+
+/* Style for the transaction description (e.g., "Coffee Shop"). */
+.transaction-description {
+    font-weight: bold; /* Make the description bold. */
+    margin-right: 10px; /* Add space between description and date. */
+}
+
+/* Style for the transaction date. */
+.transaction-date {
+    font-size: 0.9em; /* Make the date text slightly smaller. */
+    color: #888; /* Use a lighter color for the date. */
+}
+
+/* Style for the transaction amount. */
+.transaction-amount {
+    font-weight: bold; /* Make the amount bold. */
+}
+
+/* Optional: Style for positive/negative amounts (based on class added in JS). */
+.transaction-amount.positive {
+    color: #28a745; /* Green color for positive amounts. */
+}
+
+.transaction-amount.negative {
+    color: #dc3545; /* Red color for negative amounts. */
+}
+
+/* Style for error messages displayed within the transaction history box. */
+.transaction-history-box .error-message {
+    color: #dc3545; /* Red color for errors. */
+    text-align: center; /* Center the error message. */
+    margin-top: 10px; /* Add space above the message. */
+}
+
+/* Responsive adjustments for smaller screens. */
+/* The max-width and margin: auto on .transaction-history-box already handle centering and size on larger screens. */
+/* This media query ensures the items within the list stack nicely on very small screens. */
+@media (max-width: 576px) {
+    /* The box itself will shrink due to width: 95% and max-width: 700px */
+    /* On small screens, 95% will be less than 700px, so max-width is not the constraint */
+
+    /* Stack details and amount vertically within transaction items on small screens. */
+    .transaction-item {
+        flex-direction: column; /* Stack items vertically. */
+        align-items: flex-start; /* Align items to the start (left). */
+        gap: 5px; /* Add space between stacked items. */
+    }
+    /* Adjust margins when stacked. */
+    .transaction-details {
+        margin-right: 0; /* Remove right margin. */
+        margin-bottom: 5px; /* Add bottom margin. */
+    }
+}
