@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';  // For navigation
 import '../pages/LoginPage.css';
+//Login page done waiting for the register page to test it
 
 // Importing icons
 import user_icon from '../assets/person.png';
