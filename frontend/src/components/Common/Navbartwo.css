@@ -1,17 +1,14 @@
-
 .custom-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: black;
   padding: 10px 20px;
-  position: fixed; 
   top: 0;
   left: 0;
-  width: 100%;
-  z-index: 1000; 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
-  transition: top 0.3s ease-in-out; 
+  z-index: 1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transition: top 0.3s ease-in-out;
 }
 
 
@@ -84,11 +81,9 @@
 
 /* Right side of navbar: Search bar */
 .nav-right {
-  margin-right: 90px;
-  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .search-input {
@@ -134,9 +129,8 @@
   .nav-right {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    width: 100%;
-  }
+    width: 90%;
+}
 
   .brand {
     font-size: 1.2rem;
@@ -147,7 +141,7 @@
   }
 
   .search-input {
-    width: 100%;
+    /* width: 100%; */
   }
 }
 
@@ -167,8 +161,8 @@
 
   .nav-right {
     flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
+    align-items: center;
+    width: 90%;
   }
 
   .brand {
@@ -180,7 +174,7 @@
   }
 
   .search-input {
-    width: 100%;
+    width: 90%;
   }
 }
 
