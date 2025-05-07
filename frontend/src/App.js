@@ -91,7 +91,6 @@ function App() {
         {/* <Footer /> */} {/* Example: If Footer is global */}
 
       </Router>
-
     </div>
   );
 }

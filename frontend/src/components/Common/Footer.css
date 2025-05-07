@@ -1,5 +1,5 @@
-.footer {
-    background-color: #000; 
+footer {
+    background-color: #000;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -7,11 +7,9 @@
     padding: 1rem 2rem;
     font-size: 1rem;
     flex-wrap: wrap;
-    position: fixed; 
-    bottom: 0; 
+    bottom: 0;
     left: 0;
-    width: 100%; 
-    z-index: 1000; 
+    z-index: 1;
 }
 
 .footer-left {
