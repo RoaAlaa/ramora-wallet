@@ -6,18 +6,15 @@ import LoginPage from './pages/LoginPage';
 import SendMoneyPage from './pages/SendMoneyPage';
 import Navbartwo from './components/Common/Navbartwo';
 import ProfilePage from './components/User/ProfilePage/ProfilePage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      {/* <HomePage /> */}
-
-      {/* <SendMoneyPage /> */}
-      
-      
-      {/* <SignUpPage/> */}
-      <Navbartwo />
-      <ProfilePage />
-      <Footer />
+      <Router>
+        <Navbartwo/>
+        <ProfilePage /> 
+        <Footer/>
+      </Router>
       
     </div>
   );
