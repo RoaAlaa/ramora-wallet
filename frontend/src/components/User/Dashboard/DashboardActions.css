@@ -1,0 +1,58 @@
+.dashboard-actions {
+    margin-top: 40px; /* Space above the buttons */
+    text-align: center; /* Center the buttons */
+  }
+  
+  .action-buttons-row {
+    display: flex;
+    justify-content: center; /* Center the two buttons */
+    gap: 20px; /* Space between Send and Request buttons */
+    margin-bottom: 20px; /* Space below this row */
+    flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+  }
+  
+  .action-button {
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    color: white; /* White text */
+    background-color: #1a1a1a; /* Black background */
+    /* --- 3D Shadow/Hover Effect --- */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Initial shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease;
+    position: relative; /* Needed for 3D effect */
+    transform-style: preserve-3d;
+  }
+  
+  .action-button:hover {
+    /* --- 3D Hover Effect --- */
+    transform: translateZ(10px) translateY(-3px); /* Lift and move slightly */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Enhance shadow on hover */
+    background-color: #333; /* Slightly lighter black on hover */
+  }
+  
+  .action-button:active {
+      transform: translateZ(0) translateY(0); /* Press down effect */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  /* --- PENDING BUTTON SPECIFIC STYLES --- */
+  .pending-button {
+      margin-top: 10px; /* Space above the pending button */
+      /* Default style (black) */
+  }
+  
+  .pending-button.has-pending {
+    /* --- 3D GREEN BACKGROUND (Requirement) --- */
+    /* Use a green gradient or solid green */
+    background: linear-gradient(135deg, #28a745, #218838); /* Green gradient */
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4); /* Green shadow */
+  }
+  
+  .pending-button.has-pending:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34); /* Darker green on hover */
+    box-shadow: 0 10px 20px rgba(40, 167, 69, 0.6); /* Enhance green shadow */
+  }
