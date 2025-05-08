@@ -31,7 +31,7 @@ const LoginPage = () => {
         password: values.password,
       });
 
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('jwtToken', response.data.token);
       navigate('/dashboard');  // Redirect to route, not file
     } catch (error) {
       setError('Invalid credentials, please try again.');

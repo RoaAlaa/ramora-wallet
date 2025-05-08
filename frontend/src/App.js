@@ -17,30 +17,30 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
 
-          {/* Public Routes */}
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/login" element={<LoginPage />} />
+            {/* Public Routes */}
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/login" element={<LoginPage />} />
 
-          {/* Protected Routes */}
-          <Route path="/dashboard" element={<ProtectedRoute element={<DashboardUserPage />} />} />
-          <Route path="/sendmoney" element={<ProtectedRoute element={<SendMoneyPage />} />} />
-          <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
+            {/* Protected Routes */}
+            <Route path="/dashboard" element={<ProtectedRoute element={<DashboardUserPage />} />} />
+            <Route path="/sendmoney" element={<ProtectedRoute element={<SendMoneyPage />} />} />
+            <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
 
-          {/* Fallback Route */}
-          <Route
-            path="*"
-            element={
-              localStorage.getItem('jwtToken') ? (
-                <Navigate to="/dashboard" />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-        </Routes>
+            {/* Fallback Route */}
+            <Route
+              path="*"
+              element={
+                localStorage.getItem('jwtToken') ? (
+                  <Navigate to="/dashboard" />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+          </Routes>
       </Router>
     </div>
   );
