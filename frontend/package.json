@@ -9,10 +9,6 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.9.0",
-<<<<<<< HEAD
-=======
-    "axois": "^0.0.1-security",
->>>>>>> e93e1f3be23b506f892d2f6595a236d2bae9d6ad
     "bootstrap": "^5.3.5",
     "formik": "^2.4.6",
     "react": "^19.1.0",
