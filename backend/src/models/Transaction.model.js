@@ -88,3 +88,4 @@ transactionSchema.statics.findByUser = function(userId) {
 // Create and export the Transaction model
 const Transaction = mongoose.model('Transaction', transactionSchema);
 module.exports = Transaction;
+
