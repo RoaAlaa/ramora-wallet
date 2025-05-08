@@ -127,22 +127,6 @@
   box-shadow: none; /* No inner shadow */
 }
 
-/* Birthday Input - Text color white */
-input[type="date"] {
-  text-transform: uppercase;
-  font-size: 1rem;
-  color: #888; /* change from white to light gray */
-  padding-left: 5px;
-  border-radius: 5px;
-  background-color: transparent;
-}
-
-/* Birthday Input Placeholder */
-input[type="date"]::before {
-    color: #aaa;
-    font-style: italic;
-    padding-left: 5px;
-}
 
 /* Show/Hide Password Button Styling */
 .toggle-password {
@@ -227,18 +211,27 @@ input[type="date"]::before {
    
 }
 
+.feedback-message {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .feedback-message.success {
+    color: #39FF14; /* neon green */
+  }
+  
+  .feedback-message.error {
+    color: red;
+  }
+  
+
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
     75% { transform: translateX(5px); }
 }
 
-/* Calendar Input: Customizing Date Picker */
-input[type="date"]::-webkit-calendar-picker-indicator {
-    background-color: #aaa; /* White calendar button */
-    border-radius: 5px;
-    cursor: pointer;
-}
 
 /* Responsive Design */
 @media (max-width: 1024px) {
