@@ -9,11 +9,15 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.9.0",
+<<<<<<< HEAD
+=======
+    "axois": "^0.0.1-security",
+>>>>>>> e93e1f3be23b506f892d2f6595a236d2bae9d6ad
     "bootstrap": "^5.3.5",
     "formik": "^2.4.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.5.2",
+    "react-router-dom": "^7.5.3",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.6.1"
