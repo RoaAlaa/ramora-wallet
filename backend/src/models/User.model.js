@@ -73,8 +73,69 @@ const userSchema = new mongoose.Schema(
   {
     // Automatically add createdAt and updatedAt fields
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   }
 );
+
+// Virtual for sent transactions
+userSchema.virtual('sentTransactions', {
+    ref: 'Transaction',
+    localField: '_id',
+    foreignField: 'sender'
+});
+
+// Virtual for received transactions
+userSchema.virtual('receivedTransactions', {
+    ref: 'Transaction',
+    localField: '_id',
+    foreignField: 'receiver'
+});
+
+// Method to get all transactions for a user
+userSchema.methods.getTransactions = async function() {
+    const Transaction = mongoose.model('Transaction');
+    return Transaction.find({
+        $or: [
+            { sender: this._id },
+            { receiver: this._id }
+        ]
+    }).sort({ createdAt: -1 });
+};
+
+// Method to get transaction statistics
+userSchema.methods.getTransactionStats = async function() {
+    const Transaction = mongoose.model('Transaction');
+    const stats = await Transaction.aggregate([
+        {
+            $match: {
+                $or: [
+                    { sender: this._id },
+                    { receiver: this._id }
+                ],
+                status: 'completed'
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                totalSent: {
+                    $sum: {
+                        $cond: [{ $eq: ['$sender', this._id] }, '$amount', 0]
+                    }
+                },
+                totalReceived: {
+                    $sum: {
+                        $cond: [{ $eq: ['$receiver', this._id] }, '$amount', 0]
+                    }
+                },
+                transactionCount: { $sum: 1 }
+            }
+        }
+    ]);
+
+    return stats[0] || { totalSent: 0, totalReceived: 0, transactionCount: 0 };
+};
 
 // Middleware (pre-save hook) to hash password BEFORE saving a user document
 userSchema.pre('save', async function (next) {
@@ -99,7 +160,6 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   // 'this.password' refers to the hashed password stored in the document
   return await bcrypt.compare(enteredPassword, this.password);
 };
-
 
 // Create and export the User model
 const User = mongoose.model('User', userSchema);
