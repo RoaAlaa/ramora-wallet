@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
-require('dotenv').config(); // Ensure environment variables are loaded
+require('dotenv').config({ path: '../.env' });
 
 const connectDB = async () => {
   try {
+
     // Use the DB_URI from your .env file
     const conn = await mongoose.connect(process.env.DB_URI, {
       // Options to avoid deprecation warnings (might vary slightly by Mongoose version)
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
       connectTimeoutMS: 30000
       // useCreateIndex: true, // No longer needed in Mongoose 6+
       // useFindAndModify: false, // No longer needed in Mongoose 6+

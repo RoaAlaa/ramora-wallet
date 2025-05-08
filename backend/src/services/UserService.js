@@ -1,7 +1,7 @@
 const User = require('../models/User.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
+const {DEFAULT_BUCKET } = require('../config/constants')
 // Normally keep this in env variables
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 // fel env ely oltly 3aleha el sobh 
@@ -21,7 +21,11 @@ class UserService{
             username,
             email,
             phoneNumber,
-            password
+            password,
+            buckets: [{ 
+                name: DEFAULT_BUCKET, 
+                amount: 0
+            }],
         });
 
         await newUser.save();
