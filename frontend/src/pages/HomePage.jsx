@@ -4,7 +4,7 @@ import About from '../components/HomePage/About';
 import Services from '../components/HomePage/Services';
 import '../components/HomePage/CursorMagic.css';
 import SplashCursor from './SplashCursor';
-
+import './HomePage.css'; // Optional: Add a CSS file for styling
 const HomePage = () => {
   return (
     <div className="content">

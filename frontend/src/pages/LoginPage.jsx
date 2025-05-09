@@ -26,19 +26,25 @@ const LoginPage = () => {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await axios.post('http://localhost:5001/api/users/login', {
-        username: values.username,
-        password: values.password,
-      });
+        const response = await axios.post('http://localhost:5001/api/users/login', {
+            username: values.username,
+            password: values.password,
+        });
 
-      localStorage.setItem('jwtToken', response.data.token);
-      navigate('/dashboard');  // Redirect to route, not file
+        if (response.data.token) {
+            localStorage.setItem('jwtToken', response.data.token);
+            setError('');  // Clear any previous errors
+            navigate('/dashboard');  // Redirect to the dashboard
+        } else {
+            setError('Login failed, please try again.');
+        }
     } catch (error) {
-      setError('Invalid credentials, please try again.');
+        setError('Invalid credentials, please try again.');
     } finally {
-      setSubmitting(false);
+        setSubmitting(false);
     }
-  };
+};
+
 
   return (
     <div className="login-page">

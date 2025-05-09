@@ -9,7 +9,6 @@ import DashboardActions from '../components/User/Dashboard/DashboardActions'; //
 import RecentTransactions from '../components/User/Dashboard/RecentTransactions'; // The RecentTransactions component (transaction history)
 import '../pages/DashboardUserPage.css'; // Import the CSS file for styling the dashboard layout
 // Import the CSS file for styling the dashboard layout
-import './AdminPage'; // Adjust the path as necessary
 
 
 // The main DashboardPage component

@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-
 import HomePage from './pages/HomePage';
 import SignUpPage from './components/User/Register';
 import LoginPage from './pages/LoginPage';
@@ -18,7 +17,7 @@ function App() {
     <div className="App">
       <Router>
           <Routes>
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<HomePage />} />
 
             {/* Public Routes */}
             <Route path="/signup" element={<SignUpPage />} />
@@ -34,7 +33,7 @@ function App() {
               path="*"
               element={
                 localStorage.getItem('jwtToken') ? (
-                  <Navigate to="/dashboard" />
+                  <Navigate to="/" />
                 ) : (
                   <Navigate to="/login" />
                 )
