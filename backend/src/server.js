@@ -7,12 +7,13 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 const userRoutes = require('./routes/userRoute');
 const bucketRoutes = require('./routes/bucketsRoute');
-
+const walletRoutes = require('./routes/walletRoutes');
 // Connect to MongoDB
 connectDB();
 
 app.use('/api/users', userRoutes);
 app.use('/api/buckets', bucketRoutes); 
+app.use('/api/wallet', walletRoutes); 
 
 app.get('/', (req, res) => {
   res.send('Hello from the Backend!');

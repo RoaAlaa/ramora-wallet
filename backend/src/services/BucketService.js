@@ -51,7 +51,7 @@ class BucketService {
             user.buckets = (user.buckets || []).map(bucket => ({
                 ...bucket.toObject(),
                 amount: 0
-            }));
+            }));out
 
             if(user.buckets.length > 0)
             {
