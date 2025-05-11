@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ProfilePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import ProfilePageConfirmationModal from "./ProfilePageConfirmationModal";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const ProfilePage = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [valuesToConfirm, setValuesToConfirm] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -144,6 +146,55 @@ const ProfilePage = () => {
     setIsEditing(false);
   };
 
+  const handleDeleteProfile = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      const token = localStorage.getItem('jwtToken');
+      if (!token) {
+        setError('Authentication required.');
+        navigate('/login');
+        return;
+      }
+
+      const response = await fetch(`http://localhost:5001/api/users/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          localStorage.removeItem('jwtToken');
+          setError('Session expired. Please log in again.');
+          navigate('/login');
+        } else {
+          const errorBody = await response.json();
+          throw new Error(errorBody.message || 'Delete failed');
+        }
+        return;
+      }
+
+      localStorage.removeItem('jwtToken');
+      setMessage("Profile deleted successfully!");
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+    } catch (err) {
+      console.error('Profile deletion error:', err);
+      setError(err.message || 'Failed to delete profile.');
+    }
+    setShowDeleteModal(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+  };
+
   if (loading) {
     return <div className="profile-page">Loading profile...</div>;
   }
@@ -178,6 +229,9 @@ const ProfilePage = () => {
             </div>
             <button className="submit-button" onClick={handleEditClick}>
               Edit Profile
+            </button>
+            <button className="delete-button" onClick={handleDeleteProfile}>
+              Delete Profile
             </button>
           </>
         ) : (
@@ -237,19 +291,26 @@ const ProfilePage = () => {
         )}
       </div>
 
-      {/* Confirmation Modal */}
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>Confirm Changes</h3>
-            <p>Are you sure you want to update your profile?</p>
-            <div className="modal-buttons">
-              <button onClick={handleConfirmUpdate}>Confirm</button>
-              <button onClick={handleCancelUpdate}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Update Confirmation Modal */}
+      <ProfilePageConfirmationModal
+        isOpen={showModal}
+        title="Confirm Changes"
+        message="Are you sure you want to update your profile?"
+        onConfirm={handleConfirmUpdate}
+        onCancel={handleCancelUpdate}
+        confirmText="Save Changes"
+      />
+
+      {/* Delete Confirmation Modal */}
+      <ProfilePageConfirmationModal
+        isOpen={showDeleteModal}
+        title="Delete Profile"
+        message="Are you sure you want to delete your profile?"
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+        confirmText="Delete"
+        confirmButtonClass="delete-confirm-button"
+      />
     </div>
   );
 };

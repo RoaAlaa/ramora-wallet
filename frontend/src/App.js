@@ -9,6 +9,7 @@ import RequestMoneyPage from './pages/RequestMoneyPage';
 import ProfilePage from './components/User/ProfilePage/ProfilePage';
 import DashboardUserPage from './pages/DashboardUserPage';
 import BudgetTrackingPage from './pages/BudgetTrackingPage';
+import UserFeedback from './components/User/Feedback/UserFeedback';
 
 const ProtectedRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem('jwtToken');
@@ -32,6 +33,7 @@ function App() {
             <Route path="/requestmoney" element={<ProtectedRoute element={<RequestMoneyPage />} />} />
             <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
             <Route path="/budget-tracking" element={<ProtectedRoute element={<BudgetTrackingPage />} />} />
+            <Route path="/feedback" element={<ProtectedRoute element={<UserFeedback />} />} />
 
             {/* Fallback Route */}
             <Route

@@ -33,19 +33,19 @@
 }
 
 .action-buttons-row .action-button:hover {
-  background-color: #333333;
+  background-color: #32CD32;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Style for Pending Requests button */
 .pending-button {
-  background-color: #28a745;
+  background-color: black;
   color: white;
 }
 
 .pending-button:hover {
-  background-color: #218838;
+  background-color: #32CD32;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
