@@ -9,9 +9,9 @@ import styles from './SendMoney.module.css';
 
 const SendMoneySchema = Yup.object().shape({
   recipientNumber: Yup.string()
-    .required('Recipient phone number is required')
-    .matches(/^[0-9]+$/, 'Recipient number must contain only digits')
-    .min(10, 'Recipient number must be at least 10 digits'),
+    .required('Username is required')
+    .min(3, 'Username must be at least 3 characters')
+    .matches(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
    
   amount: Yup.number()
     .required('Amount is required')
@@ -70,51 +70,46 @@ function SendMoney() {
         return;
     }
 
-    setLoading(true); 
+    setLoading(true);
     setError('');
 
     try {
-      // ** Here you would make the actual API call to your backend **
-      // Use the values from valuesToConfirm
-      console.log(`Attempting to send ${valuesToConfirm.amount} to ${valuesToConfirm.recipientNumber}`);
+      const token = localStorage.getItem('jwtToken');
+      const userId = localStorage.getItem('userId');
+      
+      if (!token || !userId) {
+        throw new Error('Authentication required. Please log in again.');
+      }
 
-      // Replace with your actual backend API endpoint and logic
-      // const response = await fetch('/api/transactions/send', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     // Include authorization token if needed
-      //     // 'Authorization': `Bearer ${yourAuthToken}`
-      //   },
-      //   body: JSON.stringify({
-      //      recipientNumber: valuesToConfirm.recipientNumber,
-      //      amount: parseFloat(valuesToConfirm.amount)
-      //   }),
-      // });
-      // const data = await response.json();
-      // if (!response.ok) {
-      //   throw new Error(data.error || 'Failed to send money');
-      // }
+      const response = await fetch(`http://localhost:5001/api/wallet/${userId}/send/${valuesToConfirm.recipientNumber}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          amount: parseFloat(valuesToConfirm.amount)
+        }),
+      });
 
-      // ** Simulate a successful API call **
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
-      const data = { message: 'Money sent successfully!' };
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send money');
+      }
 
-      setMessage(data.message); 
-      setError(''); 
+      const data = await response.json();
+      setMessage(data.message);
+      setError('');
 
       formik.resetForm();
-      setValuesToConfirm(null); 
+      setValuesToConfirm(null);
 
     } catch (err) {
       console.error('Send money error:', err);
       setError(err.message || 'An error occurred during transaction.');
-      setMessage(''); 
+      setMessage('');
     } finally {
-      setLoading(false); // Stop loading
-      // Formik's isSubmitting would typically be set to false here if
-      // the async logic was directly in onSubmit. Since it's not,
-      // Formik's isSubmitting already became false after onSubmit returned.
+      setLoading(false);
     }
   };
 
@@ -146,16 +141,17 @@ function SendMoney() {
         {/* Use Formik's handleSubmit for the form */}
         <form onSubmit={formik.handleSubmit}>
           <div>
-            <label htmlFor="recipientNumber" className={styles.formLabel}>Recipient Phone Number</label>
+            <label htmlFor="recipientNumber" className={styles.formLabel}>Recipient Username</label>
             <input
               type="text"
               id="recipientNumber"
               className={styles.formControl}
-              name="recipientNumber" // IMPORTANT: name must match the key in initialValues and validationSchema
-              value={formik.values.recipientNumber} // Bind input value to Formik state
-              onChange={formik.handleChange} // Use Formik's change handler
-              onBlur={formik.handleBlur} // Use Formik's blur handler to track 'touched' state
-              disabled={loading || formik.isSubmitting} // Disable while async loading OR formik is processing submit/validation
+              name="recipientNumber"
+              value={formik.values.recipientNumber}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              disabled={loading || formik.isSubmitting}
+              placeholder="Enter recipient's username"
             />
             {/* Display validation errors only if the field has been touched and has an error */}
             {formik.touched.recipientNumber && formik.errors.recipientNumber ? (
@@ -169,13 +165,13 @@ function SendMoney() {
               type="number"
               id="amount"
               className={styles.formControl}
-              name="amount" // IMPORTANT: name must match the key
-              value={formik.values.amount} // Bind value
-              onChange={formik.handleChange} // Use change handler
-              onBlur={formik.handleBlur} // Use blur handler
+              name="amount"
+              value={formik.values.amount}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               step="0.01"
               min="0"
-              disabled={loading || formik.isSubmitting} // Disable while async loading OR formik is processing submit/validation
+              disabled={loading || formik.isSubmitting}
             />
              {/* Display validation errors */}
             {formik.touched.amount && formik.errors.amount ? (

@@ -4,13 +4,15 @@
   align-items: center;
   background-color: black;
   padding: 10px 20px;
+  position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   transition: top 0.3s ease-in-out;
 }
-
 
 .nav-left {
   display: flex;
@@ -49,9 +51,14 @@
   width: 100%;
 }
 
+.nav-link.no-underline::after {
+  display: none;
+}
+
 /* Dropdown styling */
 .nav-dropdown {
   position: relative;
+  cursor: pointer;
 }
 
 .dropdown-menu {
@@ -64,6 +71,10 @@
   overflow: hidden;
   z-index: 1000;
   min-width: 150px;
+  /* Added for smooth appearance */
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s, visibility 0.3s;
 }
 
 .dropdown-item {
@@ -72,6 +83,7 @@
   text-decoration: none;
   display: block;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .dropdown-item:hover {
@@ -79,26 +91,27 @@
   color: black;
 }
 
-/* Right side of navbar: Search bar */
+/* Right side of navbar */
 .nav-right {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-right: 20px;
 }
 
-.search-input {
-  padding: 8px 12px;
-  border: 1px solid white;
-  background-color: transparent;
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
   color: white;
-  border-radius: 4px;
+  font-weight: 500;
 }
 
-.search-input::placeholder {
-  color: white;
-}
-
-.search-button {
+.logout-button {
   padding: 8px 12px;
   background-color: black;
   border: 1px solid white;
@@ -106,9 +119,10 @@
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-right: 20px;
 }
 
-.search-button:hover {
+.logout-button:hover {
   color: #39FF14;
   border-color: #39FF14;
   box-shadow: 0 0 8px #39FF14;
@@ -130,7 +144,7 @@
     flex-direction: column;
     align-items: flex-start;
     width: 90%;
-}
+  }
 
   .brand {
     font-size: 1.2rem;
@@ -139,10 +153,7 @@
   .nav-link {
     font-size: 1rem;
   }
-
-
 }
-
 
 @media (max-width: 768px) {
   .custom-navbar {
@@ -171,8 +182,9 @@
     font-size: 1rem;
   }
 
-  .search-input {
-    width: 90%;
+  .user-info {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
 
@@ -197,4 +209,3 @@
     font-size: 1rem;
   }
 }
-

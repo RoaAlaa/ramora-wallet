@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const walletController = require('../controllers/walletController');
+const { protect } = require('../middlewares/auth.middleware');
+
+// Apply authentication middleware to all routes
+router.use(protect);
+
+// Add balance route
+router.post('/:userId/add-balance', walletController.addBalance);
 
 // Money transfer endpoints
 router.post('/:userId/send/:receiverUsername', walletController.sendMoney);

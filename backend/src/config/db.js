@@ -1,11 +1,12 @@
-
 const mongoose = require('mongoose');
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config();
 
 const connectDB = async () => {
   try {
+    if (!process.env.DB_URI) {
+      throw new Error('DB_URI is not defined in environment variables');
+    }
 
-    // Use the DB_URI from your .env file
     const conn = await mongoose.connect(process.env.DB_URI, {
       // Options to avoid deprecation warnings (might vary slightly by Mongoose version)
       // useNewUrlParser: true,

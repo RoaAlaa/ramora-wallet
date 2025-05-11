@@ -10,14 +10,17 @@ import styles from './RequestMoney.module.css';
 // Validation Schema (uses requesterNumber)
 const RequestMoneySchema = Yup.object().shape({
   requesterNumber: Yup.string() 
-    .required('Requester phone number is required') 
-    .matches(/^[0-9]+$/, 'Requester number must contain only digits') 
-    .min(10, 'Requester number must be at least 10 digits'), 
+    .required('Username is required')
+    .min(3, 'Username must be at least 3 characters')
+    .matches(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
 
   amount: Yup.number()
     .required('Amount is required')
     .positive('Amount must be positive')
-    .min(0.01, 'Amount must be at least 0.01'), 
+    .min(0.01, 'Amount must be at least 0.01'),
+
+  note: Yup.string()
+    .max(200, 'Note must be less than 200 characters')
 });
 
 // Functional component for Request Money
@@ -26,27 +29,26 @@ function RequestMoney() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [valuesToConfirm, setValuesToConfirm] = useState(null); // Stores form values before showing modal
+  const [valuesToConfirm, setValuesToConfirm] = useState(null);
 
-  // Formik setup (initialValues and validationSchema use requesterNumber)
   const formik = useFormik({
     initialValues: {
       requesterNumber: '', 
       amount: '',
+      note: ''
     },
-    validationSchema: RequestMoneySchema, 
+    validationSchema: RequestMoneySchema,
     onSubmit: (values, { setSubmitting, resetForm }) => {
       setMessage('');
       setError('');
       setSubmitting(true);
-      setValuesToConfirm(values); // Store values for confirmation
-      setShowModal(true); // Show the confirmation modal
+      setValuesToConfirm(values);
+      setShowModal(true);
     },
   });
 
-  // Function called when user confirms in the modal (Simulates requesting)
   const handleConfirmRequest = async () => {
-    setShowModal(false); // Hide the modal
+    setShowModal(false);
 
     if (!valuesToConfirm) {
         setError('Confirmation values are missing.');
@@ -57,43 +59,43 @@ function RequestMoney() {
     setError('');
 
     try {
-      // ** Simulate an API call to your backend to request money **
-      console.log(`Attempting to request ${valuesToConfirm.amount} from ${valuesToConfirm.requesterNumber}`); 
+      const token = localStorage.getItem('jwtToken');
+      const userId = localStorage.getItem('userId');
+      
+      if (!token || !userId) {
+        throw new Error('Authentication required. Please log in again.');
+      }
 
-      // Replace with your actual backend API endpoint and logic for requesting money
-      // const response = await fetch('/api/transactions/request', { 
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     // Include authorization token if needed
-      //     // 'Authorization': `Bearer ${yourAuthToken}`
-      //   },
-      //   body: JSON.stringify({
-      //      requesterNumber: valuesToConfirm.requesterNumber, 
-      //      amount: parseFloat(valuesToConfirm.amount)
-      //   }),
-      // });
-      // const data = await response.json();
-      // if (!response.ok) {
-      //   throw new Error(data.error || 'Failed to request money'); 
-      // }
+      const response = await fetch(`http://localhost:5001/api/wallet/${userId}/request/${valuesToConfirm.requesterNumber.toLowerCase()}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          amount: parseFloat(valuesToConfirm.amount),
+          note: valuesToConfirm.note
+        }),
+      });
 
-      // ** Simulate a successful API call for requesting money **
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      const data = { message: 'Money request sent successfully!' }; // Success message
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to request money');
+      }
 
+      const data = await response.json();
       setMessage(data.message);
       setError('');
 
-      formik.resetForm(); // Reset the form after success
-      setValuesToConfirm(null); // Clear confirmed values
+      formik.resetForm();
+      setValuesToConfirm(null);
 
     } catch (err) {
       console.error('Request money error:', err);
-      setError(err.message || 'An error occurred during the request.'); 
+      setError(err.message || 'An error occurred during the request.');
       setMessage('');
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
@@ -116,19 +118,18 @@ function RequestMoney() {
         {/* Use Formik's handleSubmit for the form */}
         <form onSubmit={formik.handleSubmit}>
           <div>
-            {/* Label text and htmlFor use requesterNumber */}
-            <label htmlFor="requesterNumber" className={styles.formLabel}>Requester Phone Number</label>
+            <label htmlFor="requesterNumber" className={styles.formLabel}>Username to Request From</label>
             <input
               type="text"
               id="requesterNumber" 
               className={styles.formControl}
-              name="requesterNumber" // name must match the key
+              name="requesterNumber"
               value={formik.values.requesterNumber} 
               onChange={formik.handleChange} 
               onBlur={formik.handleBlur} 
-              disabled={loading || formik.isSubmitting} 
+              disabled={loading || formik.isSubmitting}
+              placeholder="Enter username to request from"
             />
-            {/* Display validation errors */}
             {formik.touched.requesterNumber && formik.errors.requesterNumber ? ( 
               <div className={`${styles.message} ${styles.error}`}>{formik.errors.requesterNumber}</div> 
             ) : null}
@@ -155,6 +156,24 @@ function RequestMoney() {
             ) : null}
           </div>
 
+          <div>
+            <label htmlFor="note" className={styles.formLabel}>Note (Optional)</label>
+            <textarea
+              id="note"
+              className={styles.formControl}
+              name="note"
+              value={formik.values.note}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              disabled={loading || formik.isSubmitting}
+              placeholder="Add a note to your request"
+              rows="3"
+            />
+            {formik.touched.note && formik.errors.note ? (
+              <div className={`${styles.message} ${styles.error}`}>{formik.errors.note}</div>
+            ) : null}
+          </div>
+
           {/* The button triggers Formik's onSubmit (Uses requestButton class and "Request Money" text) */}
           <button
             type="submit"
@@ -172,6 +191,7 @@ function RequestMoney() {
         // Pass the requesterNumber prop
         requesterNumber={valuesToConfirm?.requesterNumber} 
         amount={valuesToConfirm?.amount}
+        note={valuesToConfirm?.note}
         // Pass the appropriate confirmation and cancel handlers
         onConfirm={handleConfirmRequest} 
         onCancel={handleCancelRequest}   

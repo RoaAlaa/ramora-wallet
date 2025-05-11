@@ -1,4 +1,5 @@
 const BucketService = require('../services/BucketService');
+const UserService = require('../services/UserService');
 
 // Create a new bucket
 exports.createBucket = async (req, res) => {
@@ -6,42 +7,99 @@ exports.createBucket = async (req, res) => {
         const { userId } = req.params;
         const { bucketName, amount } = req.body;
 
-        const updatedUser = await BucketService.createBucket(userId, bucketName, amount);
+        if (!bucketName) {
+            return res.status(400).json({ error: 'Bucket name is required' });
+        }
+
+        if (amount < 0) {
+            return res.status(400).json({ error: 'Amount cannot be negative' });
+        }
+
+        const updatedUser = await BucketService.createBucket(userId, bucketName, amount || 0);
+        const result = await UserService.getUserById(userId);
+
+        if (!result.success) {
+            return res.status(404).json({ error: result.error });
+        }
 
         res.status(200).json({
             message: 'Bucket created successfully',
-            user: updatedUser
+            user: result.user
         });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
-// Reset all buckets to zero and set first bucket's amount
+// Update a bucket
+exports.updateBucket = async (req, res) => {
+    try {
+        const { userId, bucketId } = req.params;
+        const { name, amount } = req.body;
+
+        if (!name && amount === undefined) {
+            return res.status(400).json({ error: 'At least one field (name or amount) must be provided' });
+        }
+
+        if (amount !== undefined && amount < 0) {
+            return res.status(400).json({ error: 'Amount cannot be negative' });
+        }
+
+        const updatedUser = await BucketService.updateBucket(userId, bucketId, name, amount);
+        const result = await UserService.getUserById(userId);
+
+        if (!result.success) {
+            return res.status(404).json({ error: result.error });
+        }
+
+        res.status(200).json({
+            message: 'Bucket updated successfully',
+            user: result.user
+        });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// Reset all buckets
 exports.resetAllBuckets = async (req, res) => {
     try {
         const { userId } = req.params;
         const { newBalance } = req.body;
 
+        if (newBalance < 0) {
+            return res.status(400).json({ error: 'Balance cannot be negative' });
+        }
+
         const updatedUser = await BucketService.resetAllBuckets(userId, newBalance);
+        const result = await UserService.getUserById(userId);
+
+        if (!result.success) {
+            return res.status(404).json({ error: result.error });
+        }
 
         res.status(200).json({
             message: 'Buckets reset successfully',
-            user: updatedUser
+            user: result.user
         });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
-// Get all buckets (including DEFAULT_BUCKET)
+// Get all buckets
 exports.getUserBuckets = async (req, res) => {
     try {
         const { userId } = req.params;
-        const buckets = await BucketService.getUserBuckets(userId);
+        const result = await UserService.getUserById(userId);
+
+        if (!result.success) {
+            return res.status(404).json({ error: result.error });
+        }
 
         res.status(200).json({
-            buckets
+            buckets: result.user.buckets,
+            balance: result.user.balance
         });
     } catch (error) {
         res.status(400).json({ error: error.message });

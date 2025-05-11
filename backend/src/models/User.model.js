@@ -94,6 +94,23 @@ userSchema.pre('save', async function (next) {
   }
 });
 
+// Add middleware to ensure default bucket exists
+userSchema.pre('save', function(next) {
+  if (!this.buckets) {
+    this.buckets = [];
+  }
+  
+  const defaultBucket = this.buckets.find(b => b.name === 'others');
+  if (!defaultBucket) {
+    this.buckets.push({
+      name: 'others',
+      amount: this.balance || 0
+    });
+  }
+  
+  next();
+});
+
 // Method to compare entered password with the hashed password in the database
 userSchema.methods.matchPassword = async function (enteredPassword) {
   // 'this.password' refers to the hashed password stored in the document

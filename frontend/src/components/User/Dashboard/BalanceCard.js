@@ -1,65 +1,107 @@
-import React, { useState } from 'react';
-import './BalanceCard.css'; // Import the CSS file for styling
+import React, { useEffect, useState } from 'react';
+import './BalanceCard.css';
 
-// BalanceCard component receives data as props.
-// This data would typically be fetched from your backend API in a parent component (like DashboardPage).
-const BalanceCard = ({ userName, balance, cardType, lastFourDigits, spendingCategories }) => {
-
-  // State to manage whether the card is flipped or not.
+const BalanceCard = ({ userId }) => {
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Function to toggle the 'isFlipped' state when the card is clicked.
   const handleCardClick = () => {
     setIsFlipped(!isFlipped);
   };
 
-  // --- BACKEND/API REQUIREMENT ---
-  // The data displayed by this component (userName, balance, cardType, lastFourDigits, spendingCategories)
-  // comes from props, which are populated by data fetched from your backend API
-  // in the parent component (e.g., DashboardPage's fetch for /api/user/me).
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        if (!token) {
+          setError('Authentication required.');
+          setLoading(false);
+          return;
+        }
+
+        const response = await fetch(`http://localhost:5001/api/users/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            localStorage.removeItem('jwtToken');
+            setError('Session expired. Please log in again.');
+          } else {
+            const errorBody = await response.json();
+            setError(`Error fetching user data: ${response.status} ${errorBody.error || response.statusText}`);
+          }
+          setLoading(false);
+          return;
+        }
+
+        const data = await response.json();
+        
+        // Check if we have the user data in the response
+        if (!data.success || !data.user) {
+          setError('Invalid response format from server');
+          setLoading(false);
+          return;
+        }
+
+        // Ensure balance is a number and buckets is an array
+        const user = {
+          ...data.user,
+          balance: Number(data.user.balance) || 0,
+          buckets: Array.isArray(data.user.buckets) ? data.user.buckets : []
+        };
+
+        setUserData(user);
+        setLoading(false);
+      } catch (err) {
+        console.error('Failed to fetch user data:', err);
+        setError(`Failed to load user data: ${err.message}`);
+        setLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchUserData();
+    } else {
+      setLoading(false);
+      setError('No user ID provided');
+    }
+  }, [userId]);
+
+  if (loading) return <div className="loading-message">Loading balance...</div>;
+  if (error) return <div className="error-message">{error}</div>;
+  if (!userData) return <div className="error-message">No user data available</div>;
 
   return (
-    // The main container for the card, handles the click event to flip.
-    <div className="" onClick={handleCardClick}>
-      {/* The card element itself, applies the flip transformation based on state. */}
+    <div className="card-container" onClick={handleCardClick}>
       <div className={`card ${isFlipped ? 'is-flipped' : ''}`}>
-
-        {/* --- FRONT SIDE OF THE CARD --- */}
+        {/* Front of the card */}
         <div className="card-side card-front">
-          {/* Card Logo/Type - Data from backend via props */}
-          <div className="card-logo">{cardType || 'Wallet'}</div> {/* Display card type, default to 'Wallet' */}
-
-          {/* User Name - Data from backend via props */}
-          <div className="user-name">{userName || 'User Name'}</div> {/* Display user's name */}
-
-          {/* Balance - Data from backend via props */}
-          {/* The blur effect is handled in CSS and removed on hover */}
-          {/* Format balance to two decimal places */}
-          <div className="card-balance">${typeof balance === 'number' ? balance.toFixed(2) : '0.00'}</div>
-
-          {/* Card Number (Last 4 Digits) - Data from backend via props */}
-          <div>**** **** **** {lastFourDigits || '0000'}</div>
+          <div className="card-logo">Wallet</div>
+          <div className="user-name">{userData.name || 'User'}</div>
+          <div className="card-balance">${userData.balance.toFixed(2)}</div>
+          <div className="card-number">**** **** **** 0000</div>
         </div>
 
-        {/* --- BACK SIDE OF THE CARD --- */}
+        {/* Back of the card */}
         <div className="card-side card-back">
-          <h3>Spending</h3>
-          {/* Spending Categories - Data from backend via props */}
-          {/* Map over the spendingCategories array to display each category and its amount */}
-          <div className="categories">
-            {/* --- BACKEND/API REQUIREMENT --- */}
-            {/* The 'spendingCategories' array is passed as a prop, populated by data from your backend API. */}
-            {/* Ensure your backend endpoint (e.g., /api/user/me or a dedicated spending endpoint) returns this data structure. */}
-            {spendingCategories && spendingCategories.length > 0 ? (
-              spendingCategories.map((category, index) => (
-                // Use a unique key for each item in the list
-                <div key={index} className="category">
-                  {category.name} <br /> ${typeof category.amount === 'number' ? category.amount.toFixed(2) : '0.00'}
+          <h3>Your Buckets</h3>
+          <div className="buckets">
+            {userData.buckets && userData.buckets.length > 0 ? (
+              userData.buckets.map((bucket, index) => (
+                <div key={index} className="bucket">
+                  <span className="bucket-name">{bucket.name}</span>
+                  <span className="bucket-amount">${Number(bucket.amount).toFixed(2)}</span>
                 </div>
               ))
             ) : (
-              // Display a message if no spending data is available
-              <p>No spending data available.</p>
+              <p>No buckets available.</p>
             )}
           </div>
         </div>

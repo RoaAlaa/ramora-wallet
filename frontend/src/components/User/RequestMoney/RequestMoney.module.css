@@ -38,30 +38,56 @@
     margin-bottom: 30px; /* Add space below heading */
 }
 
-/* Styling for input fields */
+/* Styling for input fields and textarea */
 .formBox input[type="text"],
-.formBox input[type="number"] {
+.formBox input[type="number"],
+.formBox textarea {
     background-color: black;
-    color: white; /* Text color inside input */
-    border: 1px solid #333; /* Darker border */
+    color: white;
+    border: 1px solid #333;
     border-radius: 5px;
     padding: 10px 15px;
-    margin-bottom: 20px; /* Space below inputs */
-    width: 100%; /* Full width */
-    box-sizing: border-box; /* Include padding and border in element's total width */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover/focus */
-    outline: none; /* Remove default outline */
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Initial subtle shadow */
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    font-family: inherit;
 }
 
-/* Green 3D effect on hover/focus for inputs */
+/* Green 3D effect on hover/focus for inputs and textarea */
 .formBox input[type="text"]:hover,
 .formBox input[type="number"]:hover,
+.formBox textarea:hover,
 .formBox input[type="text"]:focus,
-.formBox input[type="number"]:focus {
-    border-color: #0f0; /* Green border on hover/focus */
-    box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5); /* Green 3D shadow effect */
-    transform: translate(-2px, -2px); /* Subtle lift */
+.formBox input[type="number"]:focus,
+.formBox textarea:focus {
+    border-color: #0f0;
+    box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5);
+    transform: translate(-2px, -2px);
+}
+
+/* Specific styles for textarea */
+.formBox textarea {
+    resize: vertical;
+    min-height: 80px;
+    max-height: 200px;
+}
+
+/* Style for the note text in modal */
+.noteText {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    font-size: 0.95em;
+    color: #666;
+}
+
+.noteText em {
+    color: #333;
+    font-style: italic;
 }
 
 /* Styling for the Request button */

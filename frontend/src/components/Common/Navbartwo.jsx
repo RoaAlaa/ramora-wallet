@@ -1,43 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Navbartwo.css';
 
-function Navbartwo() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+const Navbartwo = ({ userName }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const timeoutRef = useRef(null);
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setIsDropdownOpen(true);
   };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsDropdownOpen(false);
+    }, 300); // 300ms delay before closing
+  };
+
+  const handleProfileClick = () => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      navigate('/profile', { state: { userId } });
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('userId');
+    navigate('/');
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <nav className="custom-navbar">
       <div className="nav-left">
-        <div className="brand">Ramora</div>
-        <a href="#" className="nav-link">Home</a>
-        <a href="#" className="nav-link">Dashboard</a>
-        <a href="#" className="nav-link">Profile</a>
+        <div className="brand" onClick={() => navigate('/')}>Ramora</div>
+        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/dashboard" className="nav-link">Dashboard</Link>
+        <Link to="/profile" className="nav-link" onClick={handleProfileClick}>Profile</Link>
 
-        <div
+        <div 
           className="nav-dropdown"
-          onMouseEnter={toggleDropdown}
-          onMouseLeave={toggleDropdown}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          ref={dropdownRef}
         >
           <span className="nav-link no-underline">Services ▾</span>
-          {dropdownOpen && (
+          {isDropdownOpen && (
             <div className="dropdown-menu">
-              <a href="#" className="dropdown-item">Add Money</a>
-              <a href="#" className="dropdown-item">Send Money</a>
-              <a href="#" className="dropdown-item">Request Money</a>
+              <Link to="/sendmoney" className="dropdown-item">Send Money</Link>
+              <Link to="/requestmoney" className="dropdown-item">Request Money</Link>
+              <Link to="/budget-tracking" className="dropdown-item">Budget Tracking</Link>
             </div>
           )}
         </div>
       </div>
 
       <div className="nav-right">
-        <input type="text" placeholder="Search" className="search-input" />
-        <button className="search-button">Search</button>
+        {userName && (
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
+        )}
       </div>
     </nav>
   );
-}
+};
 
 export default Navbartwo;
