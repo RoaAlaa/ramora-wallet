@@ -1,24 +1,19 @@
-import Navbar from '../components/Common/Navbar';
-import './HomePage.css'; // CSS for the HomePage
+import Navbar from '../components/HomePage/Navbar';
+import Hero from '../components/HomePage/Hero';
+import About from '../components/HomePage/About';
+import Services from '../components/HomePage/Services';
+import '../components/HomePage/CursorMagic.css';
+import SplashCursor from './SplashCursor';
+
 const HomePage = () => {
   return (
-    <>
+    <div className="content">
+      <SplashCursor />
       <Navbar />
-      <div className="hero">
-      <div className="hero-content">
-        <h1>Welcome to Ramora</h1>
-        <p>Your Wallet, Your Way!</p>
-        <h6>Join Us NOW!</h6>
-        <div className="buttons">
-          <button className="btn">Login</button>
-          <button className="btn">Sign Up</button>
-        </div>
-      </div>
+      <Hero />
+      <About />
+      <Services />
     </div>
-
-    </>
-    
-
   );
 };
 

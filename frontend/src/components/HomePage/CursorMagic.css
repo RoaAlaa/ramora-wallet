@@ -1,0 +1,46 @@
+.cursor-magic {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffffff, #ffffff); /* your background */
+    overflow-x: hidden; /* ⬅️ ONLY hide overflow on X, not Y */
+  }
+  
+  .pointer-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none; /* allow clicks to pass through */
+  }
+  
+  .pointer-gradient {
+    width: 50vh;
+    height: 50vh;
+    background: radial-gradient(circle, rgba(24, 232, 41, 0.872) 0%, rgba(255,255,255,0) 80%);
+    border-radius: 50%;
+  }
+  
+  .pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white; /* use your pattern here */
+    background-size: cover;
+    background-repeat: repeat;
+    opacity: 0.05; /* very soft pattern */
+    pointer-events: none;
+  }
+  
+  .content {
+    position: relative;
+    z-index: 2;
+  }
+  

@@ -1,56 +1,45 @@
-.hero {
-  background: rgba(0, 0, 0, 0.95); /* stronger opacity */
-  width: 50%; /* not full page */
-  margin: 100px auto 0; /* center + space under navbar */
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* deep 3D shadow */
-  transition: transform 0.3s ease;
-}
-
-.hero:hover {
-  transform: scale(1.02); /* tiny grow on hover */
-}
-
-.hero-content h1 {
-  color: white;
-  font-size: 2.8rem;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.hero-content p {
-  color: white;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.hero-content h6 {
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.btn {
-  background: black;
-  color: white;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 8px;
-  opacity: 0.9;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn:hover {
-  box-shadow: 0 0 15px rgba(57, 255, 20, 0.9); /* green magic */
+/* Ensure full viewport height and stacking layout */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure each section takes full width and proper spacing */
+  section {
+    width: 100%;
+    padding: 60px 0; /* vertical spacing between sections */
+    box-sizing: border-box;
+  }
+  
+  /* Make Hero fullscreen height */
+  .hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Space between Hero and next section */
+  .about-section,
+  .services-section {
+    margin-top: 50px;
+  }
+  
+  /* Optional: Give each section a background color for testing */
+  .hero-section {
+    background-color: #000; /* Or keep transparent for Hero styling */
+  }
+  
+  .about-section {
+    background-color: transparent;
+  }
+  
+  .services-section {
+    background-color: transparent;
+  }
+  
+  .full-width {
+    width: 100%; /* Enforces full width */
 }

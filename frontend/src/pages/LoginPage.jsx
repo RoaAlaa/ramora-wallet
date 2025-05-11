@@ -1,42 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';  // For navigation
+import '../pages/LoginPage.css';
+//Login page done waiting for the register page to test it
 
 // Importing icons
 import user_icon from '../assets/person.png';
 import password_icon from '../assets/password.png';
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('Name is required'),
+  username: Yup.string().required('Username is required'),
   password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 });
 
 const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      const response = await axios.post('http://localhost:5001/api/users/login', {
+        username: values.username,
+        password: values.password,
+      });
+
+      localStorage.setItem('jwtToken', response.data.token);
+      navigate('/dashboard');  // Redirect to route, not file
+    } catch (error) {
+      setError('Invalid credentials, please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="login-page">
-      <h2>Login Form</h2>
-      
       <Formik
-        initialValues={{ name: '', password: '' }}
+        initialValues={{ username: '', password: '' }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log('Form data:', values);
-        }}
+        onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
           <Form className="login-form">
-            {/* Name input with icon */}
+            <h2 className="form-title">Log in</h2>
+
+            {/* Username input with icon */}
             <div className="mb-3">
               <div className="input-container">
                 <img src={user_icon} alt="User Icon" className="input-icon" />
                 <Field
-                  name="name"
+                  name="username"
                   type="text"
-                  placeholder="Name"
+                  placeholder="Username"
                   className="form-control"
                 />
               </div>
-              <ErrorMessage name="name" component="div" className="text-danger" />
+              <ErrorMessage name="username" component="div" className="error-message" />
             </div>
 
             {/* Password input with icon */}
@@ -45,15 +71,25 @@ const LoginPage = () => {
                 <img src={password_icon} alt="Password Icon" className="input-icon" />
                 <Field
                   name="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="Password"
                   className="form-control"
                 />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? 'Hide' : 'Show'}
+                </button>
               </div>
-              <ErrorMessage name="password" component="div" className="text-danger" />
+              <ErrorMessage name="password" component="div" className="error-message" />
             </div>
 
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+            {/* Show login error */}
+            {error && <div className="error-message">{error}</div>}
+
+            <button type="submit" className="submit-button" disabled={isSubmitting}>
               {isSubmitting ? 'Logging in...' : 'Log In'}
             </button>
           </Form>

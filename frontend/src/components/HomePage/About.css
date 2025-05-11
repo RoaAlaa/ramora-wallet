@@ -1,0 +1,165 @@
+/* General container styles */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.about {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 50px auto;
+    width: 80%;
+    max-width: 1200px;
+    background: rgba(0, 0, 0, 0.95); /* stronger opacity */
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* deep 3D shadow */
+    transition: transform 0.3s ease;
+}
+
+.about:hover {
+    transform: scale(1.02); /* tiny grow on hover */
+}
+
+.app-about {
+    margin-bottom: 30px; /* Add space below the About section */
+}
+
+/* Card styles for About and Team */
+.card {
+    background: rgba(0, 0, 0, 0.85); /* Slightly transparent black */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* Deep 3D shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    color: white;
+}
+
+/* Hover effect for both cards */
+.card:hover {
+    transform: scale(1.02); /* Slight grow effect */
+    box-shadow: 0 8px 30px rgba(57, 255, 20, 0.8); /* Green shadow */
+}
+
+/* About card styles */
+.app-about {
+    background: rgba(0, 0, 0, 0.9); /* Darker background for the about card */
+    border-radius: 15px;
+    padding: 30px;
+    color: white;
+}
+
+.app-about h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.app-about p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Meet the Team section */
+.about-team {
+    background: rgba(0, 0, 0, 0.9); /* Darker background for the team card */
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.about-team h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: white; /* Ensure "Meet the Team" is white */
+}
+
+.team-card {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 team members per row */
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* Style for each individual team member card */
+.team-card div {
+    background: rgba(0, 0, 0, 0.85); /* Dark background for team member cards */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: white;
+}
+
+.team-card div:hover {
+    transform: scale(1.05); /* Slight grow effect */
+    box-shadow: 0 8px 15px rgba(57, 255, 20, 0.7); /* Green shadow on hover */
+}
+
+.team-card h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Dancing Script', cursive; /* Apply the cursive font everywhere */
+}
+
+.team-card p {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(57, 255, 20, 0.9); /* Green for the role */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .about {
+        width: 90%; /* More width on small screens */
+    }
+
+    .team-card {
+        grid-template-columns: repeat(2, 1fr); /* Display two cards per row on medium screens */
+    }
+
+    .team-card div {
+        padding: 10px; /* Reduced padding for smaller screens */
+    }
+
+    .app-about h2,
+    .about-team h2 {
+        font-size: 1.8rem; /* Smaller title size */
+    }
+
+    .team-card h3 {
+        font-size: 1.6rem; /* Smaller font size for names */
+    }
+
+    .team-card p {
+        font-family: 'Roboto', sans-serif; /* Use Roboto for description text */
+        font-style: italic;
+        font-size: 1rem; /* Smaller font size for descriptions */
+    }
+}
+
+/* For extra small screens */
+@media (max-width: 480px) {
+    .about {
+        width: 95%; /* More width on very small screens */
+    }
+
+    .team-card {
+        grid-template-columns: 1fr; /* Stack team cards on top of each other on very small screens */
+    }
+
+    .team-card div {
+        padding: 8px; /* Further reduce padding */
+    }
+
+    .app-about h2,
+    .about-team h2 {
+        font-size: 1.6rem; /* Even smaller titles on small screens */
+    }
+
+    .team-card h3 {
+        font-size: 1rem; /* Even smaller font size for names */
+    }
+
+    .team-card p {
+        font-size: 0.9rem; /* Even smaller font size for descriptions */
+    }
+}

@@ -1,6 +1,7 @@
     const UserService = require('../services/UserService');
 
     exports.register = async (req,res) =>{
+
     try{
     const {user, token} = await UserService.register(req.body);
     res.status(201).json({

@@ -1,0 +1,98 @@
+/* Styles copied directly from the user's final desired HTML <style> block */
+/* Corrected the syntax error in the linear-gradient */
+/* These styles are designed to make it look like ONE flipping card */
+
+body {
+  /* Note: This body style is from your original HTML example. */
+  /* In your full dashboard, the body background is handled by the dashboard container. */
+  /* Applying this globally might cause unwanted effects on other pages. */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This might cause issues if applied globally in your app */
+  background: #f0f2f5; /* This background might conflict with your dashboard's white background */
+  font-family: Arial, sans-serif;
+  }
+  
+  .card-container {
+  perspective: 1000px; /* Creates the 3D space */
+  /* Removed display: flex, justify-content, align-items to exactly match your original HTML */
+  }
+  
+  .card {
+  width: 350px;
+  height: 220px;
+  position: relative; /* Parent for absolute positioning of sides */
+  transform-style: preserve-3d; /* --- KEY FOR 3D FLIP --- Children retain 3D position */
+  transition: transform 0.8s; /* Smooth transition for the flip */
+  cursor: pointer;
+  padding: 0px; /* Added padding: 0px as requested */
+  }
+  
+  .card.is-flipped {
+  transform: rotateY(180deg); /* Rotates the entire card */
+  }
+  
+  .card-side {
+  position: absolute; /* --- KEY FOR 3D FLIP --- Stacks sides on top of each other */
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  backface-visibility: hidden; /* --- KEY FOR 3D FLIP --- Hides the back face */
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2); /* Original shadow */
+  }
+  
+  .card-front {
+  /* Corrected the syntax error here */
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Original gradient (black-ish) */
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  }
+  
+  .card-logo {
+  font-size: 24px;
+  font-weight: bold;
+  }
+  
+  .card-balance {
+  margin-top: 40px; /* Original margin */
+  font-size: 28px;
+  filter: blur(8px); /* Original blur */
+  transition: filter 0.3s ease;
+  }
+  
+  /* Original hover effect on the front side to unblur the balance */
+  .card-front:hover .card-balance {
+  filter: blur(0px);
+  }
+  
+  .card-back {
+  background: white; /* Original background */
+  color: #333;
+  transform: rotateY(180deg); /* --- KEY FOR 3D FLIP --- Initially rotates the back side */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+  }
+  
+  .category {
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 14px;
+  }
