@@ -5,8 +5,10 @@ import HomePage from './pages/HomePage';
 import SignUpPage from './components/User/Register';
 import LoginPage from './pages/LoginPage';
 import SendMoneyPage from './pages/SendMoneyPage';
+import RequestMoneyPage from './pages/RequestMoneyPage';
 import ProfilePage from './components/User/ProfilePage/ProfilePage';
 import DashboardUserPage from './pages/DashboardUserPage';
+import BudgetTrackingPage from './pages/BudgetTrackingPage';
 
 const ProtectedRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem('jwtToken');
@@ -18,7 +20,7 @@ function App() {
     <div className="App">
       <Router>
           <Routes>
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<HomePage />} />
 
             {/* Public Routes */}
             <Route path="/signup" element={<SignUpPage />} />
@@ -27,7 +29,9 @@ function App() {
             {/* Protected Routes */}
             <Route path="/dashboard" element={<ProtectedRoute element={<DashboardUserPage />} />} />
             <Route path="/sendmoney" element={<ProtectedRoute element={<SendMoneyPage />} />} />
+            <Route path="/requestmoney" element={<ProtectedRoute element={<RequestMoneyPage />} />} />
             <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
+            <Route path="/budget-tracking" element={<ProtectedRoute element={<BudgetTrackingPage />} />} />
 
             {/* Fallback Route */}
             <Route
@@ -36,7 +40,7 @@ function App() {
                 localStorage.getItem('jwtToken') ? (
                   <Navigate to="/dashboard" />
                 ) : (
-                  <Navigate to="/login" />
+                  <Navigate to="/" />
                 )
               }
             />

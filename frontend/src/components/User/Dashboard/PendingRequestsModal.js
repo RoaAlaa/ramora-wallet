@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import './PendingRequestModal.css' // Import the CSS file for modal styling
 
-// PendingRequestsModal component receives 'isOpen' (boolean) and 'onClose' (function) as props.
-const PendingRequestsModal = ({ isOpen, onClose }) => {
+const PendingRequestsModal = ({ isOpen, onClose, userId }) => {
   // Initialize the navigate hook if you are using react-router-dom for redirects.
   // const navigate = useNavigate();
 
@@ -51,8 +50,8 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
           // Call your backend API endpoint to get the list of pending requests for the authenticated user.
           // This endpoint must be protected and require the JWT in the Authorization header.
           // The backend will use the JWT to identify the user and query the database for their pending requests.
-          // Example API endpoint based on common patterns: GET /api/user/pending-requests
-          const response = await fetch('/api/user/pending-requests', {
+          // Example API endpoint based on common patterns: GET /api/wallet/{userId}/requests
+          const response = await fetch(`http://localhost:5001/api/wallet/${userId}/requests`, {
             method: 'GET', // Specify the HTTP method as GET since we are retrieving data.
             headers: {
               // --- INCLUDING THE JWT FOR AUTHENTICATION ---
@@ -80,7 +79,7 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
                // Handle other potential errors (e.g., 404 Not Found, 500 Internal Server Error).
                // Attempt to read a specific error message from the backend response body if available.
                const errorBody = await response.json();
-               setError(`Error fetching pending requests: ${response.status} ${errorBody.message || response.statusText}`);
+               setError(`Error fetching pending requests: ${response.status} ${errorBody.error || response.statusText}`);
              }
              setLoading(false); // Stop loading state on error.
              return; // Stop execution of the function after handling the error.
@@ -115,7 +114,7 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
         // Also clear any individual request action statuses.
         setRequestActionStatus({});
     }
-  }, [isOpen]); // Dependency array: This effect re-runs only when the value of the 'isOpen' prop changes.
+  }, [isOpen, userId]); // Dependency array: This effect re-runs only when the value of the 'isOpen' prop changes.
 
   // --- BACKEND/API/JWT REQUIREMENT (Accept Action) ---
   // Asynchronous function to handle accepting a pending request.
@@ -147,15 +146,14 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
       // This endpoint must be protected and require the JWT.
       // The backend will verify the user owns this request and update its status (e.g., to 'accepted').
       // It should also handle the financial transaction (transferring funds).
-      // Example endpoint: PUT /api/pending-requests/{requestId}/accept
-      const response = await fetch(`/api/pending-requests/${requestId}/accept`, {
+      // Example endpoint: PUT /api/wallet/{userId}/requests/{requestId}/accept
+      const response = await fetch(`http://localhost:5001/api/wallet/${userId}/requests/${requestId}`, {
         method: 'PUT', // Use PUT as we are updating the state/status of a resource (the pending request).
         headers: {
           'Authorization': `Bearer ${token}`, // Include the JWT.
           'Content-Type': 'application/json', // Indicate the request body format (if sending one).
         },
-        // If your backend requires a request body for acceptance (e.g., confirmation), add it here:
-        // body: JSON.stringify({ confirmation: true }),
+        body: JSON.stringify({ response: true }),
       });
 
       // --- PROCESSING API RESPONSE & ERROR HANDLING ---
@@ -174,7 +172,7 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
             const errorBody = await response.json(); // Try to get error message from backend.
             setRequestActionStatus(prevStatus => ({
                 ...prevStatus,
-                [requestId]: { loading: false, error: errorBody.message || 'Failed to accept request' }
+                [requestId]: { loading: false, error: errorBody.error || 'Failed to accept request' }
             }));
          }
          return; // Stop execution on error.
@@ -186,9 +184,9 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
       setPendingRequests(prevRequests => prevRequests.filter(req => req.id !== requestId));
       // Also remove the action status for this request as it's no longer pending.
       setRequestActionStatus(prevStatus => {
-          const newState = { ...prevStatus };
-          delete newState[requestId];
-          return newState;
+          const newStatus = { ...prevStatus };
+          delete newStatus[requestId];
+          return newStatus;
       });
 
       // --- POTENTIAL BACKEND INTERACTION (Update Count) ---
@@ -239,15 +237,13 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
       // Call the backend API endpoint to reject the request.
       // This endpoint must be protected and require the JWT.
       // The backend will verify the user owns this request and update its status (e.g., to 'rejected').
-      // Example endpoint: PUT /api/pending-requests/{requestId}/reject
-      const response = await fetch(`/api/pending-requests/${requestId}/reject`, {
-        method: 'PUT', // Use PUT for updating the state/status.
+      const response = await fetch(`http://localhost:5001/api/wallet/${userId}/requests/${requestId}`, {
+        method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${token}`, // Include the JWT.
-          'Content-Type': 'application/json', // Indicate the request body format (if sending one).
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
-        // If your backend requires a request body for rejection (e.g., a reason), add it here:
-        // body: JSON.stringify({ reason: 'Not recognized' }),
+        body: JSON.stringify({ response: false }),
       });
 
        // --- PROCESSING API RESPONSE & ERROR HANDLING ---
@@ -266,7 +262,7 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
             const errorBody = await response.json();
             setRequestActionStatus(prevStatus => ({
                 ...prevStatus,
-                [requestId]: { loading: false, error: errorBody.message || 'Failed to reject request' }
+                [requestId]: { loading: false, error: errorBody.error || 'Failed to reject request' }
             }));
          }
          return; // Stop execution on error.
@@ -277,9 +273,9 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
       setPendingRequests(prevRequests => prevRequests.filter(req => req.id !== requestId));
        // Also remove the action status for this request.
        setRequestActionStatus(prevStatus => {
-          const newState = { ...prevStatus };
-          delete newState[requestId];
-          return newState;
+          const newStatus = { ...prevStatus };
+          delete newStatus[requestId];
+          return newStatus;
       });
 
       // --- POTENTIAL BACKEND INTERACTION (Update Count) ---
@@ -328,7 +324,7 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
           {/* --- LOADING, ERROR, AND DATA DISPLAY --- */}
           {/* Conditionally render different content based on the loading, error, and data states. */}
           {loading && <p>Loading pending requests...</p>} {/* Show loading message while fetching initial list */}
-          {error && <p className="error-message">Error: {error}</p>} {/* Show error message if initial fetch failed */}
+          {error && <p className="error-message">{error}</p>} {/* Show error message if initial fetch failed */}
           {!loading && !error && pendingRequests.length === 0 && (
             <p>No pending requests.</p> // Show message if no requests and no loading/error
           )}
@@ -342,6 +338,14 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
               {pendingRequests.map(request => {
                  // Get the action status for this specific request item.
                  const status = requestActionStatus[request.id] || { loading: false, error: null };
+                 const senderName = request.sender?.name || request.sender?.username || 'Unknown User';
+                 const formattedDate = new Date(request.createdAt).toLocaleString('en-US', {
+                   year: 'numeric',
+                   month: 'short',
+                   day: 'numeric',
+                   hour: '2-digit',
+                   minute: '2-digit'
+                 });
 
                  return (
                 // Create a list item for each request. Use a unique key (e.g., the request ID from the backend).
@@ -349,11 +353,17 @@ const PendingRequestsModal = ({ isOpen, onClose }) => {
                   {/* Display request details from the fetched data */}
                   {/* Assuming the backend returns objects with fields like 'fromUser' (which has a 'name'), 'amount', 'date', and 'id' */}
                   <div className="request-details">
-                    Request from: <strong>{request.fromUser?.name || 'Unknown User'}</strong> {/* Optional chaining in case fromUser is null or name is missing */}
+                    Request from: <strong>{senderName}</strong> {/* Optional chaining in case fromUser is null or name is missing */}
                     <br />
                     Amount: <strong>${parseFloat(request.amount).toFixed(2)}</strong> {/* Parse amount as float and format to 2 decimal places */}
                     <br />
-                    Date: {new Date(request.date).toLocaleDateString()} {/* Format the date */}
+                    Date: {formattedDate} {/* Format the date */}
+                    {request.note && (
+                      <>
+                        <br />
+                        Note: {request.note}
+                      </>
+                    )}
                     {/* Display action-specific error message if any */}
                     {status.error && <p className="item-error-message">{status.error}</p>}
                   </div>

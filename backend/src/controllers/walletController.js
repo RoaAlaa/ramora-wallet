@@ -86,17 +86,15 @@ exports.respondToRequest = async (req, res) => {
 
 exports.viewRequests = async (req, res) => {
     try {
-        const { receiverId } = req.body;
+        const { userId } = req.params;
 
-        const result = await WalletService.viewRequests(receiverId);
+        const result = await WalletService.viewRequests(userId);
 
         if (!result.success) {
             return res.status(400).json({ error: result.error });
         }
 
-        res.status(200).json({
-            requests: result.requests
-        });
+        res.status(200).json(result.requests);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -118,5 +116,26 @@ exports.getTransactionHistory = async (req, res) => {
         });
     } catch (error) {
         res.status(400).json({ error: error.message });
+    }
+};
+
+exports.addBalance = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { amount } = req.body;
+
+        const result = await WalletService.addBalance(userId, parseFloat(amount));
+
+        if (!result.success) {
+            return res.status(400).json({ error: result.error });
+        }
+
+        res.status(200).json({
+            message: 'Balance added successfully',
+            newBalance: result.newBalance,
+            transaction: result.transaction
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };

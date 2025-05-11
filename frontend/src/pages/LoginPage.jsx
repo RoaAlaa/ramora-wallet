@@ -31,10 +31,19 @@ const LoginPage = () => {
         password: values.password,
       });
 
-      localStorage.setItem('jwtToken', response.data.token);
-      navigate('/dashboard');  // Redirect to route, not file
+      if (response.data && response.data.token && response.data.user) {
+        localStorage.setItem('jwtToken', response.data.token);
+        localStorage.setItem('userId', response.data.user._id);
+        navigate('/dashboard');  // Redirect to dashboard
+      } else {
+        setError('Invalid response from server.');
+      }
     } catch (error) {
-      setError('Invalid credentials, please try again.');
+      if (error.response) {
+        setError(error.response.data.error || 'Invalid credentials, please try again.');
+      } else {
+        setError('Network error. Please try again later.');
+      }
     } finally {
       setSubmitting(false);
     }

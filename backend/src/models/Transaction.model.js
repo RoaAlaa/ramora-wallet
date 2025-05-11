@@ -29,7 +29,7 @@ const transactionSchema = new mongoose.Schema(
     type: {
       type: String,
       required: [true, 'Transaction type is required'],
-      enum: ['send', 'request'], // Added more transaction types
+      enum: ['send', 'request', 'deposit'], // Added 'deposit' as a valid type
       index: true
     },
     status: {

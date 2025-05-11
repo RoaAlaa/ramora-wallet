@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./ProfilePage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 const ProfilePage = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const userId = location.state?.userId;
 
   const [profile, setProfile] = useState({
     name: "",
@@ -10,50 +13,64 @@ const ProfilePage = () => {
     email: "",
     phoneNumber: "",
     password: "",
-  }); //profile shayla el hagat el hategy mel backend mel db
-  //set profile hatsheel el data el gedida lw 3amlt update 
+  });
 
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({}); //Temporarily stores what the user types in the form.
+  const [formData, setFormData] = useState({});
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [valuesToConfirm, setValuesToConfirm] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setMessage('');
-    setError('');
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem('jwtToken');
+        if (!token) {
+          setError('Authentication required.');
+          navigate('/login');
+          return;
+        }
 
-    // MOCK DATA
-    const mockData = {
-      name: "Amira Ashraf",
-      username: "amira123",
-      email: "amira@example.com",
-      phoneNumber: "0123456789",
+        const response = await fetch(`http://localhost:5001/api/users/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            localStorage.removeItem('jwtToken');
+            setError('Session expired. Please log in again.');
+            navigate('/login');
+          } else {
+            const errorBody = await response.json();
+            setError(`Error fetching profile: ${response.status} ${errorBody.message || response.statusText}`);
+          }
+          return;
+        }
+
+        const data = await response.json();
+        setProfile(data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Failed to fetch profile:', err);
+        setError('Failed to load profile data.');
+        setLoading(false);
+      }
     };
-    setProfile(mockData);
 
-    // TODO: Replace mockData with real API call once backend is ready
-    /*
-    const token = localStorage.getItem("token");
+    if (userId) {
+      fetchProfile();
+    } else {
+      setError('User ID not provided');
+      setLoading(false);
+    }
+  }, [userId, navigate]);
 
-    fetch("http://localhost:5000/api/profile", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setProfile(data))
-      .catch((err) => {
-        console.error("Failed to fetch profile", err);
-        setError("Failed to load profile data.");
-      });
-    */
-  }, []);
-
-  //when users press edit profile
   const handleEditClick = () => {
     setIsEditing(true);
     setFormData(profile);
@@ -61,11 +78,10 @@ const ProfilePage = () => {
     setError("");
   };
 
-  //e event 
   const handleChange = (e) => {
-    setFormData((prev) => ({ 
-      ...prev, //prev keeps everything just changes what is changed 
-      [e.target.name]: e.target.value, //e.target.name is the name attribute of the input (like "email" or "username").// e.target.value is what you typed into the input.
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -83,42 +99,54 @@ const ProfilePage = () => {
     setError("");
 
     try {
-      // Simulate waiting time
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const token = localStorage.getItem('jwtToken');
+      if (!token) {
+        setError('Authentication required.');
+        navigate('/login');
+        return;
+      }
 
-      // TODO: Replace with actual update API call
-      /*
-      const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/profile", {
-        method: "PUT",
+      const response = await fetch(`http://localhost:5001/api/users/${userId}`, {
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(valuesToConfirm),
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Update failed");
-      */
+      if (!response.ok) {
+        if (response.status === 401) {
+          localStorage.removeItem('jwtToken');
+          setError('Session expired. Please log in again.');
+          navigate('/login');
+        } else {
+          const errorBody = await response.json();
+          throw new Error(errorBody.message || 'Update failed');
+        }
+        return;
+      }
 
-      // Simulated success response
-      setProfile((prev) => ({ ...prev, ...valuesToConfirm }));
+      const data = await response.json();
+      setProfile(data);
       setMessage("Profile updated successfully!");
       setIsEditing(false);
       setValuesToConfirm(null);
     } catch (err) {
-      console.error("Profile update error:", err);
-      setError(err.message || "Failed to update profile.");
+      console.error('Profile update error:', err);
+      setError(err.message || 'Failed to update profile.');
     }
   };
 
   const handleCancelUpdate = () => {
     setShowModal(false);
     setValuesToConfirm(null);
-    setIsEditing(false); 
-    navigate("/profile");
+    setIsEditing(false);
   };
+
+  if (loading) {
+    return <div className="profile-page">Loading profile...</div>;
+  }
 
   return (
     <div className="profile-page">
@@ -198,23 +226,26 @@ const ProfilePage = () => {
             <button className="submit-button" type="submit">
               Save Changes
             </button>
+            <button
+              className="cancel-button"
+              type="button"
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </button>
           </form>
         )}
       </div>
 
       {/* Confirmation Modal */}
       {showModal && (
-        <div className="modal-backdrop">
+        <div className="modal">
           <div className="modal-content">
-            <h3>Confirm Profile Update</h3>
-            <p>Are you sure you want to update your profile information?</p>
+            <h3>Confirm Changes</h3>
+            <p>Are you sure you want to update your profile?</p>
             <div className="modal-buttons">
-              <button className="cancel-button" onClick={handleCancelUpdate}>
-                No
-              </button>
-              <button className="confirm-button" onClick={handleConfirmUpdate}>
-                Yes
-              </button>
+              <button onClick={handleConfirmUpdate}>Confirm</button>
+              <button onClick={handleCancelUpdate}>Cancel</button>
             </div>
           </div>
         </div>

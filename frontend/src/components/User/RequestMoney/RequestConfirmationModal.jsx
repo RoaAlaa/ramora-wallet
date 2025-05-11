@@ -4,7 +4,7 @@ import React from 'react';
 import styles from './RequestMoney.module.css'; 
 
 // CHANGED: Component name and prop name (requesterNumber instead of recipientNumber)
-function RequestConfirmationModal({ show, requesterNumber, amount, onConfirm, onCancel }) {
+function RequestConfirmationModal({ show, requesterNumber, amount, note, onConfirm, onCancel }) {
   // If show is false, don't render the modal
   if (!show) {
     return null;
@@ -18,6 +18,11 @@ function RequestConfirmationModal({ show, requesterNumber, amount, onConfirm, on
         {/* CHANGED: Display amount and number - use strong tags for emphasis */}
         {/* CHANGED: Confirmation message for requesting */}
         <p>Are you sure you want to request <strong>${amount}</strong> from <strong>{requesterNumber}</strong>?</p>
+        {note && (
+          <p className={styles.noteText}>
+            Note: <em>{note}</em>
+          </p>
+        )}
         <div className={styles.modalButtons}>
           {/* Cancel button remains the same */}
           <button className={styles.cancelButton} onClick={onCancel}>No</button>

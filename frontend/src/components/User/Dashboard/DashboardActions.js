@@ -1,95 +1,76 @@
 // component contains 3 buttons sendmoney, requestmoney, and pendingtransactions
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import PendingRequestsModal from './PendingRequestsModal'; // We'll create this next
-import './DashboardActions.css'; // CSS for styling the buttons and layout
+import PendingRequestsModal from './PendingRequestsModal';
+import AddMoney from './AddMoney';
+import './DashboardActions.css';
 
-const DashboardActions = () => {
+const DashboardActions = ({ userId, onBalanceUpdate }) => {
   const navigate = useNavigate(); 
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [pendingRequestsCount, setPendingRequestsCount] = useState(0); // State to hold the count
+  const [pendingRequestsCount, setPendingRequestsCount] = useState(0);
+  const [error, setError] = useState(null);
 
-  // --- BACKEND/API/JWT REQUIREMENT ---
-  // This useEffect will fetch the count of pending requests when the component mounts.
-  // This is needed to determine the style of the "Pending Requests" button.
   useEffect(() => {
     const fetchPendingCount = async () => {
       try {
-        // Get the JWT token
         const token = localStorage.getItem('jwtToken');
         if (!token) {
-          console.error("Authentication token missing for pending count fetch.");
-          return; 
+          setError('Authentication required.');
+          return;
         }
-
-        // Call your backend API endpoint to get the count of pending requests for the user.
-        // This endpoint should be protected and require the JWT.
-        // The backend identifies the user from the JWT and queries the database for their pending requests count.
-        const response = await fetch('/api/user/pending-requests/count', { // Example API endpoint
+        const response = await fetch(`http://localhost:5001/api/wallet/${userId}/requests`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`, // Include JWT
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         });
-
         if (!response.ok) {
-          // Handle API errors (e.g., 401 Unauthorized if JWT is bad)
           if (response.status === 401) {
-             localStorage.removeItem('jwtToken');
-             // navigate('/login'); // Redirect if token is invalid
-             console.error("Session expired fetching pending count.");
-           }
-          throw new Error(`Error fetching pending requests count: ${response.statusText}`);
+            localStorage.removeItem('jwtToken');
+            setError('Session expired. Please log in again.');
+          } else {
+            const errorBody = await response.json();
+            setError(`Error fetching pending requests: ${response.status} ${errorBody.message || response.statusText}`);
+          }
+          return;
         }
-
         const data = await response.json();
-        // --- PROCESSING API RESPONSE ---
-        // Assuming the backend response is like { count: 5 }
-        setPendingRequestsCount(data.count); // Update state with the fetched count
-
+        setPendingRequestsCount(data.length);
       } catch (err) {
-        console.error("Failed to fetch pending requests count:", err);
-        // Optionally set an error state to display a message
+        console.error('Failed to fetch pending requests:', err);
+        setError(`Failed to load pending requests: ${err.message}`);
       }
     };
-
     fetchPendingCount();
-  }, []); // Empty dependency array means this runs once on mount
+  }, [userId]);
 
   const handleSendMoneyClick = () => {
-    // --- FRONTEND ROUTING ---
-    // Navigate to the Send Money page. This doesn't directly call an API yet,
-    // but the Send Money page itself will likely interact with the backend API
-    // (e.g., fetching contact list, submitting the transaction).
-    navigate('/send-money'); // Example route
+    navigate('/sendmoney', { state: { userId } });
   };
 
   const handleRequestMoneyClick = () => {
-    // --- FRONTEND ROUTING ---
-    // Navigate to the Request Money page. Similar to Send Money, this page
-    // will handle backend interactions.
-    navigate('/request-money'); // Example route
+    navigate('/requestmoney', { state: { userId } });
   };
 
   const handlePendingRequestsClick = () => {
-    // Open the modal when the button is clicked
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    // Close the modal
     setIsModalOpen(false);
-    // --- POTENTIAL BACKEND INTERACTION ---
-    // After closing the modal (especially if requests were acted upon),
-    // you might want to re-fetch the pending count to update the button's appearance.
-    // fetchPendingCount(); // Call the fetch function again
   };
 
   return (
     <div className="dashboard-actions">
-      {/* Row of Send and Request buttons */}
+      {/* Top row with Add Money button */}
+      <div className="action-buttons-row">
+        <AddMoney userId={userId} onBalanceUpdate={onBalanceUpdate} />
+      </div>
+
+      {/* Middle row with Send and Request buttons */}
       <div className="action-buttons-row">
         <button className="action-button" onClick={handleSendMoneyClick}>
           Send Money
@@ -99,18 +80,15 @@ const DashboardActions = () => {
         </button>
       </div>
 
-      {/* Pending Requests button */}
+      {/* Bottom row with Pending Requests button */}
       <button
         className={`action-button pending-button ${pendingRequestsCount > 0 ? 'has-pending' : ''}`}
         onClick={handlePendingRequestsClick}
       >
-        Pending Requests ({pendingRequestsCount}) {/* Display the count */}
+        Pending Requests ({pendingRequestsCount})
       </button>
 
-      {/* Pending Requests Modal */}
-      {/* --- BACKEND/API/JWT REQUIREMENT --- */}
-      {/* The modal component will need to fetch the *list* of pending requests. */}
-      <PendingRequestsModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <PendingRequestsModal isOpen={isModalOpen} onClose={handleCloseModal} userId={userId} />
     </div>
   );
 };

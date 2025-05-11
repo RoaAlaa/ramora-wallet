@@ -1,58 +1,79 @@
 .dashboard-actions {
-    margin-top: 40px; /* Space above the buttons */
-    text-align: center; /* Center the buttons */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.action-buttons-row {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.action-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for Send Money and Request Money buttons */
+.action-buttons-row .action-button {
+  background-color: #000000;
+  color: white;
+}
+
+.action-buttons-row .action-button:hover {
+  background-color: #333333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for Pending Requests button */
+.pending-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.pending-button:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Additional style for when there are pending requests */
+.has-pending {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .action-buttons-row {
-    display: flex;
-    justify-content: center; /* Center the two buttons */
-    gap: 20px; /* Space between Send and Request buttons */
-    margin-bottom: 20px; /* Space below this row */
-    flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+    flex-direction: column;
   }
-  
+
   .action-button {
-    padding: 15px 30px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    color: white; /* White text */
-    background-color: #1a1a1a; /* Black background */
-    /* --- 3D Shadow/Hover Effect --- */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Initial shadow */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease;
-    position: relative; /* Needed for 3D effect */
-    transform-style: preserve-3d;
+    width: 100%;
   }
-  
-  .action-button:hover {
-    /* --- 3D Hover Effect --- */
-    transform: translateZ(10px) translateY(-3px); /* Lift and move slightly */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Enhance shadow on hover */
-    background-color: #333; /* Slightly lighter black on hover */
-  }
-  
-  .action-button:active {
-      transform: translateZ(0) translateY(0); /* Press down effect */
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  
-  /* --- PENDING BUTTON SPECIFIC STYLES --- */
-  .pending-button {
-      margin-top: 10px; /* Space above the pending button */
-      /* Default style (black) */
-  }
-  
-  .pending-button.has-pending {
-    /* --- 3D GREEN BACKGROUND (Requirement) --- */
-    /* Use a green gradient or solid green */
-    background: linear-gradient(135deg, #28a745, #218838); /* Green gradient */
-    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4); /* Green shadow */
-  }
-  
-  .pending-button.has-pending:hover {
-    background: linear-gradient(135deg, #218838, #1e7e34); /* Darker green on hover */
-    box-shadow: 0 10px 20px rgba(40, 167, 69, 0.6); /* Enhance green shadow */
-  }
+}
