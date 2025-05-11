@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' }); 
+require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
@@ -11,11 +11,15 @@ app.use(cors({
 }));
 app.use(express.json());
 const userRoutes = require('./routes/userRoute');
-
+const bucketRoutes = require('./routes/bucketsRoute');
+const walletRoutes = require('./routes/walletRoutes');
 // Connect to MongoDB
 connectDB();
 
 app.use('/api/users', userRoutes);
+app.use('/api/buckets', bucketRoutes); 
+app.use('/api/wallet', walletRoutes); 
+
 app.get('/', (req, res) => {
   res.send('Hello from the Backend!');
 });
