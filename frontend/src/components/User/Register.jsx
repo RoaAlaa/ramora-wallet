@@ -43,32 +43,30 @@ const SignUpPage = () => {
   const handleSubmit = async (values, { resetForm }) => {
     setIsSubmitting(true);
     setMessage(null);
-    console.log(values);
-
+  
+    console.log("Submitting values:", values); // Ensure this logs all 5 fields
+  
     try {
       const response = await axios.post('http://localhost:5001/api/users/register', values);
-      //console.log(response.data);
-     
-      
+  
       if (response.data.success) {
         setMessage({ type: 'success', text: 'Registration successful! Redirecting to login...' });
         resetForm();
         setTimeout(() => {
           navigate('/login');
         }, 3000);
-        // You might want to redirect to login page after successful registration
-        // navigate('/login');
       } else {
         setMessage({ type: 'error', text: response.data.message || 'Registration failed. Please try again.' });
       }
     } catch (error) {
-      console.error('Registration error:', error);
-      const errorMessage = error.response?.data?.message || error.message || 'Registration failed. Please try again.';
+      console.error('Registration error:', error.response?.data || error.message);
+      const errorMessage = error.response?.data?.error || 'Registration failed. Please try again.';
       setMessage({ type: 'error', text: errorMessage });
     } finally {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <div className="signup-page">

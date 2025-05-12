@@ -1,0 +1,191 @@
+.ramora-feedback-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.ramora-feedback-container::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(57, 255, 20, 0.1) 0%, transparent 70%);
+  animation: pulse 15s infinite linear;
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.2); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.ramora-feedback-card {
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 20px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.2);
+  border: 1px solid rgba(57, 255, 20, 0.1);
+  backdrop-filter: blur(10px);
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ramora-feedback-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 40px rgba(57, 255, 20, 0.3);
+}
+
+.ramora-feedback-title {
+  color: #fff;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.ramora-feedback-icon {
+  font-size: 2rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.ramora-feedback-subtitle {
+  color: #888;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.ramora-feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ramora-feedback-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ramora-feedback-label {
+  color: #39FF14;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.ramora-feedback-input,
+.ramora-feedback-textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(57, 255, 20, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.ramora-feedback-input:focus,
+.ramora-feedback-textarea:focus {
+  outline: none;
+  border-color: #39FF14;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ramora-feedback-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.ramora-feedback-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.ramora-feedback-submit,
+.ramora-feedback-cancel {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ramora-feedback-submit {
+  background: #39FF14;
+  color: #000;
+}
+
+.ramora-feedback-submit:hover {
+  background: #32CD32;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(57, 255, 20, 0.3);
+}
+
+.ramora-feedback-cancel {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.ramora-feedback-cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.ramora-feedback-status {
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.ramora-feedback-status.success {
+  background: rgba(57, 255, 20, 0.1);
+  color: #39FF14;
+  border: 1px solid rgba(57, 255, 20, 0.3);
+}
+
+.ramora-feedback-status.error {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff4444;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .ramora-feedback-card {
+    padding: 1.5rem;
+  }
+
+  .ramora-feedback-title {
+    font-size: 2rem;
+  }
+
+  .ramora-feedback-buttons {
+    flex-direction: column;
+  }
+} 

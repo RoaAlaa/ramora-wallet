@@ -7,6 +7,7 @@ import Navbar from '../components/Common/Navbartwo'; // Your existing Navbar com
 import BalanceCard from '../components/User/Dashboard/BalanceCard'; // The BalanceCard component we created
 import DashboardActions from '../components/User/Dashboard/DashboardActions'; // The DashboardActions component (includes buttons and modal)
 import RecentTransactions from '../components/User/Dashboard/RecentTransactions'; // The RecentTransactions component (transaction history)
+import Footer from '../components/Common/Footer';
 import '../pages/DashboardUserPage.css'; // Import the CSS file for styling the dashboard layout
 // Import the CSS file for styling the dashboard layout
 import './AdminPage'; // Adjust the path as necessary
@@ -128,6 +129,7 @@ const DashboardUserPage = () => {
         </div>
       </div>
       <RecentTransactions userId={userData?._id} />
+      <Footer />
     </div>
   );
 };

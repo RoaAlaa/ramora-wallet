@@ -1,0 +1,81 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  color: black;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.modal-content p {
+  margin-bottom: 25px;
+  font-size: 1.1em;
+  color: #666;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.modal-buttons .cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.modal-buttons .cancel-button:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.modal-buttons .confirm-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.modal-buttons .confirm-button:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+/* Delete confirmation specific styles */
+.modal-buttons .delete-confirm-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.modal-buttons .delete-confirm-button:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+} 
