@@ -8,6 +8,9 @@ import user_icon from '../../assets/person.png';
 import email_icon from '../../assets/email.png';
 import password_icon from '../../assets/password.png';
 import phone_icon from '../../assets/phone1.png';
+import eye_icon from '../../assets/open-eye.png';
+import eye_closed from '../../assets/closed-eye.png';
+import Footer from '../Common/Footer';
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -130,13 +133,13 @@ const SignUpPage = () => {
                 placeholder="Password"
                 className="form-control"
               />
-              <button
-                type="button"
-                className="toggle-password"
+
+              <img
+                src={passwordVisible ? eye_icon : eye_closed}
+                alt="Toggle Password Visibility"
+                className="toggle-password-icon"
                 onClick={() => setPasswordVisible(!passwordVisible)}
-              >
-                {passwordVisible ? 'Hide' : 'Show'}
-              </button>
+              />
             </div>
             {submitCount > 0 && errors.password && touched.password && (
               <div className="error-message">{errors.password}</div>
@@ -157,6 +160,7 @@ const SignUpPage = () => {
           </Form>
         )}
       </Formik>
+      <Footer/>
     </div>
   );
 };

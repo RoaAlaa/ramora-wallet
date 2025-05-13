@@ -16,13 +16,18 @@ import './AdminPage'; // Adjust the path as necessary
 // The main DashboardPage component
 const DashboardUserPage = () => {
   const navigate = useNavigate();
-
-  // --- TEMPORARY DUMMY DATA (for testing without login) ---
-  // REMOVED DUMMY DATA
-
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  // Function to trigger a refresh of the dashboard data
+  const refreshDashboard = () => {
+    setRefreshTrigger(prev => prev + 1);
+  };
+
+  // --- TEMPORARY DUMMY DATA (for testing without login) ---
+  // REMOVED DUMMY DATA
 
   // --- AUTH CHECK AND FETCH ---
   useEffect(() => {
@@ -120,15 +125,24 @@ const DashboardUserPage = () => {
              </h2>
           </div>
           <div className="actions-container">
-            <DashboardActions userId={userData?._id} />
+            <DashboardActions 
+              userId={userData?._id} 
+              onBalanceUpdate={refreshDashboard} 
+            />
           </div>
         </div>
         <div className="hero-right">
           {console.log('Rendering BalanceCard with userId:', userData?._id)} {/* Debug log */}
-          <BalanceCard userId={userData?._id} />
+          <BalanceCard 
+            userId={userData?._id} 
+            refreshTrigger={refreshTrigger} 
+          />
         </div>
       </div>
-      <RecentTransactions userId={userData?._id} />
+      <RecentTransactions 
+        userId={userData?._id} 
+        refreshTrigger={refreshTrigger} 
+      />
       <Footer />
     </div>
   );

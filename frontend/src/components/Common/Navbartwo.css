@@ -34,6 +34,7 @@
   position: relative;
   transition: color 0.3s ease;
   padding: 5px;
+  cursor: pointer;
 }
 
 .nav-link::after {
@@ -110,6 +111,7 @@
   color: white;
   font-weight: 500;
 }
+
 
 .logout-button {
   padding: 8px 12px;

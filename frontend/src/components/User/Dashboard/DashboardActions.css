@@ -42,17 +42,23 @@
 .pending-button {
   background-color: black;
   color: white;
+  position: relative;
+    left: 32%;
 }
 
 .pending-button:hover {
   background-color: #32CD32;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+ 
 }
 
 /* Additional style for when there are pending requests */
 .has-pending {
-  animation: pulse 2s infinite;
+  /* animation: pulse 2s infinite; */
+ /* margin-left: 160px !important;
+margin-top: 5px !important; */
+
 }
 
 @keyframes pulse {
@@ -76,4 +82,9 @@
   .action-button {
     width: 100%;
   }
+  .pending-button {
+  background-color: black;
+  color: white;
+  position: static;
+}
 }

@@ -35,6 +35,15 @@ const Navbartwo = ({ userName }) => {
     navigate('/');
   };
 
+  const handleHomeClick = () => {
+    const isLoggedIn = localStorage.getItem('jwtToken');
+    if (isLoggedIn) {
+      navigate('/dashboard/home');
+    } else {
+      navigate('/');
+    }
+  };
+
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
@@ -47,7 +56,7 @@ const Navbartwo = ({ userName }) => {
     <nav className="custom-navbar">
       <div className="nav-left">
         <div className="brand" onClick={() => navigate('/')}>Ramora</div>
-        <Link to="/" className="nav-link">Home</Link>
+        <div className="nav-link" onClick={handleHomeClick}>Home</div>
         <Link to="/dashboard" className="nav-link">Dashboard</Link>
         <Link to="/profile" className="nav-link" onClick={handleProfileClick}>Profile</Link>
 

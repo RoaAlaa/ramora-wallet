@@ -200,6 +200,7 @@ function SendMoney() {
         onConfirm={handleConfirmSend}
         onCancel={handleCancelSend}
       />
+      
     </div>
   );
 }

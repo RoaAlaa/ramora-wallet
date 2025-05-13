@@ -12,38 +12,39 @@ const DashboardActions = ({ userId, onBalanceUpdate }) => {
   const [pendingRequestsCount, setPendingRequestsCount] = useState(0);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPendingCount = async () => {
-      try {
-        const token = localStorage.getItem('jwtToken');
-        if (!token) {
-          setError('Authentication required.');
-          return;
-        }
-        const response = await fetch(`http://localhost:5001/api/wallet/${userId}/requests`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-        if (!response.ok) {
-          if (response.status === 401) {
-            localStorage.removeItem('jwtToken');
-            setError('Session expired. Please log in again.');
-          } else {
-            const errorBody = await response.json();
-            setError(`Error fetching pending requests: ${response.status} ${errorBody.message || response.statusText}`);
-          }
-          return;
-        }
-        const data = await response.json();
-        setPendingRequestsCount(data.length);
-      } catch (err) {
-        console.error('Failed to fetch pending requests:', err);
-        setError(`Failed to load pending requests: ${err.message}`);
+  const fetchPendingCount = async () => {
+    try {
+      const token = localStorage.getItem('jwtToken');
+      if (!token) {
+        setError('Authentication required.');
+        return;
       }
-    };
+      const response = await fetch(`http://localhost:5001/api/wallet/${userId}/requests`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        if (response.status === 401) {
+          localStorage.removeItem('jwtToken');
+          setError('Session expired. Please log in again.');
+        } else {
+          const errorBody = await response.json();
+          setError(`Error fetching pending requests: ${response.status} ${errorBody.message || response.statusText}`);
+        }
+        return;
+      }
+      const data = await response.json();
+      setPendingRequestsCount(data.length);
+    } catch (err) {
+      console.error('Failed to fetch pending requests:', err);
+      setError(`Failed to load pending requests: ${err.message}`);
+    }
+  };
+
+  useEffect(() => {
     fetchPendingCount();
   }, [userId]);
 
@@ -88,7 +89,13 @@ const DashboardActions = ({ userId, onBalanceUpdate }) => {
         Pending Requests ({pendingRequestsCount})
       </button>
 
-      <PendingRequestsModal isOpen={isModalOpen} onClose={handleCloseModal} userId={userId} />
+      <PendingRequestsModal 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal} 
+        userId={userId} 
+        onBalanceUpdate={onBalanceUpdate}
+        onRequestHandled={fetchPendingCount}
+      />
     </div>
   );
 };
