@@ -1,16 +1,50 @@
 import React, { useState, useEffect } from "react";
 import Navbartwo from "../../Common/Navbartwo";
 import "./ProfilePage.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfilePageConfirmationModal from "./ProfilePageConfirmationModal";
 import Footer from "../../Common/Footer";
+import axios from 'axios';
+
+// Create axios instance with default config
+const api = axios.create({
+  baseURL: 'http://localhost:5001/api',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+// Add request interceptor to add auth token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Add response interceptor to handle common errors
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('jwtToken');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const userId = location.state?.userId;
 
   const [profile, setProfile] = useState({
+    _id: "",
     name: "",
     username: "",
     email: "",
@@ -37,43 +71,23 @@ const ProfilePage = () => {
           return;
         }
 
-        const response = await fetch(`http://localhost:5001/api/users/${userId}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          if (response.status === 401) {
-            localStorage.removeItem('jwtToken');
-            setError('Session expired. Please log in again.');
-            navigate('/login');
-          } else {
-            const errorBody = await response.json();
-            setError(`Error fetching profile: ${response.status} ${errorBody.message || response.statusText}`);
-          }
-          return;
+        const { data } = await api.get('/users/me');
+        console.log('Fetched user data:', data); // Debug log
+        if (data.user && data.user._id) {
+          setProfile(data.user);
+        } else {
+          setError('Invalid user data received');
         }
-
-        const data = await response.json();
-        setProfile(data);
         setLoading(false);
       } catch (err) {
         console.error('Failed to fetch profile:', err);
-        setError('Failed to load profile data.');
+        setError(err.response?.data?.error || 'Failed to load profile data.');
         setLoading(false);
       }
     };
 
-    if (userId) {
-      fetchProfile();
-    } else {
-      setError('User ID not provided');
-      setLoading(false);
-    }
-  }, [userId, navigate]);
+    fetchProfile();
+  }, [navigate]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -103,42 +117,29 @@ const ProfilePage = () => {
     setError("");
 
     try {
-      const token = localStorage.getItem('jwtToken');
-      if (!token) {
-        setError('Authentication required.');
-        navigate('/login');
-        return;
+      if (!profile._id) {
+        throw new Error('User ID is missing');
       }
 
-      const response = await fetch(`http://localhost:5001/api/users/${userId}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(valuesToConfirm),
-      });
+      // Create update object with only the fields that have values
+      const updateData = {};
+      if (valuesToConfirm.name) updateData.name = valuesToConfirm.name;
+      if (valuesToConfirm.phoneNumber) updateData.phoneNumber = valuesToConfirm.phoneNumber;
+      if (valuesToConfirm.password) updateData.password = valuesToConfirm.password;
 
-      if (!response.ok) {
-        if (response.status === 401) {
-          localStorage.removeItem('jwtToken');
-          setError('Session expired. Please log in again.');
-          navigate('/login');
-        } else {
-          const errorBody = await response.json();
-          throw new Error(errorBody.message || 'Update failed');
-        }
-        return;
-      }
+      console.log('Updating user with ID:', profile._id);
+      console.log('Update data:', updateData);
 
-      const data = await response.json();
-      setProfile(data);
+      const { data } = await api.put(`/users/${profile._id}`, updateData);
+
+      console.log('Update response:', data);
+      setProfile(data.user);
       setMessage("Profile updated successfully!");
       setIsEditing(false);
       setValuesToConfirm(null);
     } catch (err) {
       console.error('Profile update error:', err);
-      setError(err.message || 'Failed to update profile.');
+      setError(err.response?.data?.error || 'Failed to update profile.');
     }
   };
 
@@ -154,33 +155,11 @@ const ProfilePage = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      const token = localStorage.getItem('jwtToken');
-      if (!token) {
-        setError('Authentication required.');
-        navigate('/login');
-        return;
+      if (!profile._id) {
+        throw new Error('User ID is missing');
       }
 
-      const response = await fetch(`http://localhost:5001/api/users/${userId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          localStorage.removeItem('jwtToken');
-          setError('Session expired. Please log in again.');
-          navigate('/login');
-        } else {
-          const errorBody = await response.json();
-          throw new Error(errorBody.message || 'Delete failed');
-        }
-        return;
-      }
-
+      await api.delete(`/users/${profile._id}`);
       localStorage.removeItem('jwtToken');
       setMessage("Profile deleted successfully!");
       setTimeout(() => {
@@ -188,7 +167,7 @@ const ProfilePage = () => {
       }, 2000);
     } catch (err) {
       console.error('Profile deletion error:', err);
-      setError(err.message || 'Failed to delete profile.');
+      setError(err.response?.data?.error || 'Failed to delete profile.');
     }
     setShowDeleteModal(false);
   };
@@ -250,16 +229,6 @@ const ProfilePage = () => {
               />
             </div>
             <div className="input-container">
-              <label className="field-label">Username:</label>
-              <input
-                className="form-control"
-                name="username"
-                placeholder="Username"
-                value={formData.username}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="input-container">
               <label className="field-label">New Password:</label>
               <input
                 className="form-control"
@@ -284,7 +253,7 @@ const ProfilePage = () => {
               Save Changes
             </button>
             <button
-              className="cancel-button"
+              className="delete-button"
               type="button"
               onClick={() => setIsEditing(false)}
             >
