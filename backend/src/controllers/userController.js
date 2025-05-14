@@ -79,14 +79,14 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     try {
-        const userId = req.params.id;
+        const userId = req.params.userId;
         const updates = req.body;
 
         // Don't allow updating email or username
         delete updates.email;
         delete updates.username;
 
-        // If password is being updated, hash it
+        // // If password is being updated, hash it
         if (updates.password) {
             updates.password = await bcrypt.hash(updates.password, 10);
         }
