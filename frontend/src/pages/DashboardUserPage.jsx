@@ -10,7 +10,7 @@ import RecentTransactions from '../components/User/Dashboard/RecentTransactions'
 import Footer from '../components/Common/Footer';
 import '../pages/DashboardUserPage.css'; // Import the CSS file for styling the dashboard layout
 // Import the CSS file for styling the dashboard layout
-import './AdminPage'; // Adjust the path as necessary
+
 
 
 // The main DashboardPage component

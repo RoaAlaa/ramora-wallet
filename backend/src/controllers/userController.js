@@ -11,12 +11,13 @@ exports.register = async (req, res) => {
         }
 
         res.status(201).json({
+            success: true,
             message: 'User registered successfully',
             user: result.user,
             token: result.token
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ success: false, error: error.message });
     }
 };
 
@@ -77,7 +78,7 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     try {
-        const userId = req.params.id;
+        const userId = req.params.userId;
         const updates = req.body;
 
         // Don't allow updating email or username
