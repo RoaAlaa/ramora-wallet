@@ -12,6 +12,7 @@ const BudgetTrackingPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [modalError, setModalError] = useState(null);
   const [showAddBucketModal, setShowAddBucketModal] = useState(false);
   const [showEditBucketModal, setShowEditBucketModal] = useState(false);
   const [selectedBucket, setSelectedBucket] = useState(null);
@@ -73,12 +74,20 @@ const BudgetTrackingPage = () => {
   const handleAddBucket = async () => {
     try {
       if (!newBucketName.trim()) {
-        throw new Error('Bucket name is required');
+        setModalError('Bucket name is required');
+        return;
       }
 
       const amount = parseFloat(newBucketAmount);
       if (isNaN(amount) || amount < 0) {
-        throw new Error('Please enter a valid amount');
+        setModalError('Please enter a valid amount');
+        return;
+      }
+
+      // Check if user has sufficient funds
+      if (amount > userData.totalBalance) {
+        setModalError('Insufficient funds');
+        return;
       }
 
       const token = localStorage.getItem('jwtToken');
@@ -109,8 +118,9 @@ const BudgetTrackingPage = () => {
       setShowAddBucketModal(false);
       setNewBucketName('');
       setNewBucketAmount('');
+      setModalError(null);
     } catch (err) {
-      setError(err.message);
+      setModalError(err.message);
     }
   };
 
@@ -261,13 +271,19 @@ const BudgetTrackingPage = () => {
                 type="text"
                 placeholder="Bucket Name"
                 value={newBucketName}
-                onChange={(e) => setNewBucketName(e.target.value)}
+                onChange={(e) => {
+                  setNewBucketName(e.target.value);
+                  setModalError(null);
+                }}
               />
               <input
                 type="number"
                 placeholder="Initial Amount"
                 value={newBucketAmount}
-                onChange={(e) => setNewBucketAmount(e.target.value)}
+                onChange={(e) => {
+                  setNewBucketAmount(e.target.value);
+                  setModalError(null);
+                }}
               />
               <div className="modal-buttons">
                 <button onClick={handleAddBucket}>Create</button>
@@ -275,10 +291,21 @@ const BudgetTrackingPage = () => {
                   setShowAddBucketModal(false);
                   setNewBucketName('');
                   setNewBucketAmount('');
-                  setError(null);
+                  setModalError(null);
                 }}>Cancel</button>
               </div>
-              {error && <p className="error-message">{error}</p>}
+              {modalError && (
+                <div className="error-message">
+                  {modalError === 'Insufficient funds' ? (
+                    <>
+                      <p>Insufficient funds</p>
+                      <p>Your current balance: ${userData.totalBalance.toFixed(2)}</p>
+                    </>
+                  ) : (
+                    <p>{modalError}</p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         )}
