@@ -1,5 +1,6 @@
 const UserService = require('../services/UserService');
 const bcrypt = require('bcrypt');
+const emailServices = require('../services/MailServices');
 
 exports.register = async (req, res) => {
     try {
@@ -10,6 +11,7 @@ exports.register = async (req, res) => {
             return res.status(400).json({ error: result.error });
         }
 
+        await emailServices.sendEmail(result.user.email, 'welcome to our app', `Hi ${result.user.name}, thank you for registering!`);
         res.status(201).json({
             message: 'User registered successfully',
             user: result.user,
@@ -104,6 +106,33 @@ exports.updateUser = async (req, res) => {
     }
 };
 
+exports.deleteUser = async (req, res)=>{
+    try{
+        const userId = req.params.userId;
+        const result = await UserService.deleteUser(userId);
+        if (!result.success)
+        {
+            return res.status(404).json({error: result.error});
+        }
+
+        await emailServices.sendEmail(result.user.email, 'Account has been deleted', `Hi ${result.user.name},We're writing to confirm that your account has been successfully`);
+        res.status(201).json({
+            message: 'User deleted successfully',
+            user: result.user,
+            token: result.token
+        });
+
+        res.status(200).json({
+            success : true,
+            deletedUser: result.deletedUser
+        });
+    }
+    catch(error)
+    {
+        res.status(500).json({error: error.message});
+    }
+
+};
 exports.searchUsers = async (req, res) => {
     try {
         const { query } = req.query;
@@ -128,5 +157,6 @@ module.exports = {
     getMe: exports.getMe,
     getUserById: exports.getUserById,
     updateUser: exports.updateUser,
+    deleteUser: exports.deleteUser,
     searchUsers: exports.searchUsers
 };
