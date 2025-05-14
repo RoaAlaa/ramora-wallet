@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import './RecentTransactions.css'; // Import the CSS for styling and scrollability
 
-// RecentTransactions component receives userId as a prop from its parent (DashboardPage).
+// RecentTransactions component receives userId and refreshTrigger as props from its parent (DashboardPage).
 // This userId is needed to fetch transactions specific to the logged-in user.
-const RecentTransactions = ({ userId }) => {
+const RecentTransactions = ({ userId, refreshTrigger }) => {
   // Initialize the navigate hook if you are using react-router-dom for redirects.
   // const navigate = useNavigate();
 
@@ -15,10 +15,11 @@ const RecentTransactions = ({ userId }) => {
   const [loading, setLoading] = useState(true);
   // State to track any error that occurs during the transaction data fetch.
   const [error, setError] = useState(null);
+  const [filter, setFilter] = useState('all'); // Add this new state
 
   // --- BACKEND/API/JWT REQUIREMENT ---
   // useEffect hook to perform side effects. Here, it's used to fetch the list of recent transactions.
-  // This effect runs when the component mounts and whenever the 'userId' prop changes.
+  // This effect runs when the component mounts and whenever the 'userId' or 'refreshTrigger' prop changes.
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -56,8 +57,18 @@ const RecentTransactions = ({ userId }) => {
       }
     };
     fetchTransactions();
-  }, [userId]);
+  }, [userId, refreshTrigger]);
 
+  // Add this new filter handler
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
+
+  // Add this filtering logic
+  const filteredTransactions = transactions.filter(transaction => {
+    if (filter === 'all') return true;
+    return transaction.type === filter;
+  });
 
   if (loading) return (
     <div className="transaction-history-box">
@@ -86,13 +97,27 @@ const RecentTransactions = ({ userId }) => {
   // If not loading, no error, and transactions exist, render the list.
   return (
     <div className="transaction-history-box">
-      <h3>Transaction History</h3>
+      <div className="transaction-header">
+        <h3>Transaction History</h3>
+        <div className="transaction-filter">
+          <select 
+            value={filter} 
+            onChange={handleFilterChange}
+            className="filter-select"
+          >
+            <option value="all">All Transactions</option>
+            <option value="send">Sent Money</option>
+            <option value="request">Money Requests</option>
+            <option value="deposit">Deposits</option>
+          </select>
+        </div>
+      </div>
       {/* --- SCROLLABLE LIST (Requirement) --- */}
       {/* The CSS for .transaction-list handles the scrollability behavior. */}
       <ul className="transaction-list">
         {/* --- POPULATING LIST WITH API DATA --- */}
         {/* Map over the 'transactions' state array (populated by the API fetch) to create a list item for each transaction. */}
-        {transactions.map(transaction => (
+        {filteredTransactions.map(transaction => (
           // Create a list item for each transaction. Use a unique key (e.g., the transaction ID from the backend).
           <li key={transaction.id} className="transaction-item">
             {/* Display transaction details from the fetched data */}
@@ -101,13 +126,17 @@ const RecentTransactions = ({ userId }) => {
                 <span className="transaction-description">
                   {transaction.type === 'send' ? `Sent to ${transaction.counterpart?.name || transaction.counterpart?.username}` :
                    transaction.type === 'request' ? `Requested from ${transaction.counterpart?.name || transaction.counterpart?.username}` :
+                   transaction.type === 'deposit' ? 'Deposit' :
                    transaction.note || 'Transaction'}
                 </span>
                 <span className="transaction-date">{new Date(transaction.createdAt).toLocaleDateString()}</span>
+                <span className={`transaction-status status-${transaction.status.toLowerCase()}`}>
+                  {transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1)}
+                </span>
             </div>
             {/* Display the transaction amount. Add styling for positive/negative amounts based on the value. */}
             <span className={`transaction-amount ${transaction.direction === 'sent' ? 'negative' : 'positive'}`}>
-                {transaction.direction === 'sent' ? '-' : '+'}${parseFloat(transaction.amount).toFixed(2)}
+                ${parseFloat(transaction.amount).toFixed(2)}
             </span>
           </li>
         ))}

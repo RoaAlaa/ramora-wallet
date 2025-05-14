@@ -5,8 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor:default;
 }
-
+*{
+  cursor: default;
+    user-select: none;     /* Prevents text selection */
+  outline: none; 
+  
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.05) inset !important;
+  -webkit-text-fill-color: #fff !important; /* adjust to your design */
+  transition: background-color 5000s ease-in-out 0s !important;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -1,14 +1,11 @@
 /* --- DASHBOARD THEME (Requirement: White background) --- */
 /* Removed global body selector to prevent style leakage */
-
 .dashboard-container {
   margin: 0; /* Remove default body margin */
   background-color: #ffffff; /* White background for the dashboard only */
   font-family: Arial, sans-serif; /* Example font */
   color: #333; /* Default text color */
-  padding-top: 60px; /* Add padding equal to Navbar height if Navbar is fixed */
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-top: 60px; /* Add padding equal to Navbar height if Navbar is fixed */;
   min-height: 100vh;
 }
 

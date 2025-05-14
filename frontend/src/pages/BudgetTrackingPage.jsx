@@ -4,6 +4,7 @@ import Navbar from '../components/Common/Navbartwo';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { FaPlus, FaEdit } from 'react-icons/fa';
 import './BudgetTrackingPage.css';
+import Footer from '../components/Common/Footer';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D'];
 
@@ -314,6 +315,7 @@ const BudgetTrackingPage = () => {
           </div>
         )}
       </div>
+      <Footer/>
     </div>
   );
 };

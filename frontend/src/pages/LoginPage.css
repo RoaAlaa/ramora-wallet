@@ -1,184 +1,233 @@
 /* General Styling */
 .login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-    color: black;
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
-  }
-  
-  /* Form Styling */
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    background-color: black;
-    padding: 40px;
-    border-radius: 15px;
-    width: 450px; /* Wider form */
-    box-shadow: 0 15px 35px rgba(28, 126, 19, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Form Title Styling */
-  .form-title {
-    font-size: 2.5rem;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    margin-bottom: 30px; /* Make sure there’s space between title and form */
-    color: white;
-    background-color: black;
-    padding: 20px 25px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transform: translateY(-5px);
-    transition: transform 0.3s ease;
-  }
-  
-  .form-title:hover {
-    transform: translateY(-8px);
-  }
-  
-  /* Input Container */
-  .input-container {
-    display: flex;
-    align-items: center;
-    /* margin-bottom: 20px; */
-    border: 2px solid #333;
-    border-radius: 8px;
-    padding: 10px 15px;
-    transition: all 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.05);
-    height: 55px; /* Same as button */
-  }
-  
-  /* Hover state for input */
-  .input-container:hover {
-    border-color: rgba(57, 255, 20, 0.7);
-    box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
-  }
-  
-  /* Focus within state */
-  .input-container:focus-within {
-    border-color: rgba(57, 255, 20, 0.9);
-    box-shadow: 0 0 15px rgba(57, 255, 20, 0.8);
-    background-color: rgba(57, 255, 20, 0.05);
-  }
-  
-  /* Input Fields */
-  .form-control {
-    width: 100%;
-    padding: 10px;
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 1.2rem; /* Increased font size */
-    border-radius: 5px;
-    transition: all 0.3s ease;
-  }
-  
-  /* Placeholder color */
-  .form-control::placeholder {
-    color: #888;
-    transition: color 0.3s ease;
-  }
-  
-  /* Remove inside focus outline */
-  .form-control:focus {
-    outline: none;
-    box-shadow: none;
-  }
-  
-  /* Submit Button */
-  .submit-button {
-    width: 100%;
-    height: 55px;
-    background-color: black;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Button hover effect */
-  .submit-button:hover {
-    background-color: black;
-    color: white;
-    box-shadow: 0 0 15px rgba(57, 255, 20, 0.9);
-    transform: translateY(-2px);
-    border-color: rgba(57, 255, 20, 0.9);
-  }
-  
-  /* Button disabled state */
-  .submit-button:disabled {
-    background-color: #333;
-    border-color: #444;
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-  
-  /* Error Message Styling */
-  .error-message {
-    color: #ff4444;
-    font-size: 1rem; /* Bigger error message */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  color: black;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+}
+.form-title {
+  font-size: 2.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin-bottom: 30px; /* Make sure there's space between title and form */
+  color: white;
+  background-color: black;
+  padding: 20px 25px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
 
-    animation: shake 0.5s ease-in-out;
-  }
+.form-title:hover {
+  transform: translateY(-8px);
+}
+/* Form Styling */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  padding: 20px;
+  border-radius: 15px;
+  width: 390px; /* Wider form */
+  box-shadow: 0 15px 35px rgba(28, 126, 19, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
   
-  /* Shake animation for error messages */
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-  }
-  
-  /* Password Visibility Toggle Button */
-  .toggle-password {
+}
+.login-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #333 0%, #666 50%, #333 100%);
+}
+.login-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Form Title Styling */
+
+
+/* Input Container */
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.05);
+  height: 20px !important;
+  cursor: text;
+}
+
+/* Hover state for input */
+.input-container:hover {
+  border-color: rgba(57, 255, 20, 0.7);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+   background-color: rgba(57, 255, 20, 0.05); 
+
+}
+
+/* Focus within state */
+.input-container:focus-within {
+  border-color: rgba(57, 255, 20, 0.9);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.8);
+  background-color: rgba(57, 255, 20, 0.05);
+}
+.input-icon {
+    width: 25px;
+    height: 20px;
+    margin-right: 12px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+
+/* Input Fields */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  cursor: text;
+}
+
+
+/* Placeholder color */
+.form-control::placeholder {
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+/* Remove inside focus outline */
+.form-control:focus-within {
+  outline: none;
+  box-shadow: none;
+}
+.toggle-password {
     background: none;
     border: none;
-    color: #888;
+    color: rgba(57,255,20,0.9) !important;
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
     margin-left: 10px;
-    transition: color 0.3s ease;
-  }
-  
-  .toggle-password:hover {
-    color: white;
+    transition: all 0.3s ease;
+}
+
+.toggle-password:hover {
+    color:  rgba(57,255,20,0.9) !important;
     text-decoration: underline;
+}
+/* Submit Button */
+.submit-button {
+  width: 100%;
+  height: 55px;
+  background-color: black;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.submit-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.submit-button:hover::before {
+    left: 100%;
+}
+
+
+/* Button hover effect */
+.submit-button:hover {
+  background-color: black;
+  color: white;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.9);
+  transform: translateY(-2px);
+  border-color: rgba(57, 255, 20, 0.9);
+}
+.submit-button:active {
+    transform: translateY(1px);
+}
+/* Button disabled state */
+.submit-button:disabled {
+  background-color: #333;
+  border-color: #444;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #ff4444;
+  font-size: 1rem; /* Bigger error message */
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Shake animation for error messages */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Password Visibility Toggle Button */
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .login-form {
+    width: 90%;
+    padding: 35px;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .login-form {
-      width: 90%;
-      padding: 35px;
-    }
+}
+
+@media (max-width: 768px) {
+  .login-form {
+    width: 90%;
+    padding: 30px;
   }
-  
-  @media (max-width: 768px) {
-    .login-form {
-      width: 90%;
-      padding: 30px;
-    }
+}
+
+@media (max-width: 480px) {
+  .login-form {
+    width: 95%;
+    padding: 25px;
   }
-  
-  @media (max-width: 480px) {
-    .login-form {
-      width: 95%;
-      padding: 25px;
-    }
-  }
-  
+}

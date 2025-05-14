@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import './PendingRequestModal.css' // Import the CSS file for modal styling
 
-const PendingRequestsModal = ({ isOpen, onClose, userId }) => {
+const PendingRequestsModal = ({ isOpen, onClose, userId, onBalanceUpdate, onRequestHandled }) => {
   // Initialize the navigate hook if you are using react-router-dom for redirects.
   // const navigate = useNavigate();
 
@@ -189,6 +189,27 @@ const PendingRequestsModal = ({ isOpen, onClose, userId }) => {
           return newStatus;
       });
 
+      // Call onBalanceUpdate to refresh the dashboard
+      if (onBalanceUpdate) {
+        onBalanceUpdate();
+      }
+
+      // Update the pending requests count in the parent component
+      if (onRequestHandled) {
+        onRequestHandled();
+      }
+
+      // Trigger budget refresh
+      const refreshBudgetStr = localStorage.getItem('refreshBudget');
+      if (refreshBudgetStr) {
+        try {
+          const refreshBudget = new Function('return ' + refreshBudgetStr)();
+          refreshBudget();
+        } catch (err) {
+          console.error('Failed to trigger budget refresh:', err);
+        }
+      }
+
       // --- POTENTIAL BACKEND INTERACTION (Update Count) ---
       // Since a request was accepted, the total count of pending requests on the dashboard might have changed.
       // You should signal the parent component (DashboardActions) to re-fetch the count.
@@ -277,6 +298,27 @@ const PendingRequestsModal = ({ isOpen, onClose, userId }) => {
           delete newStatus[requestId];
           return newStatus;
       });
+
+      // Call onBalanceUpdate to refresh the dashboard
+      if (onBalanceUpdate) {
+        onBalanceUpdate();
+      }
+
+      // Update the pending requests count in the parent component
+      if (onRequestHandled) {
+        onRequestHandled();
+      }
+
+      // Trigger budget refresh
+      const refreshBudgetStr = localStorage.getItem('refreshBudget');
+      if (refreshBudgetStr) {
+        try {
+          const refreshBudget = new Function('return ' + refreshBudgetStr)();
+          refreshBudget();
+        } catch (err) {
+          console.error('Failed to trigger budget refresh:', err);
+        }
+      }
 
       // --- POTENTIAL BACKEND INTERACTION (Update Count) ---
       // Since a request was rejected, the total count of pending requests on the dashboard might have changed.

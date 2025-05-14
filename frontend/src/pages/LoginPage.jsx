@@ -4,11 +4,16 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';  // For navigation
 import '../pages/LoginPage.css';
+import Footer from '../components/Common/Footer'; 
 //Login page done waiting for the register page to test it
 
 // Importing icons
 import user_icon from '../assets/person.png';
 import password_icon from '../assets/password.png';
+import eye_icon from '../assets/open-eye.png';
+import eye_closed from '../assets/closed-eye.png';
+
+
 
 const validationSchema = Yup.object({
   username: Yup.string().required('Username is required'),
@@ -84,13 +89,13 @@ const LoginPage = () => {
                   placeholder="Password"
                   className="form-control"
                 />
-                <button
-                  type="button"
-                  className="toggle-password"
+
+                <img
+                  src={showPassword ? eye_icon : eye_closed}
+                  alt="Toggle Password Visibility"
+                  className="toggle-password-icon"
                   onClick={togglePasswordVisibility}
-                >
-                  {showPassword ? 'Hide' : 'Show'}
-                </button>
+                />
               </div>
               <ErrorMessage name="password" component="div" className="error-message" />
             </div>
@@ -104,6 +109,7 @@ const LoginPage = () => {
           </Form>
         )}
       </Formik>
+      <Footer/>
     </div>
   );
 };

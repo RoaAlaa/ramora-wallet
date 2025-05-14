@@ -1,4 +1,5 @@
-footer {
+/* Base footer styles */
+.footer {
     background-color: #000;
     color: white;
     display: flex;
@@ -7,9 +8,27 @@ footer {
     padding: 1rem 2rem;
     font-size: 1rem;
     flex-wrap: wrap;
+    width: 100% ;
+    box-sizing: border-box;
+}
+
+/* Fixed footer styles */
+.footer-fixed {
+    position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 1;
+    z-index: 1000;
+}
+
+/* Add padding to the main content when footer is fixed */
+body:has(.footer-fixed) {
+    padding-bottom: 60px; /* Adjust this value based on your footer height */
+}
+
+/* Content wrapper for pages with fixed footer */
+.page-content {
+    min-height: calc(100vh - 60px); /* Subtract footer height */
+    padding-bottom: 60px; /* Add padding equal to footer height */
 }
 
 .footer-left {
@@ -42,14 +61,25 @@ footer {
     width: 100%; 
 }
 
+/* Responsive styles */
 @media (max-width: 600px) {
     .footer {
         flex-direction: column;
         text-align: center;
+        padding: 1rem;
     }
 
     .footer-left,
     .footer-right {
         margin: 0.5rem 0;
+    }
+
+    /* Adjust padding for mobile when footer is fixed */
+    body:has(.footer-fixed) {
+        padding-bottom: 80px; /* Increased padding for mobile */
+    }
+
+    .page-content {
+        padding-bottom: 80px; /* Increased padding for mobile */
     }
 }

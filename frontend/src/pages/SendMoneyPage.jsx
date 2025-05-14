@@ -1,15 +1,18 @@
 // src/pages/SendMoneyPage.jsx
 import React from 'react';
-import SendMoney from '../components/User/SendMoney/SendMoney'; // Adjust the import path
+import Navbartwo from '../components/Common/Navbartwo';
+import SendMoney from '../components/User/SendMoney/SendMoney';
+import Footer from '../components/Common/Footer';
 
 function SendMoneyPage() {
   // This page component is now just a simple wrapper
   // All the complex form logic is inside the SendMoney component
   return (
-    // The SendMoney component already includes the pageContainer styling
-    // You could add additional layout here if needed, but for this example,
-    // just rendering SendMoney is sufficient as it contains the main structure.
-    <SendMoney />
+    <div className="page-content">
+      <Navbartwo/>
+      <SendMoney />
+      <Footer />
+    </div>
   );
 }
 

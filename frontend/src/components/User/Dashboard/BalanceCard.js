@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './BalanceCard.css';
 
-const BalanceCard = ({ userId }) => {
+const BalanceCard = ({ userId, refreshTrigger }) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,14 +43,12 @@ const BalanceCard = ({ userId }) => {
 
         const data = await response.json();
         
-        // Check if we have the user data in the response
         if (!data.success || !data.user) {
           setError('Invalid response format from server');
           setLoading(false);
           return;
         }
 
-        // Ensure balance is a number and buckets is an array
         const user = {
           ...data.user,
           balance: Number(data.user.balance) || 0,
@@ -72,7 +70,7 @@ const BalanceCard = ({ userId }) => {
       setLoading(false);
       setError('No user ID provided');
     }
-  }, [userId]);
+  }, [userId, refreshTrigger]);
 
   if (loading) return <div className="loading-message">Loading balance...</div>;
   if (error) return <div className="error-message">{error}</div>;

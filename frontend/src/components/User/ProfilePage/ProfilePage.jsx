@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Navbartwo from "../../Common/Navbartwo";
 import "./ProfilePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import ProfilePageConfirmationModal from "./ProfilePageConfirmationModal";
+import Footer from "../../Common/Footer";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -201,6 +203,7 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page">
+      <Navbartwo/>
       <div className="profile-form">
         <h2 className="form-title">Profile</h2>
 
@@ -311,6 +314,7 @@ const ProfilePage = () => {
         confirmText="Delete"
         confirmButtonClass="delete-confirm-button"
       />
+      <Footer/>
     </div>
   );
 };

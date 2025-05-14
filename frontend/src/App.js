@@ -8,8 +8,9 @@ import SendMoneyPage from './pages/SendMoneyPage';
 import RequestMoneyPage from './pages/RequestMoneyPage';
 import ProfilePage from './components/User/ProfilePage/ProfilePage';
 import DashboardUserPage from './pages/DashboardUserPage';
-import BudgetTrackingPage from './pages/BudgetTrackingPage';
+import BudgetTrackingPageWrapper from './pages/BudgetTrackingPageWrapper';
 import UserFeedback from './components/User/Feedback/UserFeedback';
+import HomeDashboard from './pages/HomeDashboard';
 
 const ProtectedRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem('jwtToken');
@@ -29,10 +30,11 @@ function App() {
 
             {/* Protected Routes */}
             <Route path="/dashboard" element={<ProtectedRoute element={<DashboardUserPage />} />} />
+            <Route path="/dashboard/home" element={<ProtectedRoute element={<HomeDashboard />} />} />
             <Route path="/sendmoney" element={<ProtectedRoute element={<SendMoneyPage />} />} />
             <Route path="/requestmoney" element={<ProtectedRoute element={<RequestMoneyPage />} />} />
             <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
-            <Route path="/budget-tracking" element={<ProtectedRoute element={<BudgetTrackingPage />} />} />
+            <Route path="/budget-tracking" element={<ProtectedRoute element={<BudgetTrackingPageWrapper />} />} />
             <Route path="/feedback" element={<ProtectedRoute element={<UserFeedback />} />} />
 
             {/* Fallback Route */}

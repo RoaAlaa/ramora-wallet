@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Footer.css'; 
+import { Link, useLocation } from 'react-router-dom';
+import './Footer.css';
 
 const Footer = () => {
+  const location = useLocation();
+  const isHome = location.pathname === '/' || 
+  location.pathname === '/dashboard' ||
+                           location.pathname === '/dashboard/home';
+
   return (
-    <footer className="footer">
+    <footer className={`footer ${!isHome ? 'footer-fixed' : ''}`}>
       <div className="footer-left">
         © 2025 Ramora
       </div>
