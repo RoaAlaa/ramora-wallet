@@ -4,41 +4,6 @@ import "./ProfilePage.css";
 import { useNavigate } from "react-router-dom";
 import ProfilePageConfirmationModal from "./ProfilePageConfirmationModal";
 import Footer from "../../Common/Footer";
-import axios from 'axios';
-
-// Create axios instance with default config
-const api = axios.create({
-  baseURL: 'http://localhost:5001/api',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
-// Add request interceptor to add auth token
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('jwtToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-// Add response interceptor to handle common errors
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('jwtToken');
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -71,8 +36,22 @@ const ProfilePage = () => {
           return;
         }
 
-        const { data } = await api.get('/users/me');
-        console.log('Fetched user data:', data); // Debug log
+        const response = await fetch('http://localhost:5001/api/users/me', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 401) {
+          localStorage.removeItem('jwtToken');
+          window.location.href = '/login';
+          return;
+        }
+
+        const data = await response.json();
+        console.log('Fetched user data:', data);
         if (data.user && data.user._id) {
           setProfile(data.user);
         } else {
@@ -81,7 +60,7 @@ const ProfilePage = () => {
         setLoading(false);
       } catch (err) {
         console.error('Failed to fetch profile:', err);
-        setError(err.response?.data?.error || 'Failed to load profile data.');
+        setError('Failed to load profile data.');
         setLoading(false);
       }
     };
@@ -121,7 +100,6 @@ const ProfilePage = () => {
         throw new Error('User ID is missing');
       }
 
-      // Create update object with only the fields that have values
       const updateData = {};
       if (valuesToConfirm.name) updateData.name = valuesToConfirm.name;
       if (valuesToConfirm.phoneNumber) updateData.phoneNumber = valuesToConfirm.phoneNumber;
@@ -130,7 +108,26 @@ const ProfilePage = () => {
       console.log('Updating user with ID:', profile._id);
       console.log('Update data:', updateData);
 
-      const { data } = await api.put(`/users/${profile._id}`, updateData);
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(`http://localhost:5001/api/users/${profile._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updateData)
+      });
+
+      if (response.status === 401) {
+        localStorage.removeItem('jwtToken');
+        window.location.href = '/login';
+        return;
+      }
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to update profile');
+      }
 
       console.log('Update response:', data);
       setProfile(data.user);
@@ -139,7 +136,7 @@ const ProfilePage = () => {
       setValuesToConfirm(null);
     } catch (err) {
       console.error('Profile update error:', err);
-      setError(err.response?.data?.error || 'Failed to update profile.');
+      setError(err.message || 'Failed to update profile.');
     }
   };
 
@@ -159,7 +156,26 @@ const ProfilePage = () => {
         throw new Error('User ID is missing');
       }
 
-      await api.delete(`/users/${profile._id}`);
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(`http://localhost:5001/api/users/${profile._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 401) {
+        localStorage.removeItem('jwtToken');
+        window.location.href = '/login';
+        return;
+      }
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to delete profile');
+      }
+
       localStorage.removeItem('jwtToken');
       setMessage("Profile deleted successfully!");
       setTimeout(() => {
@@ -167,7 +183,7 @@ const ProfilePage = () => {
       }, 2000);
     } catch (err) {
       console.error('Profile deletion error:', err);
-      setError(err.response?.data?.error || 'Failed to delete profile.');
+      setError(err.message || 'Failed to delete profile.');
     }
     setShowDeleteModal(false);
   };

@@ -61,6 +61,36 @@ exports.updateBucket = async (req, res) => {
     }
 };
 
+exports.deleteBucket = async (req, res) => {
+        try {
+        const { userId } = req.params;
+        const { bucketId } = req.body;
+
+
+        if (!bucketId) {
+            return res.status(400).json({ 
+                success: false,
+                message: 'Bucket ID is required in request body'
+            });
+        }
+
+        // Call the service function
+        const updatedUser = await BucketService.deleteBucket(userId, bucketId);
+        const result = await UserService.getUserById(userId);
+        // Return success response
+        return res.status(200).json({
+            success: true,
+            message: 'Bucket deleted successfully',
+            user : result.User
+        });
+
+    } catch (error) {
+            return res.status(404).json({
+                success: false,
+                message: error.message
+            });
+        }
+}
 // Reset all buckets
 exports.resetAllBuckets = async (req, res) => {
     try {
