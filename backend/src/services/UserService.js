@@ -178,6 +178,32 @@ class UserService {
         }
     }
 
+    async deleteUser(userId)
+    {
+        try{
+            const deletedUser = await User.findByIdAndDelete(userId);
+            if (!deletedUser)
+            {
+                return {
+                    success : false,
+                    error: "user is not found"
+                };
+            }
+            return {
+                success: true,
+                deletedUser
+            }
+
+        }
+        catch(error)
+        {
+            return{
+                success: true,
+                error: 'Failed to delete user' + error.message
+            };
+        }
+    }
+
     async searchUsers(query) {
         try {
             if (!query) {

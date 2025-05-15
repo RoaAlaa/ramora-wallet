@@ -81,6 +81,29 @@ class BucketService {
         return user;
     }
 
+    async deleteBucket(userId, bucketId)
+    {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        const bucket = user.buckets.id(bucketId);
+        if (!bucket) {
+            throw new Error("Bucket not found");
+        }
+
+        if (bucket.name === DEFAULT_BUCKET) {
+            throw new Error("Cannot delete default bucket");
+        }
+
+        const defaultBucket = user.buckets.find(b => b.name === DEFAULT_BUCKET);
+        defaultBucket.amount += bucket.amount
+        user.buckets.pull(bucketId);
+
+        await user.save();
+        return user;
+    }
 ////////////////////////// reset all buckets ////////////////////////////////
     async resetAllBuckets(userId, newBalance) {
         const user = await User.findById(userId);
