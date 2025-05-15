@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Common/Navbartwo';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
-import { FaPlus, FaEdit } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import './BudgetTrackingPage.css';
 import Footer from '../components/Common/Footer';
 
@@ -22,6 +22,8 @@ const BudgetTrackingPage = () => {
     totalBalance: 0,
     buckets: []
   });
+  const [message, setMessage] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -164,6 +166,63 @@ const BudgetTrackingPage = () => {
     }
   };
 
+  const handleDeleteBucket = async (bucketId) => {
+    try {
+      const token = localStorage.getItem('jwtToken');
+      const userId = localStorage.getItem('userId');
+
+      const response = await fetch(`http://localhost:5001/api/buckets/${userId}/buckets`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ bucketId })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete bucket');
+      }
+
+      const data = await response.json();
+      
+      // Update the state with the new data, ensuring we have valid data
+      if (data && data.user) {
+        setUserData(prevData => ({
+          totalBalance: data.user.balance || prevData.totalBalance,
+          buckets: data.user.buckets || prevData.buckets
+        }));
+        setShowSuccessModal(true);
+      } else {
+        // If we don't get the expected data structure, fetch the latest user data
+        const userResponse = await fetch(`http://localhost:5001/api/users/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (userResponse.ok) {
+          const userData = await userResponse.json();
+          if (userData.user) {
+            setUserData({
+              totalBalance: userData.user.balance || 0,
+              buckets: userData.user.buckets || []
+            });
+            setShowSuccessModal(true);
+          }
+        }
+      }
+      
+      // Clear any existing errors
+      setError(null);
+    } catch (err) {
+      console.error('Delete bucket error:', err);
+      setError(err.message);
+    }
+  };
+
   const prepareChartData = () => {
     return userData.buckets.map(bucket => ({
       name: bucket.name,
@@ -197,6 +256,9 @@ const BudgetTrackingPage = () => {
           <h1>Budget Tracking</h1>
           <div className="total-balance">Total Balance: ${userData.totalBalance.toFixed(2)}</div>
         </div>
+
+        {message && <div className="success-message">{message}</div>}
+        {error && <div className="error-message">{error}</div>}
 
         <section className="visualization-section">
           <h2>Budget Distribution</h2>
@@ -244,17 +306,29 @@ const BudgetTrackingPage = () => {
               <div key={bucket._id || index} className="bucket-card">
                 <div className="bucket-header">
                   <h3>{bucket.name}</h3>
-                  <button 
-                    className="edit-button"
-                    onClick={() => {
-                      setSelectedBucket(bucket);
-                      setNewBucketName(bucket.name);
-                      setNewBucketAmount(bucket.amount.toString());
-                      setShowEditBucketModal(true);
-                    }}
-                  >
-                    <FaEdit />
-                  </button>
+                  <div className="bucket-actions">
+                    <button 
+                      className="modify-bucket-btn"
+                      onClick={() => {
+                        setSelectedBucket(bucket);
+                        setNewBucketName(bucket.name);
+                        setNewBucketAmount(bucket.amount.toString());
+                        setShowEditBucketModal(true);
+                      }}
+                      title="Modify Bucket"
+                    >
+                      <FaEdit />
+                    </button>
+                    {bucket.name.toLowerCase() !== 'others' && (
+                      <button 
+                        className="remove-bucket-btn"
+                        onClick={() => handleDeleteBucket(bucket._id)}
+                        title="Remove Bucket"
+                      >
+                        <FaTrash />
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <p className="amount">${bucket.amount.toFixed(2)}</p>
               </div>
@@ -338,6 +412,22 @@ const BudgetTrackingPage = () => {
                 }}>Cancel</button>
               </div>
               {error && <p className="error-message">{error}</p>}
+            </div>
+          </div>
+        )}
+
+        {/* Success Modal */}
+        {showSuccessModal && (
+          <div className="modal">
+            <div className="modal-content success-modal">
+              <h3>Success</h3>
+              <p>Bucket deleted successfully!</p>
+              <button 
+                className="ok-button"
+                onClick={() => setShowSuccessModal(false)}
+              >
+                OK
+              </button>
             </div>
           </div>
         )}
