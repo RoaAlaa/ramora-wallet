@@ -1,191 +1,401 @@
+/* Ramora Feedback Container */
 .ramora-feedback-container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  background: white;
-  position: relative;
-  overflow: hidden;
+  min-height: 100vh; /* Ensure container takes at least full viewport height */
+  display: flex; /* Use flexbox to center content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding: 2rem; /* Padding around the container */
+  background: white; /* White background */
+  position: relative; /* Needed for positioning the pseudo-element */
+  overflow: hidden; /* Hide overflowing pseudo-element */
+  box-sizing: border-box; /* Include padding in the element's total width and height */
 }
 
+/* Pseudo-element for the radial gradient background animation */
 .ramora-feedback-container::before {
-  content: '';
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(57, 255, 20, 0.1) 0%, transparent 70%);
-  animation: pulse 15s infinite linear;
+  content: ''; /* Required for pseudo-elements */
+  position: absolute; /* Position relative to the container */
+  width: 200%; /* Large width for the gradient */
+  height: 200%; /* Large height for the gradient */
+  background: radial-gradient(circle, rgba(57, 255, 20, 0.1) 0%, transparent 70%); /* Radial gradient */
+  animation: pulse 15s infinite linear; /* Apply pulse animation */
+  /* Center the pseudo-element */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1); /* Initial transform for animation */
 }
 
+/* Keyframes for the pulse animation */
 @keyframes pulse {
   0% { transform: translate(-50%, -50%) scale(1); }
   50% { transform: translate(-50%, -50%) scale(1.2); }
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
+/* Ramora Feedback Card */
 .ramora-feedback-card {
-  background: rgba(0, 0, 0, 0.9);
-  border-radius: 20px;
-  padding: 2.5rem;
-  width: 100%;
-  max-width: 600px;
-  box-shadow: 0 0 30px rgba(57, 255, 20, 0.2);
-  border: 1px solid rgba(57, 255, 20, 0.1);
-  backdrop-filter: blur(10px);
-  transform: translateY(0);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(0, 0, 0, 0.9); /* Dark background with opacity */
+  border-radius: 20px; /* Rounded corners */
+  padding: 2.5rem; /* Padding inside the card */
+  width: 100%; /* Take full width of its container */
+  max-width: 600px; /* Maximum width */
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.2); /* Green shadow */
+  border: 1px solid rgba(57, 255, 20, 0.1); /* Green border */
+  backdrop-filter: blur(10px); /* Apply backdrop blur effect */
+  transform: translateY(0); /* Initial transform for hover effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  position: relative; /* Ensure card is above the pseudo-element */
+  z-index: 1; /* Ensure card is above the pseudo-element */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 .ramora-feedback-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 40px rgba(57, 255, 20, 0.3);
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0 0 40px rgba(57, 255, 20, 0.3); /* Increased green shadow on hover */
 }
 
+/* Feedback Title */
 .ramora-feedback-title {
-  color: #fff;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  font-weight: 700;
-  text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  color: #fff; /* White text color */
+  font-size: 2.5rem; /* Title font size */
+  margin-bottom: 1rem; /* Space below the title */
+  text-align: center; /* Center the text */
+  font-weight: 700; /* Bold font weight */
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.3); /* Green text shadow */
+  display: flex; /* Use flexbox for icon and text */
+  align-items: center; /* Vertically align icon and text */
+  justify-content: center; /* Center icon and text horizontally */
+  gap: 1rem; /* Space between icon and text */
+  flex-wrap: wrap; /* Allow title and icon to wrap */
 }
 
+/* Feedback Icon */
 .ramora-feedback-icon {
-  font-size: 2rem;
-  animation: float 3s ease-in-out infinite;
+  font-size: 2rem; /* Icon size */
+  animation: float 3s ease-in-out infinite; /* Apply float animation */
 }
 
+/* Keyframes for the float animation */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
+/* Feedback Subtitle */
 .ramora-feedback-subtitle {
-  color: #888;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-  line-height: 1.6;
+  color: #888; /* Gray text color */
+  text-align: center; /* Center the text */
+  margin-bottom: 2rem; /* Space below the subtitle */
+  font-size: 1.1rem; /* Subtitle font size */
+  line-height: 1.6; /* Line spacing */
 }
 
+/* Feedback Form */
 .ramora-feedback-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack form groups vertically */
+  gap: 1.5rem; /* Space between form groups */
 }
 
+/* Feedback Input Group */
 .ramora-feedback-input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack label and input vertically */
+  gap: 0.5rem; /* Space between label and input */
 }
 
+/* Feedback Label */
 .ramora-feedback-label {
-  color: #39FF14;
-  font-size: 1.1rem;
-  font-weight: 600;
+  color: #39FF14; /* Green text color */
+  font-size: 1.1rem; /* Label font size */
+  font-weight: 600; /* Bold font weight */
 }
 
+/* Feedback Input and Textarea */
 .ramora-feedback-input,
 .ramora-feedback-textarea {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(57, 255, 20, 0.2);
-  border-radius: 10px;
-  padding: 1rem;
-  color: #fff;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05); /* Semi-transparent white background */
+  border: 2px solid rgba(57, 255, 20, 0.2); /* Green border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 1rem; /* Padding inside input/textarea */
+  color: #fff; /* White text color */
+  font-size: 1rem; /* Font size */
+  transition: all 0.3s ease; /* Smooth transitions */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  width: 100%; /* Take full width of parent */
 }
 
 .ramora-feedback-input:focus,
 .ramora-feedback-textarea:focus {
-  outline: none;
-  border-color: #39FF14;
-  box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
-  background: rgba(255, 255, 255, 0.1);
+  outline: none; /* Remove default outline */
+  border-color: #39FF14; /* Green border on focus */
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); /* Green shadow on focus */
+  background: rgba(255, 255, 255, 0.1); /* Darker background on focus */
 }
 
 .ramora-feedback-textarea {
-  resize: vertical;
-  min-height: 120px;
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 120px; /* Minimum height */
 }
 
+/* Feedback Buttons Container */
 .ramora-feedback-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+  display: flex; /* Use flexbox for buttons */
+  gap: 1rem; /* Space between buttons */
+  margin-top: 1rem; /* Space above buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap */
+  justify-content: center; /* Center buttons horizontally */
 }
 
+/* Feedback Submit and Cancel Buttons */
 .ramora-feedback-submit,
 .ramora-feedback-cancel {
-  flex: 1;
-  padding: 1rem;
-  border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  flex: 1; /* Allow buttons to grow and shrink equally */
+  padding: 1rem; /* Padding inside buttons */
+  border: none; /* Remove default border */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 1.1rem; /* Font size */
+  font-weight: 600; /* Bold font weight */
+  cursor: pointer; /* Indicate it's clickable */
+  transition: all 0.3s ease; /* Smooth transitions */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  text-align: center; /* Center text within the button */
+  min-width: 120px; /* Minimum width for buttons before wrapping */
 }
 
 .ramora-feedback-submit {
-  background: #39FF14;
-  color: #000;
+  background: #39FF14; /* Green background */
+  color: #000; /* Black text */
 }
 
 .ramora-feedback-submit:hover {
-  background: #32CD32;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(57, 255, 20, 0.3);
+  background: #32CD32; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+  box-shadow: 0 5px 15px rgba(57, 255, 20, 0.3); /* Green shadow on hover */
 }
 
 .ramora-feedback-cancel {
-  background: transparent;
-  color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: transparent; /* Transparent background */
+  color: #fff; /* White text */
+  border: 2px solid rgba(255, 255, 255, 0.2); /* White border with opacity */
 }
 
 .ramora-feedback-cancel:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1); /* Darker background on hover */
+  border-color: rgba(255, 255, 255, 0.3); /* Darker border on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
+/* Feedback Status Message */
 .ramora-feedback-status {
-  padding: 1rem;
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 500;
+  padding: 1rem; /* Padding */
+  border-radius: 10px; /* Rounded corners */
+  margin-bottom: 1.5rem; /* Space below the status message */
+  text-align: center; /* Center the text */
+  font-weight: 500; /* Font weight */
+  font-size: 1rem; /* Default font size */
 }
 
 .ramora-feedback-status.success {
-  background: rgba(57, 255, 20, 0.1);
-  color: #39FF14;
-  border: 1px solid rgba(57, 255, 20, 0.3);
+  background: rgba(57, 255, 20, 0.1); /* Light green background */
+  color: #39FF14; /* Green text */
+  border: 1px solid rgba(57, 255, 20, 0.3); /* Green border */
 }
 
 .ramora-feedback-status.error {
-  background: rgba(255, 0, 0, 0.1);
-  color: #ff4444;
-  border: 1px solid rgba(255, 0, 0, 0.3);
+  background: rgba(255, 0, 0, 0.1); /* Light red background */
+  color: #ff4444; /* Red text */
+  border: 1px solid rgba(255, 0, 0, 0.3); /* Red border */
 }
 
+/* --- Responsive adjustments --- */
+
+/* Adjustments for screens smaller than 768px (common tablet breakpoint) */
 @media (max-width: 768px) {
+  .ramora-feedback-container {
+      padding: 1.5rem; /* Reduce padding around the container */
+  }
+
   .ramora-feedback-card {
-    padding: 1.5rem;
+    padding: 2rem; /* Slightly reduce padding inside the card */
   }
 
   .ramora-feedback-title {
-    font-size: 2rem;
+    font-size: 2.2rem; /* Slightly smaller title font size */
+    gap: 0.8rem; /* Reduce gap */
+  }
+
+  .ramora-feedback-icon {
+      font-size: 1.8rem; /* Slightly smaller icon size */
+  }
+
+   .ramora-feedback-subtitle {
+       font-size: 1rem; /* Slightly smaller subtitle font size */
+       margin-bottom: 1.5rem; /* Adjust margin */
+   }
+
+  .ramora-feedback-form {
+      gap: 1.2rem; /* Reduce gap between form groups */
+  }
+
+  .ramora-feedback-label {
+      font-size: 1rem; /* Slightly smaller label font size */
+  }
+
+  .ramora-feedback-input,
+  .ramora-feedback-textarea {
+      padding: 0.8rem; /* Slightly reduce input/textarea padding */
+      font-size: 0.95rem; /* Slightly smaller input/textarea font size */
+  }
+
+  .ramora-feedback-textarea {
+      min-height: 100px; /* Reduce min height */
   }
 
   .ramora-feedback-buttons {
-    flex-direction: column;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 0.8rem; /* Adjust gap for stacked buttons */
+    margin-top: 1.2rem; /* Adjust margin */
   }
-} 
+
+  .ramora-feedback-submit,
+  .ramora-feedback-cancel {
+      flex: none; /* Remove flex grow/shrink when stacked */
+      width: 100%; /* Make buttons take full width when stacked */
+      max-width: none; /* Remove max width constraint */
+      padding: 0.8rem; /* Adjust padding for stacked buttons */
+      font-size: 1rem; /* Slightly smaller button font size */
+  }
+
+  .ramora-feedback-status {
+      padding: 0.8rem; /* Slightly reduce status padding */
+      font-size: 0.9rem; /* Slightly smaller status font size */
+      margin-bottom: 1.2rem; /* Adjust margin */
+  }
+}
+
+/* Adjustments for screens smaller than 576px */
+@media (max-width: 576px) {
+    .ramora-feedback-container {
+        padding: 1rem; /* Further reduce padding */
+    }
+
+    .ramora-feedback-card {
+        padding: 1.5rem; /* Further reduce padding inside the card */
+        border-radius: 15px; /* Slightly smaller border radius */
+    }
+
+    .ramora-feedback-title {
+        font-size: 2rem; /* Smaller title font size */
+        gap: 0.6rem; /* Further reduce gap */
+    }
+
+    .ramora-feedback-icon {
+        font-size: 1.6rem; /* Smaller icon size */
+    }
+
+    .ramora-feedback-subtitle {
+        font-size: 1rem; /* Maintain subtitle font size */
+        margin-bottom: 1rem; /* Further adjust margin */
+    }
+
+    .ramora-feedback-form {
+        gap: 1rem; /* Further reduce gap between form groups */
+    }
+
+    .ramora-feedback-label {
+        font-size: 0.9rem; /* Smaller label font size */
+    }
+
+    .ramora-feedback-input,
+    .ramora-feedback-textarea {
+        padding: 0.7rem; /* Further reduce input/textarea padding */
+        font-size: 0.9rem; /* Smaller input/textarea font size */
+        border-radius: 8px; /* Slightly smaller border radius */
+    }
+
+     .ramora-feedback-textarea {
+        min-height: 80px; /* Further reduce min height */
+    }
+
+    .ramora-feedback-buttons {
+        gap: 0.6rem; /* Further reduce gap for stacked buttons */
+        margin-top: 1rem; /* Further adjust margin */
+    }
+
+    .ramora-feedback-submit,
+    .ramora-feedback-cancel {
+        padding: 0.7rem; /* Further adjust padding for stacked buttons */
+        font-size: 0.9rem; /* Smaller button font size */
+        border-radius: 8px; /* Slightly smaller border radius */
+    }
+
+    .ramora-feedback-status {
+        padding: 0.7rem; /* Further reduce status padding */
+        font-size: 0.85rem; /* Smaller status font size */
+        margin-bottom: 1rem; /* Further adjust margin */
+    }
+}
+
+/* Adjustments for screens smaller than 400px */
+@media (max-width: 400px) {
+    .ramora-feedback-container {
+        padding: 0.5rem; /* Further reduce padding */
+    }
+
+    .ramora-feedback-card {
+        padding: 1rem; /* Further reduce padding inside the card */
+        border-radius: 12px; /* Smaller border radius */
+    }
+
+    .ramora-feedback-title {
+        font-size: 1.8rem; /* Even smaller title font size */
+        gap: 0.5rem; /* Further reduce gap */
+    }
+
+    .ramora-feedback-icon {
+        font-size: 1.4rem; /* Even smaller icon size */
+    }
+
+    .ramora-feedback-subtitle {
+        font-size: 0.9rem; /* Even smaller subtitle font size */
+        margin-bottom: 0.8rem; /* Further adjust margin */
+    }
+
+    .ramora-feedback-form {
+        gap: 0.8rem; /* Further reduce gap between form groups */
+    }
+
+    .ramora-feedback-label {
+        font-size: 0.85rem; /* Even smaller label font size */
+    }
+
+    .ramora-feedback-input,
+    .ramora-feedback-textarea {
+        padding: 0.6rem; /* Further reduce input/textarea padding */
+        font-size: 0.85rem; /* Even smaller input/textarea font size */
+        border-radius: 6px; /* Smaller border radius */
+    }
+
+    .ramora-feedback-textarea {
+        min-height: 60px; /* Further reduce min height */
+    }
+
+    .ramora-feedback-buttons {
+        gap: 0.5rem; /* Further reduce gap for stacked buttons */
+        margin-top: 0.8rem; /* Further adjust margin */
+    }
+
+    .ramora-feedback-submit,
+    .ramora-feedback-cancel {
+        padding: 0.6rem; /* Further adjust padding for stacked buttons */
+        font-size: 0.85rem; /* Even smaller button font size */
+        border-radius: 6px; /* Smaller border radius */
+    }
+
+    .ramora-feedback-status {
+        padding: 0.6rem; /* Further reduce status padding */
+        font-size: 0.8rem; /* Even smaller status font size */
+        margin-bottom: 0.8rem; /* Further adjust margin */
+    }
+}

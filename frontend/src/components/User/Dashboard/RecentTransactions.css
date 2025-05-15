@@ -1,139 +1,148 @@
+/* Transaction History Container */
 .transaction-history-box {
-  margin-top: 40px;
-  padding: 25px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  width: 95%;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid #eee;
+  margin-top: 40px; /* Space above the box (Default for larger screens) */
+  padding: 25px; /* Padding inside the box */
+  background-color: #ffffff; /* White background */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  color: #333; /* Default text color */
+  display: flex; /* Use flexbox for internal layout */
+  flex-direction: column; /* Stack header and list vertically */
+  width: 95%; /* Default width (percentage is already responsive) */
+  max-width: 700px; /* Maximum width */
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+  border: 1px solid #eee; /* Light border */
+  box-sizing: border-box; /* Include padding and border in element's total width - Essential for responsive sizing */
 }
 
 .transaction-history-box:hover {
-  box-shadow: 0 6px 20px rgba(57, 255, 20, 0.15);
-  border-color: rgba(57, 255, 20, 0.2);
+  box-shadow: 0 6px 20px rgba(57, 255, 20, 0.15); /* Green shadow on hover */
+  border-color: rgba(57, 255, 20, 0.2); /* Green border on hover */
 }
 
 /* Styles for the header (h3) within the transaction history box. */
-.transaction-history-box h3 {
-  margin: 0; /* Remove margin since we're using flex layout */
-}
+/* Specific h3 styles are within .transaction-header h3 below */
 
 /* --- SCROLLABLE TRANSACTION LIST (Requirement) --- */
 /* Styles for the unordered list containing the transaction items. */
 .transaction-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: 400px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #39FF14 #f1f1f1;
+  list-style: none; /* Remove default list bullets */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  max-height: 400px; /* Maximum height before scrolling */
+  overflow-y: auto; /* Add vertical scroll if content overflows */
+  scrollbar-width: thin; /* Style scrollbar for Firefox */
+  scrollbar-color: #39FF14 #f1f1f1; /* Style scrollbar colors for Firefox */
 }
 
 /* Style the scrollbar for Webkit browsers (Chrome, Safari). */
 .transaction-list::-webkit-scrollbar {
-  width: 8px;
+  width: 8px; /* Width of the scrollbar */
 }
 
 /* Style the scrollbar track (the area the thumb moves in). */
 .transaction-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
+  background: #f1f1f1; /* Track background */
+  border-radius: 4px; /* Rounded corners for the track */
 }
 
 /* Style the scrollbar thumb (the draggable part). */
 .transaction-list::-webkit-scrollbar-thumb {
-  background: #39FF14;
-  border-radius: 4px;
+  background: #39FF14; /* Thumb background */
+  border-radius: 4px; /* Rounded corners for the thumb */
 }
 
 /* Change thumb color on hover. */
 .transaction-list::-webkit-scrollbar-thumb:hover {
-  background: #32CD32;
+  background: #32CD32; /* Darker green on hover */
 }
 
 /* Style for each individual list item (a single transaction). */
 .transaction-item {
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.3s ease;
+  background-color: #fff; /* White background */
+  border: 1px solid #eee; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px; /* Padding inside the item */
+  margin-bottom: 12px; /* Space between items */
+  display: flex; /* Use flexbox to arrange details, status, and amount */
+  justify-content: space-between; /* Put space between sections */
+  align-items: center; /* Align items vertically in the center */
+  transition: all 0.3s ease; /* Smooth transition on hover */
+  flex-wrap: wrap; /* --- RESPONSIVE: Allow sections to wrap on smaller screens --- */
+  gap: 10px; /* --- RESPONSIVE: Add gap between flex items within the item --- */
 }
 
 .transaction-item:hover {
-  transform: translateX(5px);
-  border-color: #39FF14;
-  box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+  transform: translateX(5px); /* Slide right on hover */
+  border-color: #39FF14; /* Green border on hover */
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.1); /* Green shadow on hover */
 }
 
 /* Styles for the container holding the transaction description and date. */
 .transaction-details {
-  flex-grow: 1;
-  margin-right: 15px;
-  color: #333;
+  flex-grow: 1; /* Allow details to take up available space */
+  margin-right: 15px; /* Space between details and status/amount */
+  color: #333; /* Text color */
+  /* Ensure details don't shrink too much */
+  flex-shrink: 0;
+  min-width: 150px; /* Give details a minimum width before wrapping */
 }
 
 /* Style for the transaction description (e.g., "Coffee Shop"). */
 .transaction-description {
-  font-weight: 600;
-  color: #333;
-  margin-right: 10px;
+  font-weight: 600; /* Bold font weight */
+  color: #333; /* Text color */
+  margin-right: 10px; /* Space between description and date */
 }
 
 /* Style for the transaction date. */
 .transaction-date {
-  font-size: 0.9em;
-  color: #888;
+  font-size: 0.9em; /* Smaller font size */
+  color: #888; /* Gray color */
 }
 
 /* Transaction status styles */
 .transaction-status {
-  font-size: 0.9em;
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 4px;
-  margin-left: 10px;
+  font-size: 0.9em; /* Smaller font size */
+  font-weight: 600; /* Bold font weight */
+  padding: 4px 8px; /* Padding */
+  border-radius: 4px; /* Rounded corners */
+  margin-left: 10px; /* Space to the left */
+  /* Ensure status doesn't shrink too much */
+  flex-shrink: 0;
 }
 
 .status-completed {
-  color: #39FF14;
-  background-color: rgba(57, 255, 20, 0.1);
+  color: #39FF14; /* Green text */
+  background-color: rgba(57, 255, 20, 0.1); /* Light green background */
 }
 
 .status-pending {
-  color: #ffa500;
-  background-color: rgba(255, 165, 0, 0.1);
+  color: #ffa500; /* Orange text */
+  background-color: rgba(255, 165, 0, 0.1); /* Light orange background */
 }
 
 .status-rejected{
-  color: #ff4444 !important;
-  background-color: rgba(255, 68, 68, 0.1);
+  color: #ff4444 !important; /* Red text */
+  background-color: rgba(255, 68, 68, 0.1); /* Light red background */
 }
 
 /* Style for the transaction amount. */
 .transaction-amount {
-  font-weight: bold;
-  font-size: 1.1em;
+  font-weight: bold; /* Bold font weight */
+  font-size: 1.1em; /* Slightly larger font size */
+  /* Ensure amount doesn't shrink too much */
+  flex-shrink: 0;
 }
 
 /* Optional: Style for positive/negative amounts (based on class added in JS). */
 .transaction-amount.positive {
-  color: #39FF14;
+  color: #39FF14; /* Green color */
 }
 
 .transaction-amount.negative {
-  color: #ff4444;
+  color: #ff4444; /* Red color */
 }
 
 /* Style for error messages displayed within the transaction history box. */
@@ -141,93 +150,193 @@
   color: #dc3545; /* Red color for errors. */
   text-align: center; /* Center the error message. */
   margin-top: 10px; /* Add space above the message. */
+  font-size: 0.9rem; /* Default font size */
 }
 
-/* Responsive adjustments for smaller screens. */
-/* The max-width and margin: auto on .transaction-history-box already handle centering and size on larger screens. */
-/* This media query ensures the items within the list stack nicely on very small screens. */
-@media (max-width: 576px) {
-  .transaction-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .transaction-filter {
-    width: 100%;
-  }
-
-  .filter-select {
-    width: 100%;
-  }
-
-  .transaction-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .transaction-details {
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-}
-
-/* Add these new styles */
+/* Styles for the transaction header (containing title and filter) */
 .transaction-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #eee;
+  display: flex; /* Use flexbox */
+  justify-content: space-between; /* Space between title and filter */
+  align-items: center; /* Vertically align items */
+  margin-bottom: 20px; /* Space below the header */
+  padding-bottom: 15px; /* Padding below the border */
+  border-bottom: 1px solid #eee; /* Separator line */
+  flex-wrap: wrap; /* --- RESPONSIVE: Allow items to wrap --- */
+  gap: 15px; /* --- RESPONSIVE: Add gap between title and filter if they wrap --- */
 }
 
 .transaction-header h3 {
-  margin: 0;
-  color: #333;
-  font-size: 1.4rem;
-  font-weight: 600;
+  margin: 0; /* Remove default margin */
+  color: #333; /* Text color */
+  font-size: 1.4rem; /* Font size */
+  font-weight: 600; /* Font weight */
+  flex-shrink: 0; /* Prevent title from shrinking */
 }
 
 .transaction-filter {
-  position: relative;
+  position: relative; /* Needed for positioning the custom arrow */
+  flex-shrink: 0; /* Prevent filter from shrinking */
 }
 
 .filter-select {
-  background-color: #000;
-  color: #fff;
-  border: 2px solid rgba(57, 255, 20, 0.2);
-  border-radius: 10px;
-  padding: 12px 15px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  appearance: none;
-  padding-right: 35px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  border: 2px solid rgba(57, 255, 20, 0.2); /* Border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 12px 15px; /* Padding */
+  font-size: 14px; /* Font size */
+  cursor: pointer; /* Indicate it's clickable */
+  transition: all 0.3s ease; /* Smooth transitions */
+  appearance: none; /* Remove default dropdown arrow */
+  padding-right: 35px; /* Add space for custom arrow */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Shadow */
+  box-sizing: border-box; /* Include padding and border in element's total width - Essential for responsive sizing */
 }
 
 .filter-select:hover {
-  border-color: #39FF14;
-  box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
-  transform: translateY(-2px);
+  border-color: #39FF14; /* Green border on hover */
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); /* Green shadow on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
 .filter-select:focus {
-  outline: none;
-  border-color: #39FF14;
-  box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+  outline: none; /* Remove default outline */
+  border-color: #39FF14; /* Green border on focus */
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.3); /* Green shadow on focus */
 }
 
 /* Custom dropdown arrow */
 .transaction-filter::after {
-  content: '▼';
-  font-size: 12px;
-  color: #39FF14;
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
+  content: '▼'; /* Unicode character for down arrow */
+  font-size: 12px; /* Size of the arrow */
+  color: #39FF14; /* Green color */
+  position: absolute; /* Position relative to .transaction-filter */
+  right: 12px; /* Position from the right */
+  top: 50%; /* Align vertically in the middle */
+  transform: translateY(-50%); /* Adjust vertical alignment */
+  pointer-events: none; /* Ensure the arrow doesn't interfere with select clicks */
+}
+
+
+/* --- Responsive adjustments (Increased Margin Top) --- */
+
+/* Adjustments for screens smaller than 768px (common tablet breakpoint) */
+@media (max-width: 768px) {
+    .transaction-history-box {
+        padding: 20px; /* Slightly reduce padding for smaller screens */
+        margin-top: 60px; /* --- Increased margin-top --- */
+    }
+
+    .transaction-header {
+        flex-direction: column; /* --- RESPONSIVE: Stack title and filter vertically --- */
+        align-items: flex-start; /* --- RESPONSIVE: Align stacked items to the start --- */
+        gap: 10px; /* Reduce gap between stacked items */
+        margin-bottom: 15px; /* Adjust margin */
+        padding-bottom: 10px; /* Adjust padding */
+    }
+
+    .transaction-filter {
+        width: 100%; /* --- RESPONSIVE: Make filter take full width when stacked --- */
+    }
+
+    .filter-select {
+        width: 100%; /* --- RESPONSIVE: Make select take full width --- */
+         padding-right: 30px; /* Adjust padding for arrow */
+    }
+
+    .transaction-filter::after {
+        right: 10px; /* Adjust arrow position */
+    }
+
+    .transaction-list {
+        max-height: 300px; /* Reduce max height for scrolling */
+    }
+
+    .transaction-item {
+        flex-direction: column; /* --- RESPONSIVE: Stack items vertically --- */
+        align-items: flex-start; /* --- RESPONSIVE: Align items to the start --- */
+        gap: 8px; /* Reduce gap between stacked items */
+        padding: 12px; /* Slightly reduce padding in transaction items */
+        margin-bottom: 10px; /* Reduce space between items */
+    }
+
+    .transaction-details {
+        margin-right: 0; /* Remove right margin when stacked */
+        margin-bottom: 8px; /* Add bottom margin when stacked */
+        min-width: auto; /* Allow details to shrink if needed when stacked */
+    }
+}
+
+/* Adjustments for screens smaller than 576px (your original breakpoint) */
+@media (max-width: 576px) {
+    .transaction-history-box {
+        padding: 15px; /* Further reduce padding */
+        margin-top: 50px; /* --- Increased margin-top --- */
+    }
+
+    .transaction-header {
+        gap: 8px; /* Further reduce gap */
+        margin-bottom: 10px; /* Further reduce margin */
+        padding-bottom: 8px; /* Further reduce padding */
+    }
+
+    .filter-select {
+        padding-right: 25px; /* Adjust padding for arrow */
+    }
+
+    .transaction-filter::after {
+        right: 8px; /* Adjust arrow position */
+    }
+
+    .transaction-list {
+        max-height: 250px; /* Further reduce max height */
+    }
+
+    .transaction-item {
+        /* flex-direction and align-items already set in 768px breakpoint */
+        gap: 8px; /* Maintain gap */
+        padding: 10px; /* Further reduce padding */
+        margin-bottom: 8px; /* Further reduce space */
+    }
+
+    .transaction-details {
+        margin-right: 0; /* Already set in 768px breakpoint */
+        margin-bottom: 6px; /* Adjust bottom margin */
+    }
+}
+
+/* Further adjustments for screens smaller than 400px */
+@media (max-width: 400px) {
+    .transaction-history-box {
+        padding: 10px; /* Further reduce padding */
+        margin-top: 40px; /* --- Increased margin-top --- */
+    }
+
+    .transaction-header {
+        gap: 6px; /* Further reduce gap */
+        margin-bottom: 8px; /* Further reduce margin */
+        padding-bottom: 6px; /* Further reduce padding */
+    }
+
+    .filter-select {
+        padding-right: 20px; /* Adjust padding for arrow */
+    }
+
+    .transaction-filter::after {
+        right: 6px; /* Adjust arrow position */
+    }
+
+    .transaction-list {
+        max-height: 200px; /* Further reduce max height */
+    }
+
+    .transaction-item {
+        gap: 6px; /* Further reduce gap */
+        padding: 8px; /* Further reduce padding */
+        margin-bottom: 6px; /* Further reduce space */
+    }
+
+    .transaction-details {
+        margin-bottom: 4px; /* Reduce margin */
+    }
 }

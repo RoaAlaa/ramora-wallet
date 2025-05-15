@@ -1,64 +1,80 @@
+/* Dashboard Actions Container */
 .dashboard-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
+  display: flex; /* Use flexbox to arrange items */
+  flex-direction: column; /* Stack the rows/buttons vertically */
+  gap: 15px; /* Space between the stacked rows/buttons */
+  padding: 20px; /* Padding around the container */
+  max-width: 600px; /* Maximum width for the container */
+  margin: 0 auto; /* Center the container horizontally */
+  box-sizing: border-box; /* Include padding in the element's total width */
+  align-items: center; /* Center the stacked items horizontally */
 }
 
+/* Row for Send Money and Request Money buttons */
 .action-buttons-row {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
+  display: flex; /* Use flexbox for buttons in this row */
+  gap: 15px; /* Space between buttons in the row (horizontal on large screens) */
+  justify-content: center; /* Center the buttons horizontally within the row */
+  flex-wrap: wrap; /* Allow buttons to wrap to the next line if needed */
+  width: 100%; /* Ensure the row takes full width to center buttons effectively */
 }
 
+/* Base styles for all action buttons */
 .action-button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  max-width: 200px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 12px 24px; /* Padding inside the button */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  font-weight: 600; /* Font weight */
+  cursor: pointer; /* Indicate it's clickable */
+  transition: all 0.3s ease; /* Smooth transitions on hover */
+  width: 100%; /* Take full width of its container (within flex context) */
+  max-width: 200px; /* Default max width for larger screens */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-sizing: border-box; /* Include padding and border in element's total width */
+  text-align: center; /* Center the text within the button */
+  display: block; /* Ensure button behaves like a block element */
 }
 
 /* Style for Send Money and Request Money buttons */
 .action-buttons-row .action-button {
-  background-color: #000000;
-  color: white;
+  background-color: #000000; /* Black background */
+  color: white; /* White text */
+  /* Inherits base .action-button styles */
 }
 
 .action-buttons-row .action-button:hover {
-  background-color: #32CD32;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #32CD32; /* Green background on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
 }
 
 /* Style for Pending Requests button */
 .pending-button {
-  background-color: black;
-  color: white;
-  position: relative;
-    left: 32%;
+  background-color: black; /* Black background */
+  color: white; /* White text */
+  /* Remove specific positioning for consistent stacking */
+  position: static; /* Ensure standard document flow */
+  left: auto; /* Remove left offset */
+  /* Ensure it also takes full width and respects max-width like other buttons */
+  width: 100%;
+  max-width: 200px; /* Match the default max-width of other buttons */
+  box-sizing: border-box;
+  text-align: center;
+  display: block;
+  /* Inherits base .action-button styles like padding, border-radius, etc. */
 }
 
 .pending-button:hover {
-  background-color: #32CD32;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
- 
+  background-color: #32CD32; /* Green background on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
 }
 
 /* Additional style for when there are pending requests */
 .has-pending {
   /* animation: pulse 2s infinite; */
- /* margin-left: 160px !important;
-margin-top: 5px !important; */
-
+  /* Remove positioning/margin overrides */
 }
 
 @keyframes pulse {
@@ -73,18 +89,46 @@ margin-top: 5px !important; */
   }
 }
 
-/* Responsive Design */
+/* --- Responsive Design --- */
+
+/* Adjustments for screens smaller than 768px */
 @media (max-width: 768px) {
-  .action-buttons-row {
-    flex-direction: column;
+  .dashboard-actions {
+      padding: 15px; /* Reduce padding */
+      gap: 10px; /* Reduce gap between items */
   }
 
-  .action-button {
-    width: 100%;
+  .action-buttons-row {
+    flex-direction: column; /* Stack buttons in this row vertically */
+    gap: 10px; /* Adjust gap for stacked buttons */
+    justify-content: center; /* Center stacked buttons within the row */
   }
+
+  .action-button,
   .pending-button {
-  background-color: black;
-  color: white;
-  position: static;
+    max-width: none; /* Remove max-width to allow full width on smaller screens */
+    padding: 10px 20px; /* Adjust padding */
+    font-size: 15px; /* Slightly reduce font size */
+  }
+
+  /* The pending-button already has position: static in base styles,
+     so no need to reset it here based on the "no assumption" rule. */
 }
+
+/* Further adjustments for screens smaller than 480px */
+@media (max-width: 480px) {
+    .dashboard-actions {
+        padding: 10px; /* Further reduce padding */
+        gap: 8px; /* Further reduce gap */
+    }
+
+    .action-buttons-row {
+        gap: 8px; /* Further reduce gap for stacked buttons */
+    }
+
+    .action-button,
+    .pending-button {
+        padding: 8px 15px; /* Further reduce padding */
+        font-size: 14px; /* Further reduce font size */
+    }
 }
