@@ -9,7 +9,7 @@ import SplashCursor from './SplashCursor';
 const HomePage = () => {
   return (
     <div className="content">
-      {/* <SplashCursor /> */}
+      <SplashCursor />
       <Navbar />
       <Hero />
       <About />
