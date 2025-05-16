@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // For navigation
+import { useNavigate } from 'react-router-dom'; 
 import '../pages/LoginPage.css';
 import Footer from '../components/Common/Footer'; 
-//Login page done waiting for the register page to test it
 
-// Importing icons
 import user_icon from '../assets/person.png';
 import password_icon from '../assets/password.png';
 import eye_icon from '../assets/open-eye.png';
@@ -39,7 +37,7 @@ const LoginPage = () => {
       if (response.data && response.data.token && response.data.user) {
         localStorage.setItem('jwtToken', response.data.token);
         localStorage.setItem('userId', response.data.user._id);
-        navigate('/dashboard');  // Redirect to dashboard
+        navigate('/dashboard');  
       } else {
         setError('Invalid response from server.');
       }
@@ -65,7 +63,7 @@ const LoginPage = () => {
           <Form className="login-form">
             <h2 className="form-title">Log in</h2>
 
-            {/* Username input with icon */}
+            
             <div className="mb-3">
               <div className="input-container">
                 <img src={user_icon} alt="User Icon" className="input-icon" />
@@ -79,7 +77,7 @@ const LoginPage = () => {
               <ErrorMessage name="username" component="div" className="error-message" />
             </div>
 
-            {/* Password input with icon */}
+            
             <div className="mb-3">
               <div className="input-container">
                 <img src={password_icon} alt="Password Icon" className="input-icon" />
@@ -100,7 +98,7 @@ const LoginPage = () => {
               <ErrorMessage name="password" component="div" className="error-message" />
             </div>
 
-            {/* Show login error */}
+           
             {error && <div className="error-message">{error}</div>}
 
             <button type="submit" className="submit-button" disabled={isSubmitting}>

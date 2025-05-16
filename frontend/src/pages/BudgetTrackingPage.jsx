@@ -86,7 +86,7 @@ const BudgetTrackingPage = () => {
         return;
       }
 
-      // Check if user has sufficient funds
+    
       if (amount > userData.totalBalance) {
         setModalError('Insufficient funds');
         return;
@@ -187,7 +187,7 @@ const BudgetTrackingPage = () => {
 
       const data = await response.json();
       
-      // Update the state with the new data, ensuring we have valid data
+     
       if (data && data.user) {
         setUserData(prevData => ({
           totalBalance: data.user.balance || prevData.totalBalance,
@@ -195,7 +195,7 @@ const BudgetTrackingPage = () => {
         }));
         setShowSuccessModal(true);
       } else {
-        // If we don't get the expected data structure, fetch the latest user data
+       
         const userResponse = await fetch(`http://localhost:5001/api/users/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -215,7 +215,7 @@ const BudgetTrackingPage = () => {
         }
       }
       
-      // Clear any existing errors
+    
       setError(null);
     } catch (err) {
       console.error('Delete bucket error:', err);

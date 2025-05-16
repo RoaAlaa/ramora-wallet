@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 
 function SplashCursor({
-  // You can customize these props if you want
+  
   SIM_RESOLUTION = 128,
   DYE_RESOLUTION = 1440,
   CAPTURE_RESOLUTION = 512,

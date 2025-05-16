@@ -19,7 +19,7 @@ const Navbartwo = ({ userName }) => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setIsDropdownOpen(false);
-    }, 300); // 300ms delay before closing
+    }, 300); 
   };
 
   const handleProfileClick = () => {

@@ -1,4 +1,4 @@
-/* Ensure full viewport height and stacking layout */
+
 .content {
     display: flex;
     flex-direction: column;
@@ -6,14 +6,14 @@
     overflow-x: hidden;
   }
   
-  /* Ensure each section takes full width and proper spacing */
+  
   section {
     width: 100%;
-    padding: 60px 0; /* vertical spacing between sections */
+    padding: 60px 0; 
     box-sizing: border-box;
   }
   
-  /* Make Hero fullscreen height */
+ 
   .hero-section {
     height: 100vh;
     display: flex;
@@ -21,15 +21,15 @@
     justify-content: center;
   }
   
-  /* Space between Hero and next section */
+
   .about-section,
   .services-section {
     margin-top: 50px;
   }
   
-  /* Optional: Give each section a background color for testing */
+  
   .hero-section {
-    background-color: #000; /* Or keep transparent for Hero styling */
+    background-color: #000; 
   }
   
   .about-section {
@@ -41,5 +41,5 @@
   }
   
   .full-width {
-    width: 100%; /* Enforces full width */
+    width: 100%; 
 }

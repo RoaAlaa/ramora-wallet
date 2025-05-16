@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
-// Import necessary hooks from react-router-dom for navigation
-import { useNavigate } from 'react-router-dom'; // Still needed for other navigations (e.g., to profile)
+import { useNavigate } from 'react-router-dom'; 
 
-// Import the components used on the dashboard page
-import Navbar from '../components/Common/Navbartwo'; // Your existing Navbar component
-import BalanceCard from '../components/User/Dashboard/BalanceCard'; // The BalanceCard component we created
-import DashboardActions from '../components/User/Dashboard/DashboardActions'; // The DashboardActions component (includes buttons and modal)
-import RecentTransactions from '../components/User/Dashboard/RecentTransactions'; // The RecentTransactions component (transaction history)
+import Navbar from '../components/Common/Navbartwo'; 
+import BalanceCard from '../components/User/Dashboard/BalanceCard'; 
+import DashboardActions from '../components/User/Dashboard/DashboardActions'; 
+import RecentTransactions from '../components/User/Dashboard/RecentTransactions'; 
 import Footer from '../components/Common/Footer';
-import '../pages/DashboardUserPage.css'; // Import the CSS file for styling the dashboard layout
-// Import the CSS file for styling the dashboard layout
+import '../pages/DashboardUserPage.css'; 
 
 
-
-// The main DashboardPage component
 const DashboardUserPage = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
@@ -21,15 +16,12 @@ const DashboardUserPage = () => {
   const [error, setError] = useState(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  // Function to trigger a refresh of the dashboard data
+ 
   const refreshDashboard = () => {
     setRefreshTrigger(prev => prev + 1);
   };
 
-  // --- TEMPORARY DUMMY DATA (for testing without login) ---
-  // REMOVED DUMMY DATA
 
-  // --- AUTH CHECK AND FETCH ---
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -87,12 +79,12 @@ const DashboardUserPage = () => {
     fetchUserData();
   }, [navigate]);
 
-  // --- HANDLER FOR CLICKABLE WELCOME MESSAGE ---
+ 
   const handleUserNameClick = () => {
     navigate('/profile', { state: { userId: userData?._id } });
   };
 
-  // --- LOADING AND ERROR STATES ---
+ 
   if (loading) {
     return (
       <div className="dashboard-container">
@@ -111,7 +103,7 @@ const DashboardUserPage = () => {
      );
   }
 
-  // Render the dashboard content
+  
   return (
     <div className="dashboard-container">
       <Navbar userName={userData?.name} />

@@ -6,15 +6,15 @@
 }
 
 .home-dashboard-hero {
-    background: rgba(0, 0, 0, 0.95); /* stronger opacity */
-    width: 50%; /* not full page */
-    margin: 100px auto 0; /* center + space under navbar */
+    background: rgba(0, 0, 0, 0.95); 
+    width: 50%; 
+    margin: 100px auto 0; 
     padding: 40px;
     border-radius: 20px;
     text-align: center;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* deep 3D shadow */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); 
     transition: transform 0.3s ease;
 }
 

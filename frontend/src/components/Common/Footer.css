@@ -1,4 +1,4 @@
-/* Base footer styles */
+
 .footer {
     background-color: #000;
     color: white;
@@ -12,7 +12,7 @@
     box-sizing: border-box;
 }
 
-/* Fixed footer styles */
+
 .footer-fixed {
     position: fixed;
     bottom: 0;
@@ -20,15 +20,15 @@
     z-index: 1000;
 }
 
-/* Add padding to the main content when footer is fixed */
+
 body:has(.footer-fixed) {
-    padding-bottom: 60px; /* Adjust this value based on your footer height */
+    padding-bottom: 60px; 
 }
 
-/* Content wrapper for pages with fixed footer */
+
 .page-content {
-    min-height: calc(100vh - 60px); /* Subtract footer height */
-    padding-bottom: 60px; /* Add padding equal to footer height */
+    min-height: calc(100vh - 60px); 
+    padding-bottom: 60px; 
 }
 
 .footer-left {
@@ -61,7 +61,7 @@ body:has(.footer-fixed) {
     width: 100%; 
 }
 
-/* Responsive styles */
+
 @media (max-width: 600px) {
     .footer {
         flex-direction: column;
@@ -74,12 +74,12 @@ body:has(.footer-fixed) {
         margin: 0.5rem 0;
     }
 
-    /* Adjust padding for mobile when footer is fixed */
+   
     body:has(.footer-fixed) {
-        padding-bottom: 80px; /* Increased padding for mobile */
+        padding-bottom: 80px; 
     }
 
     .page-content {
-        padding-bottom: 80px; /* Increased padding for mobile */
+        padding-bottom: 80px; 
     }
 }

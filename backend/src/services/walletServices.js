@@ -184,43 +184,48 @@ class WalletService {
     }
 
 
-    async viewRequests(receiverId) {
-        try {
+async viewRequests(receiverId) {
+    try {
+        const requests = await Transaction.find({
+            receiver: receiverId,
+            type: 'request',
+            status: 'pending'
+        })
+        .sort({ createdAt: -1 }) // Newest first
+        .populate('sender', 'username name') // Basic sender info
+        .lean();
 
-            const requests = await Transaction.find({
-                receiver: receiverId,
-                type: 'request',
-                status: 'pending'
-            })
-            .sort({ createdAt: -1 }) // Newest first
-            .populate('sender', 'username name') // Basic sender info
-            .lean();
-
-            if (!requests) throw new error("no requests");
-            
+        if (!requests || requests.length === 0) {
             return {
                 success: true,
-                requests: requests.map(request => ({
-                    id: request._id,
-                    amount: request.amount,
-                    note: request.note,
-                    createdAt: request.createdAt,
-                    sender: {
-                        username: request.sender.username,
-                        name: request.sender.name
-                    }
-                }))
-            };
-        } catch (error) {
-
-            return {
-                success: false,
-                error: error.message
+                requests: [] // Return empty array if no requests found
             };
         }
+        
+        return {
+            success: true,
+            requests: requests.map(request => ({
+                id: request._id,
+                amount: request.amount,
+                note: request.note,
+                createdAt: request.createdAt,
+                sender: request.sender ? {
+                    username: request.sender.username || 'deleted account',
+                    name: request.sender.name || 'deleted account'
+                } : {
+                    username: 'deleted account',
+                    name: 'deleted account'
+                }
+            }))
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.message
+        };
     }
-
-    async getTransactionHistory(userId) {
+}
+async getTransactionHistory(userId) {
     try {
         // 1. Get all transactions where user is sender OR receiver
         const transactions = await Transaction.find({
@@ -237,26 +242,53 @@ class WalletService {
         // 2. Format the response
         return {
             success: true,
-            transactions: transactions.map(tx => ({
-                id: tx._id,
-                type: tx.type,
-                amount: tx.amount,
-                note: tx.note,
-                status: tx.status,
-                createdAt: tx.createdAt,
-                direction: tx.sender._id.equals(userId) ? 'sent' : 'received',
-                counterpart: tx.sender._id.equals(userId) ? 
-                    { username: tx.receiver.username, name: tx.receiver.name } :
-                    { username: tx.sender.username, name: tx.sender.name }
-                }))
-            };
-        } catch (error) {
-            return {
-                success: false,
-                error: error.message
-            };
-        }
+            transactions: transactions.map(tx => {
+                const isSender = tx.sender && tx.sender._id.equals(userId);
+                const isReceiver = tx.receiver && tx.receiver._id.equals(userId);
+                
+                // Determine direction and counterpart
+                let direction, counterpart;
+                
+                if (isSender) {
+                    direction = 'sent';
+                    counterpart = {
+                        username: tx.receiver?.username || 'deleted account',
+                        name: tx.receiver?.name || 'deleted account'
+                    };
+                } else if (isReceiver) {
+                    direction = 'received';
+                    counterpart = {
+                        username: tx.sender?.username || 'deleted account',
+                        name: tx.sender?.name || 'deleted account'
+                    };
+                } else {
+                    // This shouldn't happen if data is consistent
+                    direction = 'unknown';
+                    counterpart = {
+                        username: 'deleted account',
+                        name: 'deleted account'
+                    };
+                }
+
+                return {
+                    id: tx._id,
+                    type: tx.type,
+                    amount: tx.amount,
+                    note: tx.note,
+                    status: tx.status,
+                    createdAt: tx.createdAt,
+                    direction: direction,
+                    counterpart: counterpart
+                };
+            })
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.message
+        };
     }
+}
 
     async addBalance(userId, amount) {
         try {

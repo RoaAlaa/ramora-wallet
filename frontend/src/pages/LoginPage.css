@@ -1,4 +1,4 @@
-/* General Styling */
+
 .login-page {
   display: flex;
   justify-content: center;
@@ -13,7 +13,7 @@
   font-size: 2.5rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  margin-bottom: 30px; /* Make sure there's space between title and form */
+  margin-bottom: 30px; 
   color: white;
   background-color: black;
   padding: 20px 25px;
@@ -27,14 +27,14 @@
 .form-title:hover {
   transform: translateY(-8px);
 }
-/* Form Styling */
+
 .login-form {
   display: flex;
   flex-direction: column;
   background-color: black;
   padding: 20px;
   border-radius: 15px;
-  width: 390px; /* Wider form */
+  width: 390px; 
   box-shadow: 0 15px 35px rgba(28, 126, 19, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
   justify-content: center;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -58,10 +58,7 @@
 }
 
 
-/* Form Title Styling */
 
-
-/* Input Container */
 .input-container {
   display: flex;
   align-items: center;
@@ -75,7 +72,7 @@
   cursor: text;
 }
 
-/* Hover state for input */
+
 .input-container:hover {
   border-color: rgba(57, 255, 20, 0.7);
   box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
@@ -83,7 +80,7 @@
 
 }
 
-/* Focus within state */
+
 .input-container:focus-within {
   border-color: rgba(57, 255, 20, 0.9);
   box-shadow: 0 0 10px rgba(57, 255, 20, 0.8);
@@ -98,7 +95,7 @@
 }
 
 
-/* Input Fields */
+
 .form-control {
   width: 100%;
   padding: 10px;
@@ -112,13 +109,13 @@
 }
 
 
-/* Placeholder color */
+
 .form-control::placeholder {
   color: #888;
   transition: color 0.3s ease;
 }
 
-/* Remove inside focus outline */
+
 .form-control:focus-within {
   outline: none;
   box-shadow: none;
@@ -138,7 +135,7 @@
     color:  rgba(57,255,20,0.9) !important;
     text-decoration: underline;
 }
-/* Submit Button */
+
 .submit-button {
   width: 100%;
   height: 55px;
@@ -174,7 +171,7 @@
 }
 
 
-/* Button hover effect */
+
 .submit-button:hover {
   background-color: black;
   color: white;
@@ -185,7 +182,7 @@
 .submit-button:active {
     transform: translateY(1px);
 }
-/* Button disabled state */
+
 .submit-button:disabled {
   background-color: #333;
   border-color: #444;

@@ -1,15 +1,14 @@
-/* --- DASHBOARD THEME (Requirement: White background) --- */
-/* Removed global body selector to prevent style leakage */
+
 .dashboard-container {
-  margin: 0; /* Remove default body margin */
-  background-color: #ffffff; /* White background for the dashboard only */
-  font-family: Arial, sans-serif; /* Example font */
-  color: #333; /* Default text color */
-  padding-top: 60px; /* Add padding equal to Navbar height if Navbar is fixed */;
+  margin: 0; 
+  background-color: #ffffff; 
+  font-family: Arial, sans-serif; 
+  color: #333; 
+  padding-top: 60px; 
   min-height: 100vh;
 }
 
-/* --- HERO SECTION --- */
+
 .hero-section {
   display: flex;
   flex-wrap: wrap;
@@ -36,71 +35,56 @@
   align-items: flex-start;
 }
 
-/* --- CLICKABLE WELCOME MESSAGE CONTAINER --- */
-/* This div wraps the entire welcome message and is clickable */
+
 .welcome-message {
-    cursor: pointer; /* Change cursor to pointer to indicate clickability */
-    display: inline-block; /* Allows setting margin/padding and keeps it together */
-    position: relative; /* --- KEY FOR ANIMATED UNDERLINE --- Needed for absolute positioning of ::after */
-    /* Add space below for the underline */
-    padding-bottom: 8px; /* Padding at the bottom to make space for the underline */
-    /* Remove the border-bottom as we're using a pseudo-element now */
-    /* border-bottom: 3px solid transparent; */
-    /* transition: border-bottom 0.3s ease-in-out; */
-    /* Remove the transform hover effect */
-    /* transition: transform 0.3s ease-in-out; */
-    /* will-change: transform; */
+    cursor: pointer; 
+    display: inline-block; 
+    position: relative; 
+    padding-bottom: 8px; 
+
 }
 
-/* --- PSEUDO-ELEMENT FOR ANIMATED UNDERLINE --- */
+
 .welcome-message::after {
-    content: ''; /* Required for pseudo-elements */
-    position: absolute; /* Position absolutely relative to the parent (.welcome-message) */
-    bottom: 0; /* Align to the bottom of the parent */
-    left: 0; /* Start from the left */
-    height: 3px; /* --- THICKNESS (Requirement) --- Set the height of the underline */
-    background-color: #39FF14; /* --- NEON GREEN (Requirement) --- Set the color */
-    width: 0; /* --- INITIAL STATE --- Start with zero width */
-    transition: width 0.3s ease-in-out; /* --- ANIMATION --- Animate the width over 0.3 seconds */
+    content: '';
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    height: 3px; 
+    background-color: #39FF14; 
+    width: 0; 
+    transition: width 0.3s ease-in-out; 
 }
 
 
-/* --- WELCOME MESSAGE HOVER EFFECT (Animate Underline) --- */
+
 .welcome-message:hover::after {
-    width: 100%; /* --- FINAL STATE --- Expand the underline to full width on hover */
-    /* Remove the border-bottom as we're using a pseudo-element now */
-    /* border-bottom: 3px solid #39FF14; */
-    /* Remove the transform hover effect */
-    /* transform: translateY(-5px); */
+    width: 100%; 
 }
 
 
-/* --- STYLES FOR WELCOME TEXT ("Welcome Back,") --- */
-/* This is set to black and bold */
+
 .welcome-text {
-    font-weight: bold; /* Make the text bold */
-    color: #1a1a1a; /* Make the text black */
-    margin-right: 5px; /* Add a small space after the comma */
+    font-weight: bold; 
+    color: #1a1a1a; 
+    margin-right: 5px; 
 }
 
-/* --- STYLES FOR USER NAME TEXT --- */
-/* Make the username text black and remove cursive style */
+
 .user-name-text {
-    color: #1a1a1a; /* Make the text black */
-    font-style: normal; /* Ensure it's not italic */
-    /* If you want the username to be bold as well, add font-weight: bold; here */
-    /* font-weight: bold; */
+    color: #1a1a1a; 
+    font-style: normal; 
 }
 
 
-/* Style for error messages on the main page */
+
 .dashboard-container .error-message {
     color: #dc3545;
     text-align: center;
     margin-top: 20px;
 }
 
-/* --- RESPONSIVENESS --- */
+
 @media (max-width: 768px) {
   .hero-section {
     flex-direction: column;
