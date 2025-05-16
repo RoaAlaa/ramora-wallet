@@ -64,7 +64,7 @@ exports.updateBucket = async (req, res) => {
 exports.deleteBucket = async (req, res) => {
         try {
         const { userId } = req.params;
-        const { bucketId } = req.body;
+        const { bucketId } = req.params;
 
 
         if (!bucketId) {

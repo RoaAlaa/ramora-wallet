@@ -16,7 +16,7 @@ router.put('/:userId/buckets/:bucketId', bucketController.updateBucket);
 router.post('/:userId/buckets/reset', bucketController.resetAllBuckets);
 
 // delete bucket
-router.delete('/:userId/buckets', bucketController.deleteBucket);
+router.delete('/:userId/buckets/:bucketId', bucketController.deleteBucket);
 
 // Get all buckets
 router.get('/:userId/buckets', bucketController.getUserBuckets);

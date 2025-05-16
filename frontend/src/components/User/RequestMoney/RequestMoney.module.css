@@ -152,6 +152,18 @@
     max-width: 400px;
     width: 90%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modalContent h3 {
@@ -190,4 +202,11 @@
 
 .modalButtons .confirmButton:hover {
     background-color: #218838;
+}
+
+.refreshMessage {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 15px;
+    font-style: italic;
 }

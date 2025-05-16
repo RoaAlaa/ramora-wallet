@@ -27,7 +27,7 @@
   max-height: 400px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #39FF14 #f1f1f1;
+  scrollbar-color: #32CD32 #f1f1f1;
 }
 
 .transaction-list::-webkit-scrollbar {
@@ -40,7 +40,7 @@
 }
 
 .transaction-list::-webkit-scrollbar-thumb {
-  background: #39FF14;
+  background: #32CD32;
   border-radius: 4px;
 }
 
@@ -64,7 +64,7 @@
 
 .transaction-item:hover {
   transform: translateX(5px);
-  border-color: #39FF14;
+  border-color: #32CD32;
   box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
 }
 
@@ -97,7 +97,7 @@
 }
 
 .status-completed {
-  color: #39FF14;
+  color: #32CD32;
   background-color: rgba(57, 255, 20, 0.1);
 }
 
@@ -118,7 +118,7 @@
 }
 
 .transaction-amount.positive {
-  color: #39FF14;
+  color: #32CD32;
 }
 
 .transaction-amount.pending {
