@@ -1,83 +1,116 @@
 /* General Service Styles */
 .services {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 boxes per row by default */
-    gap: 20px;
-    margin: 50px auto;
-    width: 80%;
-    max-width: 1200px;
-    background: rgba(0, 0, 0, 0.95); /* Stronger opacity */
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* Deep 3D shadow */
-    padding: 20px;
+  display: grid; /* Use CSS Grid for the layout */
+  grid-template-columns: repeat(3, 1fr); /* Default: 3 boxes per row, equal width */
+  gap: 20px; /* Space between grid items */
+  margin: 50px auto; /* Center the container and add vertical margin */
+  width: 80%; /* Default width for larger screens */
+  max-width: 1200px; /* Maximum width */
+  background: rgba(0, 0, 0, 0.95); /* Stronger opacity black background */
+  border-radius: 20px; /* Rounded corners */
+  text-align: center; /* Center text within the container */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* Deep 3D shadow */
+  padding: 20px; /* Add padding inside the main services container */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+/* Individual Service Box */
+.service {
+  background: rgba(0, 0, 0, 0.85); /* Dark background for service boxes */
+  padding: 20px; /* Padding inside service boxes */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6); /* Shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+  color: white; /* Text color */
+  text-align: center; /* Center text within service boxes */
+  cursor: pointer; /* Indicate the element is interactive */
+}
+
+/* Hover effect for each service box */
+.service:hover {
+  transform: scale(1.05); /* Slight grow effect */
+  box-shadow: 0 8px 20px rgba(57, 255, 20, 0.7); /* Green shadow on hover */
+}
+
+.service h3 {
+  font-size: 1.5rem; /* Service title font size */
+  font-weight: bold; /* Bold font weight */
+  margin-bottom: 10px; /* Space below the title */
+}
+
+.service p {
+  font-size: 1.1rem; /* Description font size */
+  font-style: italic; /* Italic style */
+  color: rgba(57, 255, 20, 0.9); /* Green color for the description */
+}
+
+/* --- Responsive adjustments --- */
+
+/* Adjustments for screens smaller than 1024px (common desktop/tablet breakpoint) */
+@media (max-width: 1024px) {
+  .services {
+      width: 85%; /* Slightly increase width on medium screens */
+      margin: 40px auto; /* Adjust margin */
+      gap: 15px; /* Reduce gap */
+      padding: 18px; /* Slightly reduce padding */
   }
-  
-  /* Individual Service Box */
+
   .service {
-    background: rgba(0, 0, 0, 0.85); /* Dark background for service boxes */
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    color: white;
+      padding: 18px; /* Slightly reduce padding inside boxes */
   }
-  
-  /* Hover effect for each service box */
-  .service:hover {
-    transform: scale(1.05); /* Slight grow effect */
-    box-shadow: 0 8px 20px rgba(57, 255, 20, 0.7); /* Green shadow on hover */
-  }
-  
+
   .service h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
+      font-size: 1.4rem; /* Slightly smaller font size for titles */
   }
-  
+
   .service p {
-    font-size: 1.1rem;
-    font-style: italic;
-    color: rgba(57, 255, 20, 0.9); /* Green for the description */
+      font-size: 1rem; /* Slightly smaller font size for descriptions */
   }
-  
-  /* Mobile adjustments for smaller screens (max-width: 768px) */
-  @media (max-width: 768px) {
-    .services {
+}
+
+
+/* Adjustments for screens smaller than 768px (common tablet breakpoint) */
+@media (max-width: 768px) {
+  .services {
       grid-template-columns: repeat(2, 1fr); /* 2 service boxes per row on medium screens */
       width: 90%; /* More width on medium screens */
-    }
-  
-    .service {
-      padding: 15px; /* Reduced padding for smaller screens */
-    }
-  
-    .service h3 {
-      font-size: 1.4rem; /* Smaller font size for service titles */
-    }
-  
-    .service p {
-      font-size: 1rem; /* Smaller font size for descriptions */
-    }
+      margin: 30px auto; /* Adjust margin */
+      gap: 20px; /* Maintain gap */
+      padding: 20px; /* Maintain padding */
   }
-  
-  /* Extra small screens adjustments (max-width: 480px) */
-  @media (max-width: 480px) {
-    .services {
+
+  .service {
+      padding: 20px; /* Maintain padding */
+  }
+
+  .service h3 {
+      font-size: 1.3rem; /* Smaller font size for service titles */
+  }
+
+  .service p {
+      font-size: 0.9rem; /* Smaller font size for descriptions */
+  }
+}
+
+/* Adjustments for screens smaller than 480px (common mobile breakpoint) */
+@media (max-width: 480px) {
+  .services {
       grid-template-columns: 1fr; /* Stack service boxes on top of each other on very small screens */
       width: 95%; /* More width on very small screens */
-    }
-  
-    .service {
-      padding: 10px; /* Further reduce padding */
-    }
-  
-    .service h3 {
-      font-size: 1.2rem; /* Even smaller font size for service titles */
-    }
-  
-    .service p {
-      font-size: 0.9rem; /* Even smaller font size for descriptions */
-    }
+      margin: 20px auto; /* Adjust margin */
+      gap: 15px; /* Adjust gap when stacked */
+      padding: 15px; /* Reduce padding */
   }
-  
+
+  .service {
+      padding: 15px; /* Reduce padding */
+  }
+
+  .service h3 {
+      font-size: 1.2rem; /* Even smaller font size for service titles */
+  }
+
+  .service p {
+      font-size: 0.8rem; /* Even smaller font size for descriptions */
+  }
+}

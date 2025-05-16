@@ -54,3 +54,98 @@
 .btn:hover {
   box-shadow: 0 0 15px rgba(57, 255, 20, 0.9); /* green magic */
 }
+
+/* --- Responsive adjustments --- */
+
+/* Adjustments for screens smaller than 1024px */
+@media (max-width: 1024px) {
+  .hero {
+    width: 65%; /* Increase width on medium screens */
+    margin: 80px auto 0; /* Adjust top margin */
+    padding: 30px; /* Slightly reduce padding */
+  }
+
+  .hero-content h1 {
+    font-size: 2.4rem; /* Slightly smaller title font size */
+  }
+
+  .hero-content p {
+    font-size: 1.1rem; /* Slightly smaller paragraph font size */
+  }
+
+   .hero-content h6 {
+    font-size: 1.8rem; /* Slightly smaller h6 font size */
+  }
+
+  .buttons {
+    gap: 15px; /* Reduce gap between buttons */
+  }
+
+  .btn {
+    padding: 10px 20px; /* Slightly reduce button padding */
+  }
+}
+
+/* Adjustments for screens smaller than 768px (common tablet breakpoint) */
+@media (max-width: 768px) {
+  .hero {
+    width: 80%; /* Increase width further on smaller screens */
+    margin: 60px auto 0; /* Adjust top margin */
+    padding: 25px; /* Reduce padding */
+  }
+
+  .hero-content h1 {
+    font-size: 2rem; /* Smaller title font size */
+  }
+
+  .hero-content p {
+    font-size: 1rem; /* Smaller paragraph font size */
+  }
+
+   .hero-content h6 {
+    font-size: 1.6rem; /* Smaller h6 font size */
+  }
+
+  .buttons {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Adjust gap for stacked buttons */
+    align-items: center; /* Center stacked buttons */
+  }
+
+  .btn {
+    width: 80%; /* Make buttons take up more width when stacked */
+    max-width: 200px; /* Optional: Set a max width for stacked buttons */
+    padding: 12px 20px; /* Adjust padding for stacked buttons */
+  }
+}
+
+/* Further adjustments for screens smaller than 480px (common mobile breakpoint) */
+@media (max-width: 480px) {
+  .hero {
+    width: 90%; /* Increase width even more on very small screens */
+    margin: 50px auto 0; /* Adjust top margin */
+    padding: 20px; /* Further reduce padding */
+  }
+
+  .hero-content h1 {
+    font-size: 1.6rem; /* Even smaller title font size */
+  }
+
+  .hero-content p {
+    font-size: 0.9rem; /* Even smaller paragraph font size */
+  }
+
+   .hero-content h6 {
+    font-size: 1.4rem; /* Even smaller h6 font size */
+  }
+
+  .buttons {
+    gap: 8px; /* Further reduce gap between stacked buttons */
+  }
+
+   .btn {
+    width: 90%; /* Make buttons take up more width */
+    max-width: none; /* Remove max width */
+    padding: 10px 15px; /* Adjust padding */
+  }
+}

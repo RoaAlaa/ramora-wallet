@@ -1,96 +1,98 @@
-/* Styles copied directly from the user's final desired HTML <style> block */
-/* Corrected the syntax error in the linear-gradient */
-/* These styles are designed to make it look like ONE flipping card */
+/* Styles for the card component */
 
 /* Remove global body styles */
+/* This ensures these styles only apply to the card component */
+
 .card-container {
-  perspective: 1000px;
-  width: 100%;
-  max-width: 350px;
-  height: 200px;
-  cursor: pointer;
-  margin: 20px auto; /* Center the card in its container */
+  perspective: 1000px; /* Creates the 3D perspective for the flip effect */
+  width: 100%; /* Take full width of its parent container */
+  max-width: 350px; /* Default max width for larger screens */
+  height: 200px; /* Default height for larger screens */
+  cursor: pointer; /* Indicate the card is interactive */
+  margin: 20px auto; /* Center the card horizontally and add vertical margin */
+  /* box-sizing: border-box; - Added below in media queries where padding is adjusted */
 }
 
 .card {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
-  border-radius: 15px;
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative; /* Needed for absolute positioning of card sides */
+  width: 100%; /* Take full width of the container */
+  height: 100%; /* Take full height of the container */
+  transform-style: preserve-3d; /* Ensures children are positioned in 3D space */
+  transition: transform 0.6s; /* Smooth transition for the flip effect */
+  border-radius: 15px; /* Rounded corners */
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); /* Background gradient */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
 .card.is-flipped {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg); /* Flip the card horizontally */
 }
 
 .card-side {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 15px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  position: absolute; /* Position sides relative to the card */
+  width: 100%; /* Take full width of the card */
+  height: 100%; /* Take full height of the card */
+  backface-visibility: hidden; /* Hide the back face of the element when flipped away */
+  border-radius: 15px; /* Rounded corners (matches card) */
+  padding: 20px; /* Padding inside the card sides */
+  display: flex; /* Use flexbox for content layout */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; /* Space out content vertically */
+  box-sizing: border-box; /* Include padding in the element's total width and height */
 }
 
 .card-front {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
-  color: white;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%); /* Background gradient for the front */
+  color: white; /* Text color */
 }
 
 .card-back {
-  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-  color: white;
-  transform: rotateY(180deg);
+  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%); /* Background gradient for the back */
+  color: white; /* Text color */
+  transform: rotateY(180deg); /* Initially rotated to be hidden */
 }
 
 .card-logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 1.5rem; /* Logo font size */
+  font-weight: bold; /* Bold font weight */
+  margin-bottom: 10px; /* Space below the logo */
 }
 
 .user-name {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
+  font-size: 1.2rem; /* User name font size */
+  margin-bottom: 20px; /* Space below the user name */
 }
 
 .card-balance {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 20px 0;
-  filter: blur(5px);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  color: rgba(255, 255, 255, 0.8);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 2rem; /* Balance font size */
+  font-weight: bold; /* Bold font weight */
+  margin: 20px 0; /* Vertical margin */
+  filter: blur(5px); /* Initially blur the balance */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition for blur and scale */
+  position: relative; /* Needed for the ::after pseudo-element */
+  color: rgba(255, 255, 255, 0.8); /* Slightly transparent white color */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Text shadow */
 }
 
 .card-container:hover .card-balance {
-  filter: blur(0);
-  color: #ffffff;
-  text-shadow: 0 2px 8px rgba(50, 205, 50, 0.3);
-  transform: scale(1.02);
+  filter: blur(0); /* Remove blur on hover */
+  color: #ffffff; /* Change color on hover */
+  text-shadow: 0 2px 8px rgba(50, 205, 50, 0.3); /* Green text shadow on hover */
+  transform: scale(1.02); /* Slight scale effect on hover */
 }
 
 /* Add a subtle glow effect when hovering */
 .card-container:hover .card-balance::after {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  background: radial-gradient(circle, rgba(50, 205, 50, 0.1) 0%, transparent 70%);
-  border-radius: 10px;
-  z-index: -1;
-  animation: glow 2s infinite alternate;
+  content: ''; /* Required for pseudo-elements */
+  position: absolute; /* Position relative to the balance text */
+  top: -5px; /* Position above the text */
+  left: -5px; /* Position to the left of the text */
+  right: -5px; /* Position to the right of the text */
+  bottom: -5px; /* Position below the text */
+  background: radial-gradient(circle, rgba(50, 205, 50, 0.1) 0%, transparent 70%); /* Radial gradient glow */
+  border-radius: 10px; /* Rounded corners for the glow effect */
+  z-index: -1; /* Position behind the text */
+  animation: glow 2s infinite alternate; /* Apply glow animation */
 }
 
 @keyframes glow {
@@ -106,63 +108,149 @@
 
 /* Buckets styling */
 .buckets {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-y: auto;
-  max-height: 180px;
-  padding-right: 5px;
+  display: flex; /* Use flexbox for buckets */
+  flex-direction: column; /* Stack buckets vertically */
+  gap: 10px; /* Space between buckets */
+  overflow-y: auto; /* Add vertical scroll if content overflows */
+  max-height: 180px; /* Maximum height before scrolling */
+  padding-right: 5px; /* Add padding for scrollbar */
 }
 
 .bucket {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  transition: background-color 0.2s;
+  display: flex; /* Use flexbox for bucket content (name and amount) */
+  justify-content: space-between; /* Space out name and amount */
+  align-items: center; /* Vertically align name and amount */
+  padding: 8px 12px; /* Padding inside each bucket */
+  background: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+  border-radius: 8px; /* Rounded corners */
+  transition: background-color 0.2s; /* Smooth background color transition on hover */
 }
 
 .bucket:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2); /* Darker background on hover */
 }
 
 .bucket-name {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 1rem; /* Bucket name font size */
+  font-weight: 500; /* Font weight */
 }
 
 .bucket-amount {
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 1rem; /* Bucket amount font size */
+  font-weight: bold; /* Bold font weight */
 }
 
 /* Scrollbar styling */
 .buckets::-webkit-scrollbar {
-  width: 6px;
+  width: 6px; /* Width of the scrollbar */
 }
 
 .buckets::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1); /* Scrollbar track background */
+  border-radius: 3px; /* Rounded corners for the track */
 }
 
 .buckets::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.3); /* Scrollbar thumb background */
+  border-radius: 3px; /* Rounded corners for the thumb */
 }
 
 .buckets::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.4); /* Darker thumb background on hover */
 }
 
 /* Error and loading states */
 .error-message {
-  color: #ef4444;
-  text-align: center;
-  padding: 20px;
-  background: #fee2e2;
-  border-radius: 8px;
-  margin: 10px 0;
+  color: #ef4444; /* Red color for error messages */
+  text-align: center; /* Center the text */
+  padding: 20px; /* Padding */
+  background: #fee2e2; /* Light red background */
+  border-radius: 8px; /* Rounded corners */
+  margin: 10px 0; /* Vertical margin */
+}
+
+/* --- Responsive adjustments --- */
+
+/* Adjustments for screens smaller than 768px (common tablet breakpoint) */
+@media (max-width: 768px) {
+    .card-container {
+        max-width: 300px; /* Slightly reduce max width */
+        height: 180px; /* Slightly reduce height */
+        margin: 15px auto; /* Adjust margin */
+    }
+
+    .card-side {
+        padding: 15px; /* Reduce padding inside card sides */
+    }
+
+    .card-logo {
+        font-size: 1.3rem; /* Slightly smaller logo font size */
+        margin-bottom: 8px; /* Adjust space below logo */
+    }
+
+    .user-name {
+        font-size: 1.1rem; /* Slightly smaller user name font size */
+        margin-bottom: 15px; /* Adjust space below user name */
+    }
+
+    .card-balance {
+        font-size: 1.8rem; /* Slightly smaller balance font size */
+        margin: 15px 0; /* Adjust vertical margin */
+    }
+
+    .buckets {
+        max-height: 150px; /* Reduce max height for buckets */
+        gap: 8px; /* Reduce gap between buckets */
+    }
+
+    .bucket {
+        padding: 6px 10px; /* Reduce padding inside buckets */
+    }
+
+    .bucket-name,
+    .bucket-amount {
+        font-size: 0.9rem; /* Slightly smaller bucket font size */
+    }
+}
+
+/* Adjustments for screens smaller than 480px (common mobile breakpoint) */
+@media (max-width: 480px) {
+    .card-container {
+        max-width: 280px; /* Further reduce max width */
+        height: 160px; /* Further reduce height */
+        margin: 10px auto; /* Adjust margin */
+    }
+
+    .card-side {
+        padding: 10px; /* Further reduce padding inside card sides */
+    }
+
+    .card-logo {
+        font-size: 1.2rem; /* Even smaller logo font size */
+        margin-bottom: 5px; /* Adjust space below logo */
+    }
+
+    .user-name {
+        font-size: 1rem; /* Even smaller user name font size */
+        margin-bottom: 10px; /* Adjust space below user name */
+    }
+
+    .card-balance {
+        font-size: 1.6rem; /* Even smaller balance font size */
+        margin: 10px 0; /* Adjust vertical margin */
+    }
+
+    .buckets {
+        max-height: 130px; /* Further reduce max height for buckets */
+        gap: 6px; /* Further reduce gap between buckets */
+    }
+
+    .bucket {
+        padding: 5px 8px; /* Further reduce padding inside buckets */
+    }
+
+    .bucket-name,
+    .bucket-amount {
+        font-size: 0.85rem; /* Even smaller bucket font size */
+    }
 }

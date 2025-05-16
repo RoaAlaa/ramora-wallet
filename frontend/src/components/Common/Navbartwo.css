@@ -133,81 +133,100 @@
 /* Responsive styles */
 @media (max-width: 1024px) {
   .custom-navbar {
-    padding: 10px 15px;
+    padding: 10px 15px; /* Slightly reduce horizontal padding */
   }
 
+  /* Allow left nav items to wrap and align them to the start */
   .nav-left {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the start */
+    gap: 15px; /* Adjust gap */
   }
 
+  /* Stack right nav items and align them to the start */
   .nav-right {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 90%;
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the start */
+    width: auto; /* Allow width to be determined by content */
+    margin-right: 0; /* Remove right margin when stacking */
   }
 
   .brand {
-    font-size: 1.2rem;
+    font-size: 1.2rem; /* Slightly reduce brand font size */
   }
 
   .nav-link {
-    font-size: 1rem;
+    font-size: 1rem; /* Maintain nav link font size */
   }
 }
 
+/* Adjustments for screens smaller than 768px */
 @media (max-width: 768px) {
   .custom-navbar {
-    padding: 10px;
-    flex-direction: column;
-    gap: 10px;
+    padding: 10px; /* Further reduce padding */
+    flex-direction: column; /* Stack main navbar sections vertically */
+    gap: 10px; /* Add gap between stacked sections */
+    /* Remove justify-content: space-between as items are stacked */
+    justify-content: flex-start; /* Align stacked sections to the start */
+    align-items: flex-start; /* Align stacked sections to the start */
   }
 
   .nav-left {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: column; /* Ensure left nav items stack */
+    align-items: flex-start; /* Align left nav items to the start */
+    gap: 10px; /* Adjust gap */
+    width: 100%; /* Allow left section to take full width */
+    margin-left: 0; /* Remove left margin */
   }
 
   .nav-right {
-    flex-direction: column;
-    align-items: center;
-    width: 90%;
+    flex-direction: column; /* Ensure right nav items stack */
+    align-items: flex-start; /* Align right nav items to the start */
+    width: 100%; /* Allow right section to take full width */
+    margin-right: 0; /* Remove right margin */
   }
 
   .brand {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Keep brand font size */
   }
 
   .nav-link {
-    font-size: 1rem;
+    font-size: 1rem; /* Keep nav link font size */
   }
 
   .user-info {
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: column; /* Stack user info items */
+    gap: 0.5rem; /* Adjust gap */
+    align-items: flex-start; /* Align user info items to the start */
+  }
+
+  .logout-button {
+      margin-right: 0; /* Remove right margin */
   }
 }
 
+/* Further adjustments for screens smaller than 480px */
 @media (max-width: 480px) {
   .custom-navbar {
-    padding: 10px;
+    padding: 10px; /* Maintain padding */
+    /* Stacking from 768px media query applies */
   }
 
   .nav-left {
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
+    /* Stacking and alignment from 768px media query applies */
+    gap: 8px; /* Slightly reduce gap */
   }
 
   .nav-right {
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
+    /* Stacking and alignment from 768px media query applies */
+    gap: 8px; /* Slightly reduce gap */
   }
 
   .nav-link {
-    font-size: 1rem;
+    font-size: 0.9rem; /* Slightly reduce nav link font size */
+  }
+
+  .brand {
+      font-size: 1.3rem; /* Slightly reduce brand font size */
   }
 }
