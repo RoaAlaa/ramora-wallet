@@ -1,16 +1,16 @@
 .hero {
-  background: rgba(0, 0, 0, 0.95); /* stronger opacity */
-  width: 50%; /* not full page */
-  margin: 100px auto 0; /* center + space under navbar */
+  background: rgba(0, 0, 0, 0.95); 
+  width: 50%; 
+  margin: 100px auto 0; 
   padding: 40px;
   border-radius: 20px;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* deep 3D shadow */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); 
   transition: transform 0.3s ease;
 }
 
 .hero:hover {
-  transform: scale(1.02); /* tiny grow on hover */
+  transform: scale(1.02); 
 }
 
 .hero-content h1 {
@@ -52,100 +52,97 @@
 }
 
 .btn:hover {
-  box-shadow: 0 0 15px rgba(57, 255, 20, 0.9); /* green magic */
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.9);
 }
 
-/* --- Responsive adjustments --- */
 
-/* Adjustments for screens smaller than 1024px */
+
 @media (max-width: 1024px) {
   .hero {
-    width: 65%; /* Increase width on medium screens */
-    margin: 80px auto 0; /* Adjust top margin */
-    padding: 30px; /* Slightly reduce padding */
+    width: 65%; 
+    margin: 80px auto 0; 
+    padding: 30px; 
   }
 
   .hero-content h1 {
-    font-size: 2.4rem; /* Slightly smaller title font size */
+    font-size: 2.4rem; 
   }
 
   .hero-content p {
-    font-size: 1.1rem; /* Slightly smaller paragraph font size */
+    font-size: 1.1rem; 
   }
 
    .hero-content h6 {
-    font-size: 1.8rem; /* Slightly smaller h6 font size */
+    font-size: 1.8rem; 
   }
 
   .buttons {
-    gap: 15px; /* Reduce gap between buttons */
+    gap: 15px; 
   }
 
   .btn {
-    padding: 10px 20px; /* Slightly reduce button padding */
+    padding: 10px 20px; 
   }
 }
 
-/* Adjustments for screens smaller than 768px (common tablet breakpoint) */
 @media (max-width: 768px) {
   .hero {
-    width: 80%; /* Increase width further on smaller screens */
-    margin: 60px auto 0; /* Adjust top margin */
-    padding: 25px; /* Reduce padding */
+    width: 80%; 
+    margin: 60px auto 0; 
+    padding: 25px; 
   }
 
   .hero-content h1 {
-    font-size: 2rem; /* Smaller title font size */
+    font-size: 2rem; 
   }
 
   .hero-content p {
-    font-size: 1rem; /* Smaller paragraph font size */
+    font-size: 1rem; 
   }
 
    .hero-content h6 {
-    font-size: 1.6rem; /* Smaller h6 font size */
+    font-size: 1.6rem; 
   }
 
   .buttons {
-    flex-direction: column; /* Stack buttons vertically */
-    gap: 10px; /* Adjust gap for stacked buttons */
-    align-items: center; /* Center stacked buttons */
+    flex-direction: column; 
+    gap: 10px; 
+    align-items: center; 
   }
 
   .btn {
-    width: 80%; /* Make buttons take up more width when stacked */
-    max-width: 200px; /* Optional: Set a max width for stacked buttons */
-    padding: 12px 20px; /* Adjust padding for stacked buttons */
+    width: 80%; 
+    max-width: 200px;
+    padding: 12px 20px; 
   }
 }
 
-/* Further adjustments for screens smaller than 480px (common mobile breakpoint) */
 @media (max-width: 480px) {
   .hero {
-    width: 90%; /* Increase width even more on very small screens */
-    margin: 50px auto 0; /* Adjust top margin */
-    padding: 20px; /* Further reduce padding */
+    width: 90%; 
+    margin: 50px auto 0;
+    padding: 20px; 
   }
 
   .hero-content h1 {
-    font-size: 1.6rem; /* Even smaller title font size */
+    font-size: 1.6rem; 
   }
 
   .hero-content p {
-    font-size: 0.9rem; /* Even smaller paragraph font size */
+    font-size: 0.9rem; 
   }
 
    .hero-content h6 {
-    font-size: 1.4rem; /* Even smaller h6 font size */
+    font-size: 1.4rem; 
   }
 
   .buttons {
-    gap: 8px; /* Further reduce gap between stacked buttons */
-  }
+    gap: 8px; 
 
    .btn {
-    width: 90%; /* Make buttons take up more width */
-    max-width: none; /* Remove max width */
-    padding: 10px 15px; /* Adjust padding */
+    width: 90%; 
+    max-width: none; 
+    padding: 10px 15px; 
   }
+}
 }

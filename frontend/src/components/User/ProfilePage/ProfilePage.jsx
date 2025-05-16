@@ -4,6 +4,8 @@ import "./ProfilePage.css";
 import { useNavigate } from "react-router-dom";
 import ProfilePageConfirmationModal from "./ProfilePageConfirmationModal";
 import Footer from "../../Common/Footer";
+import eye_icon from '../../../assets/open-eye.png';
+import eye_closed from '../../../assets/closed-eye.png';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ const ProfilePage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [valuesToConfirm, setValuesToConfirm] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -244,15 +247,22 @@ const ProfilePage = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="input-container">
+            <div className="input-container password-container">
               <label className="field-label">New Password:</label>
               <input
                 className="form-control"
                 name="password"
                 placeholder="New Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 value={formData.password || ""}
                 onChange={handleChange}
+              />
+              <img
+                src={showPassword ? eye_icon : eye_closed}
+                alt="Toggle Password Visibility"
+                className="toggle-password-icon"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{ cursor: 'pointer' }}
               />
             </div>
             <div className="input-container">

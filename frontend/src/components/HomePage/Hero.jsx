@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Hero.css'; // Optional: Add a CSS file for styling
+import './Hero.css'; 
 
 const Hero = () => {
     const navigate = useNavigate();

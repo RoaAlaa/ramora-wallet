@@ -1,13 +1,9 @@
-// src/features/requestMoney/RequestMoney.js
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-// Import the dedicated Request Confirmation Modal
 import RequestConfirmationModal from './RequestConfirmationModal'; 
-// Import styles from the new CSS file
 import styles from './RequestMoney.module.css'; 
 
-// Validation Schema (uses requesterNumber)
 const RequestMoneySchema = Yup.object().shape({
   requesterNumber: Yup.string() 
     .required('Username is required')
@@ -23,7 +19,7 @@ const RequestMoneySchema = Yup.object().shape({
     .max(200, 'Note must be less than 200 characters')
 });
 
-// Functional component for Request Money
+
 function RequestMoney() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -99,23 +95,22 @@ function RequestMoney() {
     }
   };
 
-  // Function called when user cancels in the modal
+
   const handleCancelRequest = () => { 
-    setShowModal(false); // Hide the modal
-    setValuesToConfirm(null); // Clear confirmed values
+    setShowModal(false); 
+    setValuesToConfirm(null); 
   };
 
   return (
     <div className={styles.pageContainer}>
-      {/* Wrap the form content in the styled box */}
       <div className={styles.formBox}>
-        <h2>Request Money</h2> {/* Heading text */}
+        <h2>Request Money</h2>
 
-        {/* Display success or error messages */}
+
         {message && <div className={`${styles.message} ${styles.success}`}>{message}</div>}
         {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
 
-        {/* Use Formik's handleSubmit for the form */}
+     
         <form onSubmit={formik.handleSubmit}>
           <div>
             <label htmlFor="requesterNumber" className={styles.formLabel}>Username to Request From</label>
@@ -136,7 +131,7 @@ function RequestMoney() {
           </div>
 
           <div>
-            {/* Label text */}
+    
             <label htmlFor="amount" className={styles.formLabel}>Amount</label>
             <input
               type="number"
@@ -150,7 +145,7 @@ function RequestMoney() {
               min="0"
               disabled={loading || formik.isSubmitting} 
             />
-             {/* Display validation errors */}
+        
             {formik.touched.amount && formik.errors.amount ? (
               <div className={`${styles.message} ${styles.error}`}>{formik.errors.amount}</div>
             ) : null}
