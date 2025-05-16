@@ -11,7 +11,7 @@ exports.register = async (req, res) => {
             return res.status(400).json({ error: result.error });
         }
 
-        await emailServices.sendEmail(result.user.email, 'welcome to Ramora', `Hi ${result.user.name}, thank you for registering!`);
+        await emailServices.sendEmail(result.user.email, 'welcome to our app', `Hi ${result.user.name}, thank you for registering!`);
         res.status(201).json({
             success: true,
             message: 'User registered successfully',
@@ -107,33 +107,34 @@ exports.updateUser = async (req, res) => {
     }
 };
 
-exports.deleteUser = async (req, res)=>{
-    try{
+exports.deleteUser = async (req, res) => {
+    try {
         const userId = req.params.userId;
         const result = await UserService.deleteUser(userId);
-        if (!result.success)
-        {
-            return res.status(404).json({error: result.error});
+        
+        if (!result.success) {
+            return res.status(404).json({ error: result.error });
         }
 
-        await emailServices.sendEmail(result.user.email, 'Account has been deleted', `Hi ${result.user.name},We're writing to confirm that your account has been successfully`);
-        res.status(201).json({
-            message: 'User deleted successfully',
-            user: result.user,
-            token: result.token
-        });
+       
+        if (result.deletedUser && result.deletedUser.email) {
+            await emailServices.sendEmail(
+                result.deletedUser.email,
+                'Account has been deleted',
+                `Hi ${result.deletedUser.name}, We're writing to confirm that your account has been successfully deleted.`
+            );
+        }
 
         res.status(200).json({
-            success : true,
-            deletedUser: result.deletedUser
+            success: true,
+            message: 'User deleted successfully',
+            user: result.deletedUser
         });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-    catch(error)
-    {
-        res.status(500).json({error: error.message});
-    }
-
 };
+
 exports.searchUsers = async (req, res) => {
     try {
         const { query } = req.query;

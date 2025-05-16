@@ -12,7 +12,7 @@ module.exports = {
     sendEmail: async (email, subject, body) => {
         try {
             await transporter.sendMail({
-                from: `"Your App" <${process.env.EMAIL_USER}>`,
+                from: `"ramora wallet App" <${process.env.EMAIL_USER}>`,
                 to: email,
                 subject,
                 text: body, // Plain text fallback
@@ -91,7 +91,7 @@ module.exports = {
                 <body>
                     <div class="email-container">
                         <div class="email-header">
-                            <h1>Your App Name</h1>
+                            <h1>Ramora wallet</h1>
                         </div>
                         
                         <div class="email-content">
@@ -99,14 +99,14 @@ module.exports = {
                             <p>${body.replace(/\n/g, '<br>')}</p>
                             
                             ${subject.includes('Welcome') ? `
-                            <a href="https://yourapp.com/dashboard" class="button">
+                            <a href="#" class="button">
                                 Go to Dashboard
                             </a>
                             ` : ''}
                         </div>
                         
                         <div class="email-footer">
-                            <p>© ${new Date().getFullYear()} Your App Name. All rights reserved.</p>
+                            <p>© ${new Date().getFullYear()} Ramora wallet. All rights reserved.</p>
                             <p>
                                 <a href="https://yourapp.com" style="color: #4a6bdf; text-decoration: none;">Website</a> | 
                                 <a href="https://yourapp.com/privacy" style="color: #4a6bdf; text-decoration: none;">Privacy Policy</a>

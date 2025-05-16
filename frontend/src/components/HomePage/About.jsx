@@ -1,7 +1,6 @@
-// AboutSection.jsx
 
 import React from 'react';
-import './About.css'; // assuming you put the CSS here
+import './About.css'; 
 
 const About = () => {
   return (

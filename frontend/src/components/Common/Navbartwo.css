@@ -72,7 +72,6 @@
   overflow: hidden;
   z-index: 1000;
   min-width: 150px;
-  /* Added for smooth appearance */
   opacity: 1;
   visibility: visible;
   transition: opacity 0.3s, visibility 0.3s;
@@ -92,7 +91,7 @@
   color: black;
 }
 
-/* Right side of navbar */
+
 .nav-right {
   display: flex;
   flex-direction: column;
@@ -130,103 +129,102 @@
   box-shadow: 0 0 8px #39FF14;
 }
 
-/* Responsive styles */
+
 @media (max-width: 1024px) {
   .custom-navbar {
-    padding: 10px 15px; /* Slightly reduce horizontal padding */
+    padding: 10px 15px; 
   }
 
-  /* Allow left nav items to wrap and align them to the start */
+  
   .nav-left {
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align items to the start */
-    gap: 15px; /* Adjust gap */
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 15px; 
   }
 
-  /* Stack right nav items and align them to the start */
+  
   .nav-right {
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align items to the start */
-    width: auto; /* Allow width to be determined by content */
-    margin-right: 0; /* Remove right margin when stacking */
+    flex-direction: column; 
+    align-items: flex-start; 
+    width: auto; 
+    margin-right: 0; 
   }
 
   .brand {
-    font-size: 1.2rem; /* Slightly reduce brand font size */
+    font-size: 1.2rem; 
   }
 
   .nav-link {
-    font-size: 1rem; /* Maintain nav link font size */
+    font-size: 1rem; 
   }
 }
 
-/* Adjustments for screens smaller than 768px */
+
 @media (max-width: 768px) {
   .custom-navbar {
-    padding: 10px; /* Further reduce padding */
-    flex-direction: column; /* Stack main navbar sections vertically */
-    gap: 10px; /* Add gap between stacked sections */
-    /* Remove justify-content: space-between as items are stacked */
-    justify-content: flex-start; /* Align stacked sections to the start */
-    align-items: flex-start; /* Align stacked sections to the start */
+    padding: 10px; 
+    flex-direction: column; 
+    gap: 10px; 
+  
+    justify-content: flex-start; 
+    align-items: flex-start; 
   }
 
   .nav-left {
-    flex-direction: column; /* Ensure left nav items stack */
-    align-items: flex-start; /* Align left nav items to the start */
-    gap: 10px; /* Adjust gap */
-    width: 100%; /* Allow left section to take full width */
-    margin-left: 0; /* Remove left margin */
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 10px; 
+    width: 100%; 
+    margin-left: 0; 
   }
 
   .nav-right {
-    flex-direction: column; /* Ensure right nav items stack */
-    align-items: flex-start; /* Align right nav items to the start */
-    width: 100%; /* Allow right section to take full width */
-    margin-right: 0; /* Remove right margin */
+    flex-direction: column; 
+    align-items: flex-start; 
+    width: 100%; 
+    margin-right: 0;
   }
 
   .brand {
-    font-size: 1.5rem; /* Keep brand font size */
+    font-size: 1.5rem; 
   }
 
   .nav-link {
-    font-size: 1rem; /* Keep nav link font size */
+    font-size: 1rem; 
   }
 
   .user-info {
-    flex-direction: column; /* Stack user info items */
-    gap: 0.5rem; /* Adjust gap */
-    align-items: flex-start; /* Align user info items to the start */
+    flex-direction: column; 
+    gap: 0.5rem; 
+    align-items: flex-start; 
   }
 
   .logout-button {
-      margin-right: 0; /* Remove right margin */
+      margin-right: 0; 
   }
 }
 
-/* Further adjustments for screens smaller than 480px */
+
 @media (max-width: 480px) {
   .custom-navbar {
-    padding: 10px; /* Maintain padding */
-    /* Stacking from 768px media query applies */
+    padding: 10px;
   }
 
   .nav-left {
-    /* Stacking and alignment from 768px media query applies */
-    gap: 8px; /* Slightly reduce gap */
+    
+    gap: 8px;
   }
 
   .nav-right {
-    /* Stacking and alignment from 768px media query applies */
-    gap: 8px; /* Slightly reduce gap */
+   
+    gap: 8px; 
   }
 
   .nav-link {
-    font-size: 0.9rem; /* Slightly reduce nav link font size */
+    font-size: 0.9rem; 
   }
 
   .brand {
-      font-size: 1.3rem; /* Slightly reduce brand font size */
+      font-size: 1.3rem; 
   }
 }

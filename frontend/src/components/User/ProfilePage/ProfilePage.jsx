@@ -179,7 +179,7 @@ const ProfilePage = () => {
       localStorage.removeItem('jwtToken');
       setMessage("Profile deleted successfully!");
       setTimeout(() => {
-        navigate('/login');
+        navigate('/');
       }, 2000);
     } catch (err) {
       console.error('Profile deletion error:', err);
