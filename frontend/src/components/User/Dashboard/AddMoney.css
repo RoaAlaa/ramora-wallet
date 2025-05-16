@@ -1,118 +1,228 @@
+/* Add Money Button Styles */
 .add-money-btn {
-  background: black;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  background: black; /* Background color */
+  color: white; /* Text color */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Padding inside the button */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Indicate it's clickable */
+  font-weight: 600; /* Font weight */
+  transition: all 0.3s ease; /* Smooth transitions on hover */
+  display: flex; /* Use flexbox for icon and text */
+  align-items: center; /* Vertically align icon and text */
+  gap: 8px; /* Space between icon and text */
 }
 
 .add-money-btn:hover {
-  background: #32CD32;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(57, 255, 20, 0.3);
+  background: #32CD32; /* Background color on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+  box-shadow: 0 5px 15px rgba(57, 255, 20, 0.3); /* Green shadow on hover */
 }
 
+/* Modal Overlay Styles */
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  position: fixed; /* Fix position to the viewport */
+  top: 0; /* Cover the top edge */
+  left: 0; /* Cover the left edge */
+  right: 0; /* Cover the right edge */
+  bottom: 0; /* Cover the bottom edge */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex; /* Use flexbox to center content */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  z-index: 1000; /* Ensure it's above other content */
 }
 
+/* Modal Content Styles */
 .modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: white; /* White background for the modal content */
+  padding: 2rem; /* Padding inside the modal content */
+  border-radius: 10px; /* Rounded corners */
+  width: 90%; /* Take up 90% of the parent width */
+  max-width: 400px; /* Maximum width of the modal */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  box-sizing: border-box; /* Include padding in the element's total width */
 }
 
 .modal-content h3 {
-  margin: 0 0 1.5rem;
-  color: #333;
-  text-align: center;
+  margin: 0 0 1.5rem; /* Margin below the title */
+  color: #333; /* Title color */
+  text-align: center; /* Center the title text */
 }
 
+/* Input Group Styles */
 .input-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem; /* Space below each input group */
 }
 
 .input-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #555;
-  font-weight: 500;
+  display: block; /* Make label a block element */
+  margin-bottom: 0.5rem; /* Space below the label */
+  color: #555; /* Label text color */
+  font-weight: 500; /* Font weight */
 }
 
 .input-group input {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+  width: 100%; /* Input takes full width of its container */
+  padding: 0.8rem; /* Padding inside the input */
+  border: 1px solid #ddd; /* Border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1rem; /* Font size */
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
 }
 
 .input-group input:focus {
-  outline: none;
-  border-color: #2ecc71;
+  outline: none; /* Remove default outline on focus */
+  border-color: #2ecc71; /* Green border on focus */
 }
 
+/* Error Message Styles */
 .error-message {
-  color: #e74c3c;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  text-align: center;
+  color: #e74c3c; /* Red color for error messages */
+  margin-bottom: 1rem; /* Space below the error message */
+  font-size: 0.9rem; /* Font size */
+  text-align: center; /* Center the error message text */
 }
 
+/* Modal Buttons Container */
 .modal-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  display: flex; /* Use flexbox for the buttons */
+  gap: 1rem; /* Space between buttons */
+  margin-top: 1.5rem; /* Space above the buttons */
 }
 
+/* Individual Modal Button Styles */
 .modal-buttons button {
-  flex: 1;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  flex: 1; /* Allow buttons to grow and shrink equally */
+  padding: 0.8rem; /* Padding inside the buttons */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Indicate it's clickable */
+  font-weight: 600; /* Font weight */
+  transition: all 0.3s ease; /* Smooth transitions on hover */
 }
 
+/* Confirm Button Styles */
 .confirm-button {
-  background-color: #2ecc71;
-  color: white;
+  background-color: #2ecc71; /* Green background */
+  color: white; /* White text */
 }
 
 .confirm-button:hover:not(:disabled) {
-  background-color: #27ae60;
+  background-color: #27ae60; /* Darker green on hover */
 }
 
+/* Cancel Button Styles */
 .cancel-button {
-  background-color: #e74c3c;
-  color: white;
+  background-color: #e74c3c; /* Red background */
+  color: white; /* White text */
 }
 
 .cancel-button:hover:not(:disabled) {
-  background-color: #c0392b;
+  background-color: #c0392b; /* Darker red on hover */
 }
 
+/* Disabled Button Styles */
 button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-} 
+  opacity: 0.7; /* Reduce opacity when disabled */
+  cursor: not-allowed; /* Change cursor when disabled */
+}
+
+/* --- Responsive adjustments --- */
+
+/* Adjustments for screens smaller than 600px */
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 1.5rem; /* Slightly reduce padding */
+        width: 95%; /* Allow modal to take up more width on smaller screens */
+    }
+
+    .modal-content h3 {
+        font-size: 1.3rem; /* Slightly smaller title font size */
+        margin-bottom: 1rem; /* Reduce space below title */
+    }
+
+    .input-group {
+        margin-bottom: 1rem; /* Reduce space below input groups */
+    }
+
+    .input-group label {
+        font-size: 0.9rem; /* Slightly smaller label font size */
+    }
+
+    .input-group input {
+        padding: 0.7rem; /* Slightly reduce input padding */
+        font-size: 0.9rem; /* Slightly smaller input font size */
+    }
+
+    .error-message {
+        font-size: 0.85rem; /* Slightly smaller error message font size */
+        margin-bottom: 0.8rem; /* Reduce space below error message */
+    }
+
+    .modal-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 0.8rem; /* Adjust gap for stacked buttons */
+        margin-top: 1rem; /* Reduce space above buttons */
+    }
+
+    .modal-buttons button {
+        flex: none; /* Remove flex grow/shrink when stacked */
+        width: 100%; /* Make buttons take full width when stacked */
+        padding: 0.7rem; /* Adjust padding for stacked buttons */
+    }
+
+    .add-money-btn {
+        padding: 8px 15px; /* Adjust button padding */
+        font-size: 0.9rem; /* Slightly smaller button font size */
+        gap: 6px; /* Reduce gap in the button */
+    }
+}
+
+/* Further adjustments for screens smaller than 400px */
+@media (max-width: 400px) {
+     .modal-content {
+        padding: 1rem; /* Further reduce padding */
+        width: 98%; /* Allow modal to take up even more width */
+    }
+
+     .modal-content h3 {
+        font-size: 1.2rem; /* Even smaller title */
+        margin-bottom: 0.8rem; /* Reduce space */
+    }
+
+    .input-group {
+        margin-bottom: 0.8rem; /* Reduce space */
+    }
+
+    .input-group label {
+        font-size: 0.85rem; /* Even smaller label font size */
+    }
+
+    .input-group input {
+        padding: 0.6rem; /* Further reduce input padding */
+        font-size: 0.85rem; /* Even smaller input font size */
+    }
+
+    .error-message {
+        font-size: 0.8rem; /* Even smaller error message font size */
+        margin-bottom: 0.6rem; /* Reduce space */
+    }
+
+    .modal-buttons {
+        gap: 0.6rem; /* Further reduce gap */
+        margin-top: 0.8rem; /* Reduce space */
+    }
+
+    .modal-buttons button {
+        padding: 0.6rem; /* Further reduce padding */
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    .add-money-btn {
+        padding: 6px 10px; /* Further adjust button padding */
+        font-size: 0.85rem; /* Even smaller button font size */
+        gap: 5px; /* Further reduce gap */
+    }
+}

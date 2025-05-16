@@ -106,18 +106,42 @@
     color: rgba(57, 255, 20, 0.9); /* Green for the role */
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .about {
-        width: 90%; /* More width on small screens */
+        width: 85%; /* Slightly increase width on medium screens */
+        margin: 40px auto; /* Adjust margin */
+        padding: 25px; /* Slightly reduce padding */
+    }
+
+    .app-about h2,
+    .about-team h2 {
+        font-size: 2rem; /* Slightly smaller titles */
+    }
+
+    .app-about p {
+        font-size: 1.1rem; /* Slightly smaller paragraph text */
     }
 
     .team-card {
-        grid-template-columns: repeat(2, 1fr); /* Display two cards per row on medium screens */
+        gap: 15px; /* Reduce gap in the team grid */
     }
 
-    .team-card div {
-        padding: 10px; /* Reduced padding for smaller screens */
+    .team-card h3 {
+        font-size: 1.4rem; /* Slightly smaller name font size */
+    }
+
+    .team-card p {
+        font-size: 1rem; /* Slightly smaller role font size */
+    }
+}
+
+
+/*Responsive */
+@media (max-width: 768px) {
+    .about {
+        width: 90%; /* More width on small screens */
+        margin: 30px auto; /* Further adjust margin */
+        padding: 20px; /* Further reduce padding */
     }
 
     .app-about h2,
@@ -125,29 +149,36 @@
         font-size: 1.8rem; /* Smaller title size */
     }
 
-    .team-card h3 {
-        font-size: 1.6rem; /* Smaller font size for names */
-    }
-
-    .team-card p {
-        font-family: 'Roboto', sans-serif; /* Use Roboto for description text */
-        font-style: italic;
-        font-size: 1rem; /* Smaller font size for descriptions */
-    }
-}
-
-/* For extra small screens */
-@media (max-width: 480px) {
-    .about {
-        width: 95%; /* More width on very small screens */
+    .app-about p {
+        font-size: 1rem; /* Smaller paragraph text */
     }
 
     .team-card {
-        grid-template-columns: 1fr; /* Stack team cards on top of each other on very small screens */
+        grid-template-columns: repeat(2, 1fr); /* Display two cards per row on medium screens */
+        gap: 20px; /* Maintain gap */
     }
 
     .team-card div {
-        padding: 8px; /* Further reduce padding */
+        padding: 15px; /* Adjusted padding for smaller screens */
+    }
+
+    .team-card h3 {
+        font-size: 1.3rem; /* Smaller font size for names */
+    }
+
+    .team-card p {
+        font-family: 'Roboto', sans-serif; /* Use Roboto for description text as per your original code */
+        font-style: italic;
+        font-size: 0.9rem; /* Smaller font size for descriptions */
+    }
+}
+
+/* Adjustments for screens smaller than 480px (common mobile breakpoint) */
+@media (max-width: 480px) {
+    .about {
+        width: 95%; /* More width on very small screens */
+        margin: 20px auto; /* Further adjust margin */
+        padding: 15px; /* Further reduce padding */
     }
 
     .app-about h2,
@@ -155,11 +186,24 @@
         font-size: 1.6rem; /* Even smaller titles on small screens */
     }
 
+    .app-about p {
+        font-size: 0.9rem; /* Even smaller paragraph text */
+    }
+
+    .team-card {
+        grid-template-columns: 1fr; /* Stack team cards on top of each other on very small screens */
+        gap: 15px; /* Adjust gap when stacked */
+    }
+
+    .team-card div {
+        padding: 10px; /* Further reduce padding */
+    }
+
     .team-card h3 {
-        font-size: 1rem; /* Even smaller font size for names */
+        font-size: 1.2rem; /* Even smaller font size for names */
     }
 
     .team-card p {
-        font-size: 0.9rem; /* Even smaller font size for descriptions */
+        font-size: 0.8rem; /* Even smaller font size for descriptions */
     }
 }

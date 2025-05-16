@@ -1,50 +1,140 @@
+/* CSS Variables */
 :root {
-    --black: #000;
-    --white: #fff;
-    --grey: #ccc;
-    --neon-green: rgba(45, 204, 17, 0.9) ; /* Subtle but noticeable */
-  }
-  
-  /* Make the navbar bigger and adjust its appearance */
-  .navbar {
-    background-color: black; /* Opaque black */
-    color: var(--white);
-    padding: 1.5rem 0; /* Increased vertical padding for a bigger navbar */
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  
+  --black: #000;
+  --white: #fff;
+  --grey: #ccc;
+  --neon-green: rgba(45, 204, 17, 0.9) ; /* Subtle but noticeable */
+}
+
+/* Make the navbar bigger and adjust its appearance */
+.navbar {
+  background-color: black; /* Opaque black */
+  color: var(--white); /* Text color */
+  padding: 1.5rem 0; /* Increased vertical padding for a bigger navbar */
+  position: sticky; /* Make the navbar sticky */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 100; /* Ensure it stays on top of other content */
+  width: 100%; /* Ensure it takes full width */
+  box-sizing: border-box; /* Include padding in the element's total width */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+}
+
+.navbar__container {
+  display: flex; /* Use flexbox for the container layout */
+  justify-content: flex-end; /* Move links to the right by default */
+  align-items: center; /* Vertically align items in the center */
+  padding: 0 2rem; /* Horizontal padding inside the container */
+  max-width: 1200px; /* Maximum width of the container */
+  margin: 0 auto; /* Center the container horizontally */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+/* Style the links to be a bit more prominent */
+.navbar__links {
+  display: flex; /* Use flexbox for the links container */
+  align-items: center; /* Vertically align links */
+  flex-wrap: wrap; /* Allow links to wrap */
+  justify-content: flex-end; /* Align links to the right by default */
+  /* Add a default gap for horizontal spacing on larger screens */
+  gap: 2rem; /* Use gap for spacing between links */
+}
+
+.navbar__links a {
+  color: var(--white); /* Link text color */
+  text-decoration: none; /* Remove underline */
+  /* Remove margin-left as gap is now used for spacing */
+  /* margin-left: 2rem; */
+  font-size: 1.1rem; /* Slightly larger font size */
+  position: relative; /* Needed for the ::before pseudo-element */
+  padding-bottom: 5px; /* Add padding for the underline effect */
+}
+
+.navbar__links a::before {
+  content: ''; /* Required for pseudo-elements */
+  position: absolute; /* Position relative to the parent link */
+  bottom: 0px; /* Adjust position of the green line to be right at the bottom */
+  left: 0; /* Start from the left */
+  width: 0%; /* Initial width is zero */
+  height: 3px; /* Slightly thicker green line */
+  background-color: var(--neon-green); /* Green line color */
+  transition: width 0.3s ease; /* Smooth transition for the width change */
+}
+
+.navbar__links a:hover::before {
+  width: 100%; /* Expand underline to full width on hover */
+}
+
+/* --- Responsive adjustments --- */
+
+/* Adjustments for screens smaller than 1024px */
+@media (max-width: 1024px) {
   .navbar__container {
-    display: flex;
-    justify-content: flex-end; /* Move links to the right */
-    align-items: center;
-    padding: 0 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+      padding: 0 1.5rem; /* Slightly reduce horizontal padding */
   }
-  
-  /* Style the links to be a bit more prominent */
+
+  .navbar__links {
+      justify-content: center; /* Center links when they might wrap */
+      margin-top: 1rem; /* Add some space above links if they wrap below the brand */
+      width: 100%; /* Allow links container to take full width */
+      gap: 1rem; /* Adjust gap between links */
+  }
+
   .navbar__links a {
-    color: var(--white);
-    text-decoration: none;
-    margin-left: 2rem; /* Increased left margin for spacing */
-    font-size: 1.1rem; /* Slightly larger font size */
-    position: relative;
+      /* margin: 0 1rem;  Adjust margins between links - now using gap */
+      font-size: 1rem; /* Slightly reduce font size */
   }
-  
-  .navbar__links a::before {
-    content: '';
-    position: absolute;
-    bottom: -3px; /* Adjust position of the green line */
-    left: 0;
-    width: 0%;
-    height: 3px; /* Slightly thicker green line */
-    background-color: var(--neon-green);
-    transition: width 0.3s ease;
+}
+
+/* Adjustments for screens smaller than 768px (common tablet breakpoint) */
+@media (max-width: 768px) {
+  .navbar__container {
+      flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center stacked items */
+      padding: 1rem 1rem; /* Adjust padding */
   }
-  
-  .navbar__links a:hover::before {
-    width: 100%;
+
+  .navbar {
+       padding: 1rem 0; /* Reduce vertical padding for a less tall navbar */
   }
-  
+
+  .navbar__links {
+      flex-direction: column; /* Stack links vertically */
+      align-items: center; /* Center stacked links */
+      margin-top: 1rem; /* Space between stacked links and potential brand/logo */
+      width: 100%; /* Ensure links container takes full width */
+      gap: 0.5rem; /* Add vertical gap between stacked links */
+      /* Remove justify-content as items are stacked */
+      justify-content: flex-start; /* Align stacked links to the start */
+  }
+
+  .navbar__links a {
+      /* margin: 0.5rem 0; Adjust margins for stacked links - now using gap */
+      font-size: 1rem; /* Maintain font size */
+      padding-bottom: 3px; /* Adjust padding for underline */
+  }
+
+   .navbar__links a::before {
+      height: 2px; /* Slightly thinner underline on smaller screens */
+   }
+}
+
+/* Further adjustments for screens smaller than 480px (common mobile breakpoint) */
+@media (max-width: 480px) {
+  .navbar__container {
+      padding: 0.8rem 0.5rem; /* Further reduce padding */
+  }
+
+  .navbar {
+       padding: 0.8rem 0; /* Further reduce vertical padding */
+  }
+
+  .navbar__links {
+      margin-top: 0.8rem; /* Adjust margin */
+      gap: 0.4rem; /* Adjust vertical gap */
+  }
+
+  .navbar__links a {
+      /* margin: 0.4rem 0; Further reduce margins for stacked links - now using gap */
+      font-size: 0.9rem; /* Slightly smaller font size */
+  }
+}
