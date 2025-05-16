@@ -21,6 +21,8 @@ app.use(express.json());
 const userRoutes = require('./routes/userRoute');
 const bucketRoutes = require('./routes/bucketsRoute');
 const walletRoutes = require('./routes/walletRoutes');
+const feedbackRoute = require('./routes/feedbackRoute');
+
 // Connect to MongoDB
 connectDB();
 
@@ -30,6 +32,7 @@ app.use('/api-docs', require('swagger-ui-express').serve, require('swagger-ui-ex
 app.use('/api/users', userRoutes);
 app.use('/api/buckets', bucketRoutes); 
 app.use('/api/wallet', walletRoutes); 
+app.use('/api/feedback', feedbackRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello from the Backend!');
@@ -38,4 +41,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
   console.log(`Swagger documentation available at http://localhost:${PORT}/api-docs`);
-});
+}); 
+
+
