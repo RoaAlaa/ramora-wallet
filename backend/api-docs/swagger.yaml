@@ -1,0 +1,553 @@
+openapi: 3.0.0
+info:
+  title: Ramora Wallet API
+  description: API documentation for Ramora Wallet
+  version: 1.0.0
+  contact:
+    name: Ramora Wallet Team
+    email: roaelsayed@hotmail.com
+
+servers:
+  - url: http://localhost:5001
+    description: Local development server
+
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Wallet:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        balance:
+          type: number
+          format: float
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        senderId:
+          type: string
+          format: uuid
+        receiverId:
+          type: string
+          format: uuid
+        amount:
+          type: number
+          format: float
+        type:
+          type: string
+          enum: [SEND, REQUEST, ADD_BALANCE]
+        status:
+          type: string
+          enum: [PENDING, COMPLETED, REJECTED]
+        createdAt:
+          type: string
+          format: date-time
+
+    Bucket:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        amount:
+          type: number
+          format: float
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+paths:
+  /users/register:
+    post:
+      summary: Register a new user
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - username
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                username:
+                  type: string
+      responses:
+        '201':
+          description: User successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input
+
+  /users/login:
+    post:
+      summary: Login user
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Invalid credentials
+
+  /users/me:
+    get:
+      summary: Get current user profile
+      tags: [Users]
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}:
+    get:
+      summary: Get user by ID
+      tags: [Users]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true 
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    
+    put:
+      summary: Update user
+      tags: [Users]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated successfully
+    
+    delete:
+      summary: Delete user
+      tags: [Users]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: User deleted successfully
+
+  /wallets/{userId}/add-balance:
+    post:
+      summary: Add balance to wallet
+      tags: [Wallets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true 
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+              properties:
+                amount:
+                  type: number
+                  format: float
+      responses:
+        '200':
+          description: Balance added successfully
+
+  /wallets/{userId}/send/{receiverUsername}:
+    post:
+      summary: Send money to another user
+      tags: [Wallets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: receiverUsername
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+              properties:
+                amount:
+                  type: number
+                  format: float
+      responses:
+        '200':
+          description: Money sent successfully
+
+  /wallets/{userId}/request/{receiverUsername}:
+    post:
+      summary: Request money from another user
+      tags: [Wallets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: receiverUsername
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+              properties:
+                amount:
+                  type: number
+                  format: float
+      responses:
+        '200':
+          description: Money request sent successfully
+
+  /wallets/{userId}/requests:
+    get:
+      summary: View money requests
+      tags: [Wallets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of money requests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+
+  /wallets/{userId}/requests/{transactionId}:
+    put:
+      summary: Respond to money request
+      tags: [Wallets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum: [ACCEPTED, REJECTED]
+      responses:
+        '200':
+          description: Request response processed successfully
+
+  /wallets/{userId}/transactions:
+    get:
+      summary: Get transaction history
+      tags: [Wallets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Transaction history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+
+  /buckets/{userId}/buckets:
+    get:
+      summary: Get user's buckets
+      tags: [Buckets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of user's buckets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bucket'
+
+    post:
+      summary: Create a new bucket
+      tags: [Buckets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - amount
+              properties:
+                name:
+                  type: string
+                amount:
+                  type: number
+                  format: float
+      responses:
+        '201':
+          description: Bucket created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bucket'
+
+  /buckets/{userId}/buckets/{bucketId}:
+    put:
+      summary: Update a bucket
+      tags: [Buckets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: bucketId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                amount:
+                  type: number
+                  format: float
+      responses:
+        '200':
+          description: Bucket updated successfully
+
+    delete:
+      summary: Delete a bucket
+      tags: [Buckets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: bucketId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Bucket deleted successfully
+
+  /buckets/{userId}/buckets/reset:
+    post:
+      summary: Reset all buckets
+      tags: [Buckets]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: All buckets reset successfully
