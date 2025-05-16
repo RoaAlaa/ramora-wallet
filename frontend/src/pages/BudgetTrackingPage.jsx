@@ -170,14 +170,13 @@ const BudgetTrackingPage = () => {
     try {
       const token = localStorage.getItem('jwtToken');
       const userId = localStorage.getItem('userId');
-
-      const response = await fetch(`http://localhost:5001/api/buckets/${userId}/buckets`, {
+      
+      const response = await fetch(`http://localhost:5001/api/buckets/${userId}/buckets/${bucketId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ bucketId })
+        }
       });
 
       if (!response.ok) {
@@ -187,7 +186,6 @@ const BudgetTrackingPage = () => {
 
       const data = await response.json();
       
-     
       if (data && data.user) {
         setUserData(prevData => ({
           totalBalance: data.user.balance || prevData.totalBalance,
@@ -195,7 +193,7 @@ const BudgetTrackingPage = () => {
         }));
         setShowSuccessModal(true);
       } else {
-       
+        // Fetch updated user data if not included in response
         const userResponse = await fetch(`http://localhost:5001/api/users/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -215,7 +213,6 @@ const BudgetTrackingPage = () => {
         }
       }
       
-    
       setError(null);
     } catch (err) {
       console.error('Delete bucket error:', err);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import RequestConfirmationModal from './RequestConfirmationModal'; 
@@ -28,6 +28,19 @@ function RequestMoney() {
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [valuesToConfirm, setValuesToConfirm] = useState(null);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
+  
+  useEffect(() => {
+    let timer;
+    if (showErrorModal) {
+      timer = setTimeout(() => {
+        setShowErrorModal(false);
+        formik.resetForm();
+      }, 3000); 
+    }
+    return () => clearTimeout(timer);
+  }, [showErrorModal]);
 
   const formik = useFormik({
     initialValues: {
@@ -49,8 +62,8 @@ function RequestMoney() {
     setShowModal(false);
 
     if (!valuesToConfirm) {
-        setError('Confirmation values are missing.');
-        return;
+      setError('Confirmation values are missing.');
+      return;
     }
 
     setLoading(true);
@@ -78,6 +91,11 @@ function RequestMoney() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        if (errorData.error === "Recipient not found") {
+          setShowErrorModal(true);
+          setError("Invalid recipient.");
+          return;
+        }
         throw new Error(errorData.error || 'Failed to request money');
       }
 
@@ -112,7 +130,18 @@ function RequestMoney() {
         {message && <div className={`${styles.message} ${styles.success}`}>{message}</div>}
         {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
 
-     
+        {/* Error Modal */}
+        {showErrorModal && (
+          <div className={styles.modalBackdrop}>
+            <div className={styles.modalContent}>
+              <h3>Invalid Recipient</h3>
+              <p>The username you entered does not exist.</p>
+              <p>Please try again with a valid username.</p>
+              <p className={styles.refreshMessage}>Refreshing in 3 seconds...</p>
+            </div>
+          </div>
+        )}
+
         <form onSubmit={formik.handleSubmit}>
           <div>
             <label htmlFor="requesterNumber" className={styles.formLabel}>Username to Request From</label>

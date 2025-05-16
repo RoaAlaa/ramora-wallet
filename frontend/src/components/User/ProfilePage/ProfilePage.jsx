@@ -23,11 +23,12 @@ const ProfilePage = () => {
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false); //bt3t el update 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [valuesToConfirm, setValuesToConfirm] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -291,13 +292,7 @@ const ProfilePage = () => {
                 value={formData.phoneNumber}
                 onChange={handleChange}
               />
-                <img
-                src={showPassword ? eye_icon : eye_closed}
-                alt="Toggle Password Visibility"
-                className="toggle-password-icon"
-                onClick={() => setShowPassword(!showPassword)}
-                style={{ cursor: 'pointer' }}
-              />
+
             </div>
             <button className="submit-button" type="submit">
               Save Changes

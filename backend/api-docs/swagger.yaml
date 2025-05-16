@@ -62,9 +62,15 @@ components:
           example: "507f1f77bcf86cd799439011"
         name:
           type: string
+          description: Name of the bucket (cannot be 'others')
         amount:
           type: number
           format: float
+          minimum: 0
+          description: Amount in the bucket (cannot be negative)
+      required:
+        - name
+        - amount
 
     Transaction:
       type: object
@@ -503,6 +509,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Bucket'
+                    maxItems: 4
+                    description: List of user's buckets (maximum 4 buckets allowed)
                   balance:
                     type: number
                     format: float
@@ -570,131 +578,15 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "Bucket name is required"
-
-  /buckets/{userId}/buckets/{bucketId}:
-    put:
-      summary: Update a bucket
-      tags: [Buckets]
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: string
-            description: MongoDB ObjectId of the user
-            example: "507f1f77bcf86cd799439011"
-        - name: bucketId
-          in: path
-          required: true
-          schema:
-            type: string
-            description: MongoDB ObjectId of the bucket subdocument
-            example: "507f1f77bcf86cd799439011"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: New name for the bucket (cannot be 'others')
-                amount:
-                  type: number
-                  format: float
-                  minimum: 0
-                  description: New amount for the bucket
-      responses:
-        '200':
-          description: Bucket updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Bucket updated successfully"
-                  user:
-                    $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "At least one field (name or amount) must be provided"
-        '404':
-          description: Bucket not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Bucket not found"
+                    examples:
+                      - "Bucket name is required"
+                      - "Amount cannot be negative"
+                      - "Maximum 4 buckets allowed"
+                      - "Bucket with this name already exists"
+                      - "Insufficient funds in default bucket"
 
     delete:
       summary: Delete a bucket
-      tags: [Buckets]
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: string
-            description: MongoDB ObjectId of the user
-            example: "507f1f77bcf86cd799439011"
-        - name: bucketId
-          in: path
-          required: true
-          schema:
-            type: string
-            description: MongoDB ObjectId of the bucket subdocument
-            example: "507f1f77bcf86cd799439011"
-      responses:
-        '200':
-          description: Bucket deleted successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: "Bucket deleted successfully"
-                  user:
-                    $ref: '#/components/schemas/User'
-        '404':
-          description: Bucket not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: "Bucket not found"
-
-  /buckets/{userId}/buckets/reset:
-    post:
-      summary: Reset all buckets
       tags: [Buckets]
       security:
         - BearerAuth: []
@@ -713,24 +605,26 @@ paths:
             schema:
               type: object
               required:
-                - newBalance
+                - bucketId
               properties:
-                newBalance:
-                  type: number
-                  format: float
-                  minimum: 0
-                  description: New balance to set for the default bucket
+                bucketId:
+                  type: string
+                  description: MongoDB ObjectId of the bucket to delete
+                  example: "507f1f77bcf86cd799439011"
       responses:
         '200':
-          description: Buckets reset successfully
+          description: Bucket deleted successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
+                  success:
+                    type: boolean
+                    example: true
                   message:
                     type: string
-                    example: "Buckets reset successfully"
+                    example: "Bucket deleted successfully"
                   user:
                     $ref: '#/components/schemas/User'
         '400':
@@ -740,6 +634,22 @@ paths:
               schema:
                 type: object
                 properties:
-                  error:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
                     type: string
-                    example: "Balance cannot be negative"
+                    example: "Bucket ID is required in request body"
+        '404':
+          description: Bucket not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Bucket not found"

@@ -248,7 +248,7 @@
   position: absolute;
   right: 15px;
   opacity: 0.8;
-  transition: opacity 0.3s ease;
+  /* transition: opacity 0.3s ease; */
 }
 
 .toggle-password-icon:hover {

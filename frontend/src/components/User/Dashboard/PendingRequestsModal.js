@@ -265,8 +265,8 @@ const PendingRequestsModal = ({ isOpen, onClose, userId, onBalanceUpdate, onRequ
                         <span>Processing...</span>
                       ) : (
                         <>
-                          <button onClick={() => handleAcceptRequest(request.id)}>Accept</button>
-                          <button onClick={() => handleRejectRequest(request.id)}>Reject</button>
+                          <button className = "accept-button" onClick={() => handleAcceptRequest(request.id)}>Accept</button>
+                          <button className = "reject-button" onClick={() => handleRejectRequest(request.id)}>Reject</button>
                         </>
                       )}
                       {status.error && <div className="error-message">{status.error}</div>}
