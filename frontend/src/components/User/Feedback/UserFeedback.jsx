@@ -20,39 +20,19 @@ const UserFeedback = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Simulate successful submission
-      console.log('Feedback submitted:', feedbackData);
-      setStatus({ type: 'success', message: 'Thank you for your feedback!' });
-      
-      // Clear form
-      setFeedbackData({ name: '', message: '' });
-      
-      // Navigate back to dashboard after 2 seconds
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 2000);
-
-      /* Backend API Integration (Commented for now)
       const token = localStorage.getItem('jwtToken');
       if (!token) {
         setStatus({ type: 'error', message: 'Please log in to submit feedback' });
         return;
       }
 
-      const response = await fetch('http://localhost:5001/api/feedback', {
+      const response = await fetch('http://localhost:5001/api/feedback/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          ...feedbackData,
-          userId: localStorage.getItem('userId'), // Include user ID from localStorage
-          timestamp: new Date().toISOString() // Include submission timestamp
-        })
+        body: JSON.stringify(feedbackData)
       });
 
       if (!response.ok) {
@@ -70,10 +50,9 @@ const UserFeedback = () => {
       setTimeout(() => {
         navigate('/dashboard');
       }, 2000);
-      */
 
     } catch (error) {
-      setStatus({ type: 'error', message: 'Something went wrong. Please try again.' });
+      setStatus({ type: 'error', message: error.message || 'Something went wrong. Please try again.' });
       console.error('Feedback submission error:', error);
     }
   };
