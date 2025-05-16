@@ -1,334 +1,296 @@
-/* --- MODAL OVERLAY --- */
-/* Styles for the semi-transparent background that covers the entire viewport when the modal is open. */
 .modal-overlay {
-  position: fixed; /* Stay in place relative to the viewport */
-  z-index: 1000; /* Ensure it's on top of other content */
+  position: fixed;
+  z-index: 1000;
   left: 0;
   top: 0;
-  width: 100%; /* Full width of the viewport */
-  height: 100%; /* Full height of the viewport */
-  overflow-y: auto; /* Add vertical scrollbars if the content exceeds the viewport height */
-  overflow-x: hidden; /* Hide horizontal scrollbar */
-  background-color: rgba(0, 0, 0, 0.6); /* Black background with 60% opacity */
-  display: flex; /* Use flexbox to easily center the modal content */
-  justify-content: center; /* Center horizontally */
-  align-items: flex-start; /* Align items to the top (allows content to scroll from the top) */
-  padding: 20px; /* Add some padding around the edges */
-  box-sizing: border-box; /* Include padding in the element's total width and height */
-}
-
-/* --- MODAL CONTENT BOX --- */
-/* Styles for the container holding the modal's header and body. */
-.modal-content {
-  background-color: #fefefe; /* White background for the modal content */
-  margin: 50px auto; /* Auto horizontal margin for centering, add top/bottom margin for spacing */
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   padding: 20px;
-  border-radius: 10px; /* Rounded corners */
-  width: 90%; /* Take up 90% of the parent width (modal-overlay) */
-  max-width: 500px; /* Limit the maximum width */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add a shadow for depth */
-  position: relative; /* Needed for absolute positioning of the close button (if used) */
-  display: flex; /* Use flexbox for layout of header and body */
-  flex-direction: column; /* Stack header and body vertically */
-  max-height: 80vh; /* Limit the maximum height to 80% of the viewport height */
-  box-sizing: border-box; /* Include padding in the element's total width and height */
+  box-sizing: border-box;
 }
 
-/* Styles for the modal header */
+.modal-content {
+  background-color: #fefefe;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+  box-sizing: border-box;
+}
+
 .modal-header {
-  display: flex; /* Use flexbox for title and close button */
-  justify-content: space-between; /* Put space between title and button */
-  align-items: center; /* Align items vertically in the center */
-  border-bottom: 1px solid #eee; /* Add a separator line below the header */
-  padding-bottom: 10px; /* Padding below the line */
-  margin-bottom: 15px; /* Space below the header section */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-/* Styles for the modal title */
 .modal-header h3 {
-  margin: 0; /* Remove default margin from h3 */
-  color: #333; /* Dark text color for the title */
-  font-size: 1.5rem; /* Default title font size */
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
 }
 
-/* --- CLOSE BUTTON --- */
-/* Styles for the button used to close the modal. */
 .close-button {
-  color: #aaa; /* Default color */
-  font-size: 28px; /* Size of the '×' character */
+  color: #aaa;
+  font-size: 28px;
   font-weight: bold;
-  background: none; /* No background */
-  border: none; /* No border */
-  cursor: pointer; /* Indicate it's clickable */
-  padding: 0; /* Remove default padding */
-  transition: color 0.3s ease; /* Smooth transition for color change */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
 }
 
-/* Hover and focus states for the close button */
 .close-button:hover,
 .close-button:focus {
-  color: #777; /* Darker color on hover/focus */
-  text-decoration: none; /* Remove underline */
-  outline: none; /* Remove default outline */
+  color: #777;
+  text-decoration: none;
+  outline: none;
 }
 
-/* --- MODAL BODY (SCROLLABLE CONTENT) --- */
-/* Styles for the area containing the main content of the modal (the list of requests). */
 .modal-body {
-  flex-grow: 1; /* Allow this section to grow and take up available vertical space */
-  overflow-y: auto; /* --- MAKE CONTENT SCROLLABLE (Requirement) --- */
-  /* This is the key property that adds a vertical scrollbar if content overflows the max-height of the modal-content */
-  padding-right: 10px; /* Add padding to the right to prevent content from being hidden under the scrollbar */
-  /* Add padding-bottom to ensure the last item isn't cut off by the scrollbar */
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 10px;
   padding-bottom: 10px;
 }
 
-/* Style for the unordered list containing the pending requests */
 .pending-requests-list {
-  list-style: none; /* Remove default list bullets */
-  padding: 0; /* Remove default padding */
-  margin: 0; /* Remove default margin */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Style for each individual list item (a single pending request) */
 .request-item {
-  background-color: #f9f9f9; /* Light background for each item */
-  border: 1px solid #eee; /* Light border */
-  border-radius: 8px; /* Rounded corners */
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 8px;
   padding: 15px;
-  margin-bottom: 15px; /* Space between items */
-  display: flex; /* Use flexbox to arrange details and action buttons */
-  justify-content: space-between; /* Put space between the details and the action buttons */
-  align-items: center; /* Align items vertically in the center */
-  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
-}
-
-/* Styles for the request details section within an item */
-.request-details {
-  flex-grow: 1; /* Allow details to take up available space */
-  margin-right: 15px; /* Space between details and actions */
-  color: #555; /* Slightly lighter text color */
-  font-size: 14px; /* Default font size */
-}
-
-/* Styles for the container holding the action buttons (Accept/Reject) */
-.request-actions {
-  display: flex; /* Use flexbox for the buttons */
-  gap: 10px; /* Space between Accept and Reject buttons */
-  /* Ensure buttons stack if needed */
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  justify-content: flex-end; /* Align buttons to the end by default */
 }
 
-/* Basic styling for Accept/Reject buttons within the modal */
-/* These inherit some styles from .action-button in DashboardActions.css, but we override some */
+.request-details {
+  flex-grow: 1;
+  margin-right: 15px;
+  color: #555;
+  font-size: 14px;
+}
+
+.request-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 .request-actions .action-button {
-  padding: 8px 15px; /* Smaller padding than main action buttons */
-  font-size: 14px; /* Smaller font size */
-  border-radius: 5px; /* Slightly smaller border radius */
-  box-shadow: none; /* Remove the 3D shadow for these smaller buttons */
-  transform: none; /* Remove the 3D transform */
-  transition: none; /* Remove the transition */
-  /* Ensure buttons take up reasonable width when stacked */
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  box-shadow: none;
+  transform: none;
+  transition: none;
   width: auto;
-  flex-shrink: 0; /* Prevent buttons from shrinking too much */
+  flex-shrink: 0;
 }
 
-/* Remove hover transform/shadow for these smaller buttons */
 .request-actions .action-button:hover {
   box-shadow: none;
   transform: none;
 }
 
-/* Specific color for the Accept button */
 .accept-button {
-  background-color: #28a745; /* Green color */
-  color: white; /* White text */
+  background-color: #28a745;
+  color: white;
 }
 
-/* Hover color for the Accept button */
 .accept-button:hover {
-  background-color: #218838; /* Darker green */
+  background-color: #218838;
 }
 
-/* Specific color for the Reject button */
 .reject-button {
-  background-color: #dc3545; /* Red color */
-  color: white; /* White text */
+  background-color: #dc3545;
+  color: white;
 }
 
-/* Hover color for the Reject button */
 .reject-button:hover {
-  background-color: #c82333; /* Darker red */
+  background-color: #c82333;
 }
 
-/* Style for error messages displayed within the modal */
 .error-message {
-  color: #dc3545; /* Red color for errors */
+  color: #dc3545;
   text-align: center;
   margin-top: 10px;
-  font-size: 0.9rem; /* Default font size */
+  font-size: 0.9rem;
 }
 
-/* Style for error messages displayed next to individual items */
 .item-error-message {
-  color: #dc3545; /* Red color for errors */
-  font-size: 12px; /* Default font size */
+  color: #dc3545;
+  font-size: 12px;
   margin-top: 5px;
 }
 
-/* --- Responsive adjustments --- */
-
-/* Adjustments for screens smaller than 768px (common tablet breakpoint) */
 @media (max-width: 768px) {
   .modal-content {
-      padding: 18px; /* Slightly reduce padding */
-      width: 92%; /* Increase width slightly */
-      margin: 30px auto; /* Adjust margin */
-      max-height: 85vh; /* Allow slightly more height */
+    padding: 18px;
+    width: 92%;
+    margin: 30px auto;
+    max-height: 85vh;
   }
 
   .modal-header h3 {
-      font-size: 1.4rem; /* Slightly smaller title font size */
+    font-size: 1.4rem;
   }
 
   .close-button {
-      font-size: 24px; /* Slightly smaller close button */
+    font-size: 24px;
   }
 
   .request-item {
-      padding: 12px; /* Reduce padding in request items */
-      margin-bottom: 12px; /* Reduce space between items */
+    padding: 12px;
+    margin-bottom: 12px;
   }
 
   .request-details {
-      font-size: 13px; /* Slightly smaller details font size */
-      margin-right: 10px; /* Reduce space */
+    font-size: 13px;
+    margin-right: 10px;
   }
 
   .request-actions {
-      gap: 8px; /* Reduce gap between action buttons */
+    gap: 8px;
   }
 
   .request-actions .action-button {
-      padding: 7px 12px; /* Reduce padding in action buttons */
-      font-size: 13px; /* Reduce font size in action buttons */
+    padding: 7px 12px;
+    font-size: 13px;
   }
 
-   .error-message {
-      font-size: 0.85rem; /* Slightly smaller error message font size */
+  .error-message {
+    font-size: 0.85rem;
   }
 
   .item-error-message {
-      font-size: 11px; /* Slightly smaller item error message font size */
+    font-size: 11px;
   }
 }
 
-
-/* Adjustments for screens smaller than 576px (your original breakpoint) */
 @media (max-width: 576px) {
   .modal-overlay {
-      padding: 10px; /* Reduce overlay padding */
+    padding: 10px;
   }
 
   .modal-content {
-      padding: 15px; /* Reduce padding */
-      width: 95%; /* Make it slightly wider */
-      margin: 20px auto; /* Further adjust margin */
-      max-height: 90vh; /* Allow more height on smaller screens */
+    padding: 15px;
+    width: 95%;
+    margin: 20px auto;
+    max-height: 90vh;
   }
 
   .modal-header h3 {
-      font-size: 1.3rem; /* Smaller title font size */
+    font-size: 1.3rem;
   }
 
   .close-button {
-      font-size: 22px; /* Smaller close button */
+    font-size: 22px;
   }
 
-  /* Stack details and actions vertically within request items */
   .request-item {
-      flex-direction: column; /* Stack items vertically */
-      align-items: flex-start; /* Align items to the start (left) */
-      gap: 10px; /* Add space between stacked items */
-      padding: 10px; /* Further reduce padding */
-      margin-bottom: 10px; /* Further reduce space between items */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
   }
 
-  /* Adjust margins when stacked */
   .request-details {
-      margin-right: 0; /* Remove right margin */
-      margin-bottom: 8px; /* Add bottom margin */
-      font-size: 12px; /* Smaller details font size */
+    margin-right: 0;
+    margin-bottom: 8px;
+    font-size: 12px;
   }
 
   .request-actions {
-      gap: 8px; /* Maintain gap between action buttons */
-      /* Ensure buttons stack if needed, but still align left within the stacked request item */
-      justify-content: flex-start; /* Align buttons to the start (left) */
-      width: 100%; /* Allow action buttons container to take full width */
+    gap: 8px;
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .request-actions .action-button {
-      padding: 6px 10px; /* Further reduce padding in action buttons */
-      font-size: 12px; /* Further reduce font size in action buttons */
-      /* Ensure buttons take up reasonable width when stacked vertically within actions */
-      width: auto; /* Allow width to be determined by content */
-      flex-shrink: 0;
+    padding: 6px 10px;
+    font-size: 12px;
+    width: auto;
+    flex-shrink: 0;
   }
 
-   .error-message {
-      font-size: 0.8rem; /* Smaller error message font size */
+  .error-message {
+    font-size: 0.8rem;
   }
 
   .item-error-message {
-      font-size: 10px; /* Smaller item error message font size */
+    font-size: 10px;
   }
 }
 
-/* Further adjustments for screens smaller than 400px */
 @media (max-width: 400px) {
   .modal-content {
-      padding: 10px; /* Further reduce padding */
-      width: 98%; /* Make it even wider */
-      margin: 15px auto; /* Further adjust margin */
-      max-height: 95vh; /* Allow more height */
+    padding: 10px;
+    width: 98%;
+    margin: 15px auto;
+    max-height: 95vh;
   }
 
   .modal-header h3 {
-      font-size: 1.2rem; /* Even smaller title font size */
+    font-size: 1.2rem;
   }
 
   .close-button {
-      font-size: 20px; /* Even smaller close button */
+    font-size: 20px;
   }
 
   .request-item {
-      padding: 8px; /* Further reduce padding */
-      margin-bottom: 8px; /* Further reduce space */
-      gap: 8px; /* Maintain gap */
+    padding: 8px;
+    margin-bottom: 8px;
+    gap: 8px;
   }
 
   .request-details {
-      font-size: 11px; /* Even smaller details font size */
-      margin-bottom: 6px; /* Reduce margin */
+    font-size: 11px;
+    margin-bottom: 6px;
   }
 
   .request-actions {
-      gap: 6px; /* Further reduce gap */
-      width: 100%; /* Maintain full width */
+    gap: 6px;
+    width: 100%;
   }
 
-   .request-actions .action-button {
-      padding: 5px 8px; /* Further reduce padding */
-      font-size: 11px; /* Further reduce font size */
-   }
+  .request-actions .action-button {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
 
-   .error-message {
-      font-size: 0.75rem; /* Even smaller error message font size */
+  .error-message {
+    font-size: 0.75rem;
   }
 
   .item-error-message {
-      font-size: 9px; /* Even smaller item error message font size */
+    font-size: 9px;
   }
 }
