@@ -1,9 +1,7 @@
-// src/features/sendMoney/ConfirmationModal.jsx
 import React from 'react';
-import styles from './SendMoney.module.css'; // Import styles from the same directory
+import styles from './SendMoney.module.css'; 
 
 function ConfirmationModal({ show, recipientNumber, amount, onConfirm, onCancel }) {
-  // If show is false, don't render the modal
   if (!show) {
     return null;
   }
@@ -12,7 +10,6 @@ function ConfirmationModal({ show, recipientNumber, amount, onConfirm, onCancel 
     <div className={styles.modalBackdrop}>
       <div className={styles.modalContent}>
         <h3>Confirm Transaction</h3>
-        {/* Display amount and number - use strong tags for emphasis */}
         <p>Are you sure you want to send <strong>${amount}</strong> to <strong>{recipientNumber}</strong>?</p>
         <div className={styles.modalButtons}>
           <button className={styles.cancelButton} onClick={onCancel}>No</button>
@@ -23,4 +20,4 @@ function ConfirmationModal({ show, recipientNumber, amount, onConfirm, onCancel 
   );
 }
 
-export default ConfirmationModal; // Consistent export name
+export default ConfirmationModal;

@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import ConfirmationModal from './ConfirmationModal'; 
 import styles from './SendMoney.module.css'; 
 
-//Validation 
+
 
 
 const SendMoneySchema = Yup.object().shape({
@@ -16,20 +16,17 @@ const SendMoneySchema = Yup.object().shape({
   amount: Yup.number()
     .required('Amount is required')
     .positive('Amount must be positive')
-    .min(0.01, 'Amount must be at least 0.01'), // Minimum amount
+    .min(0.01, 'Amount must be at least 0.01'),
 });
 
 
-//functional component : could recive props if needed, and returns JSX
 
 function SendMoney() {
 
-    //useState is a React hook that allows you to add state to functional components
- 
-    //useState has two elements: the current state and a function to update it
+
 
   const [loading, setLoading] = useState(false);
-  // want to use it reset : setLoading(true) or setLoading(false)
+
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -37,16 +34,13 @@ function SendMoney() {
   const [valuesToConfirm, setValuesToConfirm] = useState(null);
 
 
- //awl haga nhdd el hagt elly 3ayzeen n3mlha fel form 
- //wel values el hnkhodha mn el form
+
   const formik = useFormik({
     initialValues: {
       recipientNumber: '',
       amount: '',
     },
-    //validtion 
-    
-     // Use the schema defined ba2aa
+
     validationSchema: SendMoneySchema, 
     onSubmit: (values, { setSubmitting, resetForm }) => {
       setMessage(''); 

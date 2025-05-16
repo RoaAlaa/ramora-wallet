@@ -234,4 +234,29 @@
     margin-right: 0;
   }
 }
+
+/* Password container specific styles */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 15px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.toggle-password-icon:hover {
+  opacity: 1;
+}
+
+/* Adjust input padding when toggle icon is present */
+.password-container .form-control {
+  padding-right: 45px;
+}
   

@@ -1,44 +1,37 @@
-/* src/features/requestMoney/RequestMoney.module.css */
-
-/* Page background */
 .pageContainer {
     background-color: white;
-    min-height: 100vh; /* Ensure it covers the full viewport height */
+    min-height: 100vh;
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    padding: 40px 20px; /* Add some padding around the content */
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
     margin: 0;
     box-sizing: border-box;
 }
 
-/* Black rounded box for the form */
 .formBox {
     background-color: black;
-    border-radius: 15px; /* Rounded corners */
+    border-radius: 15px;
     padding: 30px;
-    color: white; /* Text color inside the box */
-    max-width: 500px; /* Limit max width */
-    width: 100%; /* Make it responsive */
-    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5); /* Black shadow */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover */
+    color: white;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
     margin-top: 0;
 }
 
-/* 3D effect on hover for the form box */
 .formBox:hover {
-    transform: translate(-3px, -3px); /* Move slightly up-left */
-    box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.7); /* Enhance shadow */
+    transform: translate(-3px, -3px);
+    box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.7);
 }
 
-/* Center the heading inside the form box */
 .formBox h2 {
     text-align: center;
     margin-top: 0;
-    margin-bottom: 30px; /* Add space below heading */
+    margin-bottom: 30px;
 }
 
-/* Styling for input fields and textarea */
 .formBox input[type="text"],
 .formBox input[type="number"],
 .formBox textarea {
@@ -56,7 +49,6 @@
     font-family: inherit;
 }
 
-/* Green 3D effect on hover/focus for inputs and textarea */
 .formBox input[type="text"]:hover,
 .formBox input[type="number"]:hover,
 .formBox textarea:hover,
@@ -68,14 +60,12 @@
     transform: translate(-2px, -2px);
 }
 
-/* Specific styles for textarea */
 .formBox textarea {
     resize: vertical;
     min-height: 80px;
     max-height: 200px;
 }
 
-/* Style for the note text in modal */
 .noteText {
     margin: 15px 0;
     padding: 10px;
@@ -90,7 +80,6 @@
     font-style: italic;
 }
 
-/* Styling for the Request button */
 .requestButton {
     background-color: black;
     color: white;
@@ -99,33 +88,30 @@
     padding: 12px 25px;
     cursor: pointer;
     font-size: 1.1em;
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover */
+    transition: all 0.3s ease-in-out;
     outline: none;
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Initial subtle shadow */
-    width: 100%; /* Full width button */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
 }
 
-/* Green 3D effect on hover for the button */
 .requestButton:hover:not(:disabled) {
-    background-color: #1a1a1a; /* Slightly lighter black on hover */
-    border-color: #0f0; /* Green border */
-    box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5); /* Green 3D shadow effect */
-    transform: translate(-2px, -2px); /* Subtle lift */
+    background-color: #1a1a1a;
+    border-color: #0f0;
+    box-shadow: 5px 5px 12px rgba(0, 255, 0, 0.5);
+    transform: translate(-2px, -2px);
 }
 
 .requestButton:disabled {
-    opacity: 0.6; /* Dim when disabled */
-    cursor: not-allowed; /* Indicate not clickable */
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-/* Styling for labels */
 .formBox label {
-    display: block; /* Make label a block element */
+    display: block;
     margin-bottom: 8px;
     font-weight: bold;
 }
 
-/* Styling for messages */
 .message {
     margin-bottom: 20px;
     padding: 10px;
@@ -144,18 +130,17 @@
     border: 1px solid #f5c6cb;
 }
 
-/* Basic Modal Styling */
 .modalBackdrop {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure it's on top */
+    z-index: 1000;
 }
 
 .modalContent {
@@ -199,10 +184,10 @@
 }
 
 .modalButtons .confirmButton {
-    background-color: #28a745; /* Green */
+    background-color: #28a745;
     color: white;
 }
 
 .modalButtons .confirmButton:hover {
-    background-color: #218838; /* Darker green */
+    background-color: #218838;
 }
