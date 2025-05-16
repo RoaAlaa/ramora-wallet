@@ -25,6 +25,7 @@ const ProfilePage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [valuesToConfirm, setValuesToConfirm] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -46,7 +47,7 @@ const ProfilePage = () => {
 
         if (response.status === 401) {
           localStorage.removeItem('jwtToken');
-          window.location.href = '/login';
+          navigate('/login');
           return;
         }
 
@@ -82,10 +83,27 @@ const ProfilePage = () => {
     }));
   };
 
+  const validatePassword = (password) => {
+    if (!password) return true; // Allow empty password (for optional updates)
+    const hasMinLength = password.length >= 6;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+
+    return hasMinLength && hasUpperCase && hasLowerCase && hasNumber;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setMessage("");
     setError("");
+
+    // Validate password if it's being changed
+    if (formData.password && !validatePassword(formData.password)) {
+      setShowPasswordModal(true);
+      return;
+    }
+
     setValuesToConfirm(formData);
     setShowModal(true);
   };
@@ -120,7 +138,7 @@ const ProfilePage = () => {
 
       if (response.status === 401) {
         localStorage.removeItem('jwtToken');
-        window.location.href = '/login';
+        navigate('/login');
         return;
       }
 
@@ -167,7 +185,7 @@ const ProfilePage = () => {
 
       if (response.status === 401) {
         localStorage.removeItem('jwtToken');
-        window.location.href = '/login';
+        navigate('/login');
         return;
       }
 
@@ -179,7 +197,7 @@ const ProfilePage = () => {
       localStorage.removeItem('jwtToken');
       setMessage("Profile deleted successfully!");
       setTimeout(() => {
-        navigate('/');
+        navigate('/'); //yroh 3ala home page bara
       }, 2000);
     } catch (err) {
       console.error('Profile deletion error:', err);
@@ -278,6 +296,20 @@ const ProfilePage = () => {
           </form>
         )}
       </div>
+
+      {/* Password Validation Modal */}
+      <ProfilePageConfirmationModal
+        isOpen={showPasswordModal}
+        title="Invalid Password"
+        message="Password must meet the following requirements:
+        - At least 6 characters long
+        - At least one uppercase letter
+        - At least one lowercase letter
+        - At least one number"
+        onConfirm={() => setShowPasswordModal(false)}
+        onCancel={() => setShowPasswordModal(false)}
+        confirmText="OK"
+      />
 
       {/* Update Confirmation Modal */}
       <ProfilePageConfirmationModal

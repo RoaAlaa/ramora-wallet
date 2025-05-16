@@ -11,7 +11,7 @@ exports.register = async (req, res) => {
             return res.status(400).json({ error: result.error });
         }
 
-        await emailServices.sendEmail(result.user.email, 'welcome to our app', `Hi ${result.user.name}, thank you for registering!`);
+        await emailServices.sendEmail(result.user.email, 'welcome to Ramora', `Hi ${result.user.name}, thank you for registering!`);
         res.status(201).json({
             success: true,
             message: 'User registered successfully',

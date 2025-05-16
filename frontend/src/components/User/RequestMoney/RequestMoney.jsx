@@ -1,13 +1,10 @@
-// src/features/requestMoney/RequestMoney.js
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-// Import the dedicated Request Confirmation Modal
 import RequestConfirmationModal from './RequestConfirmationModal'; 
-// Import styles from the new CSS file
 import styles from './RequestMoney.module.css'; 
 
-// Validation Schema (uses requesterNumber)
+
 const RequestMoneySchema = Yup.object().shape({
   requesterNumber: Yup.string() 
     .required('Username is required')
@@ -23,7 +20,7 @@ const RequestMoneySchema = Yup.object().shape({
     .max(200, 'Note must be less than 200 characters')
 });
 
-// Functional component for Request Money
+
 function RequestMoney() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
