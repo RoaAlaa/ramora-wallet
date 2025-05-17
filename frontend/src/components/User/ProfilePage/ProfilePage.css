@@ -236,7 +236,7 @@
 }
 
 /* Password container specific styles */
-.password-container {
+/* .password-container {
   position: relative;
   display: flex;
   align-items: center;
@@ -248,14 +248,14 @@
   position: absolute;
   right: 15px;
   opacity: 0.8;
-  /* transition: opacity 0.3s ease; */
+  transition: opacity 0.3s ease;
 }
 
 .toggle-password-icon:hover {
   opacity: 1;
-}
+} */
 
-/* Adjust input padding when toggle icon is present */
+
 .password-container .form-control {
   padding-right: 45px;
 }
